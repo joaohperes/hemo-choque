@@ -37,6 +37,8 @@
   .card-title.teal::before{background:var(--teal)}.card-title.coral::before{background:var(--coral)}
   .formula{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:13px;color:var(--accent);margin:10px 0;letter-spacing:0.02em}
   table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0}
+  .table-wrap table{margin:0;min-width:560px}
   th{font-family:var(--mono);font-size:10px;letter-spacing:0.06em;color:var(--muted);text-align:left;padding:6px 10px;border-bottom:1px solid var(--border)}
   td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
   tr:last-child td{border-bottom:none}
@@ -91,6 +93,52 @@
   .calc-result-interp{font-size:12px;color:var(--muted)}
   .fluxo-wrap{width:100%;overflow-x:auto}
   .fluxo-wrap svg{min-width:340px;width:100%;height:auto;display:block}
+  .fx{display:flex;flex-direction:column;gap:0}
+  .fx-step{position:relative;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:0}
+  .fx-step + .fx-arrow{margin:6px auto;height:18px;width:2px;background:linear-gradient(to bottom,var(--border),var(--border2));position:relative}
+  .fx-arrow{margin:6px auto;height:18px;width:2px;background:linear-gradient(to bottom,var(--border),var(--border2));position:relative}
+  .fx-arrow::after{content:'';position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--border2)}
+  .fx-step .fx-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--bg3);border:1.5px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:600;margin-right:10px;flex-shrink:0}
+  .fx-step .fx-head{display:flex;align-items:center;margin-bottom:8px}
+  .fx-step .fx-title{font-size:14px;font-weight:600;color:var(--text);letter-spacing:-0.005em}
+  .fx-step .fx-sub{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+  .fx-grid{display:grid;gap:8px;margin-top:8px}
+  .fx-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+  .fx-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .fx-grid.cols-4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:680px){.fx-grid.cols-3,.fx-grid.cols-4{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.fx-grid.cols-2,.fx-grid.cols-3,.fx-grid.cols-4{grid-template-columns:1fr}}
+  .fx-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.45}
+  .fx-box .fx-box-title{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.04em;margin-bottom:4px;color:var(--text)}
+  .fx-box .fx-box-criteria{font-family:var(--mono);font-size:10px;color:var(--muted);display:block;margin-bottom:6px;padding-bottom:6px;border-bottom:1px dashed var(--border)}
+  .fx-box .fx-box-action{font-size:11px;color:var(--text);font-weight:500;margin-bottom:2px}
+  .fx-box .fx-box-detail{font-size:11px;color:var(--muted);line-height:1.4}
+  .fx-box.green{border-color:rgba(52,211,153,0.35);background:rgba(52,211,153,0.04)}
+  .fx-box.green .fx-box-title{color:var(--green)}
+  .fx-box.amber{border-color:rgba(251,191,36,0.35);background:rgba(251,191,36,0.04)}
+  .fx-box.amber .fx-box-title{color:var(--amber)}
+  .fx-box.red{border-color:rgba(248,113,113,0.35);background:rgba(248,113,113,0.04)}
+  .fx-box.red .fx-box-title{color:var(--red)}
+  .fx-box.coral{border-color:rgba(251,146,60,0.35);background:rgba(251,146,60,0.04)}
+  .fx-box.coral .fx-box-title{color:var(--coral)}
+  .fx-box.blue{border-color:rgba(56,189,248,0.35);background:rgba(56,189,248,0.04)}
+  .fx-box.blue .fx-box-title{color:var(--accent)}
+  .fx-box.purple{border-color:rgba(167,139,250,0.35);background:rgba(167,139,250,0.04)}
+  .fx-box.purple .fx-box-title{color:var(--purple)}
+  .fx-box.teal{border-color:rgba(45,212,191,0.35);background:rgba(45,212,191,0.04)}
+  .fx-box.teal .fx-box-title{color:var(--teal)}
+  .fx-step.entry{background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(56,189,248,0.02));border-color:rgba(56,189,248,0.4)}
+  .fx-step.entry .fx-num{background:rgba(56,189,248,0.15)}
+  .fx-step.golden{background:linear-gradient(135deg,rgba(56,189,248,0.1),rgba(56,189,248,0.03));border-color:rgba(56,189,248,0.5);text-align:center;padding:18px 16px}
+  .fx-step.golden .fx-title{color:var(--accent);font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px}
+  .fx-step.golden .fx-sub{font-size:13px;color:var(--text);margin-bottom:0;line-height:1.55}
+  .fx-loop{display:flex;align-items:center;gap:8px;margin:8px 0;padding:8px 12px;background:rgba(248,113,113,0.06);border:1px dashed rgba(248,113,113,0.3);border-radius:6px;font-size:11px;color:var(--red);font-family:var(--mono)}
+  .fx-decision{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  @media(max-width:480px){.fx-decision{grid-template-columns:1fr}}
+  .fx-decision .fx-box{position:relative}
+  .fx-ref{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--accent);background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);padding:2px 8px;border-radius:4px;margin-top:6px;cursor:pointer;text-decoration:none}
+  .fx-ref:hover{background:rgba(56,189,248,0.18);color:var(--accent)}
+  .fx-ref::before{content:'→';font-size:10px}
   .sub-nav{display:flex;gap:4px;margin:0 0 16px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
   .sub-nav::-webkit-scrollbar{display:none}
   .sub-nav-btn{flex-shrink:0;background:var(--bg2);border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:10px;padding:5px 12px;border-radius:5px;cursor:pointer;transition:all 0.2s;white-space:nowrap;letter-spacing:0.04em}
@@ -380,12 +428,12 @@
     <div class="tag-row"><span class="pill pill-blue">SvcO₂</span><span class="pill pill-blue">Δ pCO₂</span><span class="pill pill-blue">Lactato</span><span class="pill pill-blue">Enchimento capilar</span><span class="pill pill-blue">PAM</span><span class="pill pill-blue">POCUS VCI</span><span class="pill pill-blue">Diurese</span></div>
     <div class="case-box" style="margin-top:12px;">
       <div class="case-title">CASO — JUREMA, 79 anos, PS 05/05/2026</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>Gasometria</th><th>Horário</th><th>pH</th><th>pCO₂</th><th>HCO₃</th><th>BE</th><th>SatO₂</th></tr>
         <tr><td>Arterial</td><td>21h25</td><td>7,316</td><td>37,8</td><td>18,9</td><td>−7,3</td><td>97,7%</td></tr>
         <tr><td>Venosa</td><td>22h00</td><td>7,241</td><td>50,9</td><td>21,4</td><td>−6,0</td><td>74%</td></tr>
         <tr><td>Arterial</td><td>08h (CM)</td><td>7,341</td><td>47,0</td><td>24,8</td><td>−0,9</td><td>95,4%</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:10px;font-size:12px;color:var(--muted);"><strong style="color:var(--amber);">Δ pCO₂ às 21–22h: 50,9 − 37,8 = 13,1 mmHg</strong> — muito acima do limite de 6 mmHg. Hipoperfusão tecidual ativa apesar da SvcO₂ venosa de 74% (coleta periférica — não reflete SvcO₂ real). Acidose metabólica primária com fadiga respiratória instalada. Melhora significativa na manhã seguinte.</div>
     </div>
   </div>
@@ -394,234 +442,211 @@
 <!-- FLUXOGRAMA -->
 <section id="fluxograma" class="section">
   <p class="section-title">Fluxograma Integrado</p>
-  <p class="section-sub">Do choque à conduta — gasometria pareada + POCUS VCI · SSC 2026</p>
-  <div class="card" style="padding:12px 8px;">
-    <div class="fluxo-wrap">
-    <svg viewBox="0 0 680 1020" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans,sans-serif">
-      <defs>
-        <marker id="a0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#4b5a6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
-        <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
-      </defs>
+  <p class="section-sub">Do choque à conduta — padrão hemodinâmico, gasometria pareada, POCUS VCI, oferta de O₂ e escalonamento de drogas · SSC 2026</p>
 
-      <!-- ENTRADA -->
-      <rect x="190" y="14" width="300" height="50" rx="10" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
-      <text x="340" y="33" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="600">SUSPEITA DE CHOQUE / SEPSE</text>
-      <text x="340" y="52" text-anchor="middle" fill="#8896a8" font-size="10">PAM baixa · lactato elevado · sinais de hipoperfusão</text>
-      <line x1="340" y1="64" x2="340" y2="88" stroke="#4b5a6e" stroke-width="1.5" marker-end="url(#a0)"/>
+  <div class="fx">
 
-      <!-- PASSO 1 -->
-      <rect x="150" y="88" width="380" height="44" rx="8" fill="#1a2236" stroke="#4b5a6e" stroke-width="1"/>
-      <text x="340" y="106" text-anchor="middle" fill="#e8edf5" font-size="11" font-weight="600">PASSO 1 — Coletar gasometria pareada</text>
-      <text x="340" y="122" text-anchor="middle" fill="#8896a8" font-size="10">Arterial + venosa central simultaneamente</text>
-      <line x1="340" y1="132" x2="340" y2="154" stroke="#4b5a6e" stroke-width="1.5" marker-end="url(#a0)"/>
-
-      <!-- PASSO 2 -->
-      <rect x="100" y="154" width="480" height="44" rx="8" fill="#1a2236" stroke="#4b5a6e" stroke-width="1"/>
-      <text x="340" y="172" text-anchor="middle" fill="#e8edf5" font-size="11" font-weight="600">PASSO 2 — Calcular SvcO₂ e Δ pCO₂</text>
-      <text x="340" y="188" text-anchor="middle" fill="#8896a8" font-size="10">Δ pCO₂ = pCO₂ venosa − pCO₂ arterial   ·   SvcO₂ coletada da veia cava superior (CVC)</text>
-
-      <!-- SEPARADOR -->
-      <line x1="40" y1="212" x2="640" y2="212" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
-      <text x="340" y="224" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 3 — INTERPRETAÇÃO POR QUADRANTES</text>
-
-      <!-- SPLIT 4 -->
-      <line x1="340" y1="198" x2="340" y2="232" stroke="#4b5a6e" stroke-width="1"/>
-      <line x1="95" y1="232" x2="585" y2="232" stroke="#4b5a6e" stroke-width="1"/>
-      <line x1="95"  y1="232" x2="95"  y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
-      <line x1="258" y1="232" x2="258" y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
-      <line x1="422" y1="232" x2="422" y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
-      <line x1="585" y1="232" x2="585" y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
-
-      <!-- Q1 -->
-      <rect x="18" y="252" width="155" height="76" rx="8" fill="#0a2a1e" stroke="#34d399" stroke-width="1.5"/>
-      <text x="95" y="269" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">Q1 — ADEQUADO</text>
-      <text x="95" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ ≥ 70%</text>
-      <text x="95" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ &lt; 6 mmHg</text>
-      <line x1="28" y1="305" x2="162" y2="305" stroke="#1a3a2a" stroke-width="0.5"/>
-      <text x="95" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Sem hipoperfusão global</text>
-
-      <!-- Q2 -->
-      <rect x="182" y="252" width="152" height="76" rx="8" fill="#2a1e08" stroke="#fbbf24" stroke-width="1.5"/>
-      <text x="258" y="269" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">Q2 — OFERTA</text>
-      <text x="258" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ &lt; 70%</text>
-      <text x="258" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ &lt; 6 mmHg</text>
-      <line x1="192" y1="305" x2="324" y2="305" stroke="#3a2a18" stroke-width="0.5"/>
-      <text x="258" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Problema na oferta</text>
-
-      <!-- Q3 -->
-      <rect x="346" y="252" width="152" height="76" rx="8" fill="#2a1208" stroke="#fb923c" stroke-width="1.5"/>
-      <text x="422" y="269" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="700">Q3 — FALSA SEGURANÇA</text>
-      <text x="422" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ ≥ 70%</text>
-      <text x="422" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ ≥ 6 mmHg</text>
-      <line x1="356" y1="305" x2="488" y2="305" stroke="#3a1a08" stroke-width="0.5"/>
-      <text x="422" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Fluxo ruim, sat. normal</text>
-
-      <!-- Q4 -->
-      <rect x="509" y="252" width="153" height="76" rx="8" fill="#2a0a0a" stroke="#f87171" stroke-width="1.5"/>
-      <text x="585" y="269" text-anchor="middle" fill="#f87171" font-size="10" font-weight="700">Q4 — BAIXO DÉBITO</text>
-      <text x="585" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ &lt; 70%</text>
-      <text x="585" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ ≥ 6 mmHg</text>
-      <line x1="519" y1="305" x2="651" y2="305" stroke="#3a0a0a" stroke-width="0.5"/>
-      <text x="585" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Choque confirmado</text>
-
-      <!-- Setas para POCUS -->
-      <line x1="95"  y1="328" x2="95"  y2="368" stroke="#34d399" stroke-width="1" marker-end="url(#ag)"/>
-      <line x1="258" y1="328" x2="258" y2="368" stroke="#fbbf24" stroke-width="1" marker-end="url(#aa)"/>
-      <line x1="422" y1="328" x2="422" y2="368" stroke="#fb923c" stroke-width="1" marker-end="url(#a0)"/>
-      <line x1="585" y1="328" x2="585" y2="368" stroke="#f87171" stroke-width="1" marker-end="url(#ar)"/>
-
-      <!-- SEP POCUS -->
-      <line x1="40" y1="354" x2="640" y2="354" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
-      <text x="340" y="364" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 4 — POCUS DE VCI</text>
-
-      <!-- Q1 MONITORAR -->
-      <rect x="18" y="368" width="155" height="86" rx="8" fill="#0a2a1e" stroke="#34d399" stroke-width="1"/>
-      <text x="95" y="384" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600">Monitorar</text>
-      <text x="95" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Avaliar lactato seriado</text>
-      <text x="95" y="412" text-anchor="middle" fill="#8896a8" font-size="9">PAM, diurese</text>
-      <text x="95" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Enchimento capilar</text>
-      <text x="95" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Reavalie em 2–4 h</text>
-
-      <!-- Q2 POCUS -->
-      <rect x="182" y="368" width="152" height="86" rx="8" fill="#1a2236" stroke="#fbbf24" stroke-width="1"/>
-      <text x="258" y="384" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="600">POCUS VCI</text>
-      <text x="258" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Avaliar Hb, SatO₂, DC</text>
-      <text x="258" y="412" text-anchor="middle" fill="#8896a8" font-size="9">Colapsável → volume</text>
-      <text x="258" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Dilatada → eco urgente</text>
-      <text x="258" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Hb &lt; 7 → transfusão</text>
-
-      <!-- Q3 POCUS -->
-      <rect x="346" y="368" width="152" height="86" rx="8" fill="#1a2236" stroke="#fb923c" stroke-width="1"/>
-      <text x="422" y="384" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="600">POCUS VCI + Eco</text>
-      <text x="422" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Não confiar na SvcO₂</text>
-      <text x="422" y="412" text-anchor="middle" fill="#8896a8" font-size="9">Reavaliar lactato</text>
-      <text x="422" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Foco infeccioso?</text>
-      <text x="422" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Hipóxia citopática?</text>
-
-      <!-- Q4 POCUS -->
-      <rect x="509" y="368" width="153" height="86" rx="8" fill="#2a0a0a" stroke="#f87171" stroke-width="1"/>
-      <text x="585" y="384" text-anchor="middle" fill="#f87171" font-size="10" font-weight="600">POCUS VCI urgente</text>
-      <text x="585" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Identificar mecanismo</text>
-      <text x="585" y="412" text-anchor="middle" fill="#8896a8" font-size="9">Colapsável ou dilatada</text>
-      <text x="585" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Eco point-of-care</text>
-      <text x="585" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Ação imediata</text>
-
-      <!-- Setas para decisão VCI -->
-      <line x1="258" y1="454" x2="258" y2="496" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
-      <line x1="422" y1="454" x2="422" y2="496" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
-      <line x1="585" y1="454" x2="585" y2="496" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
-
-      <!-- SEP DECISÃO VCI -->
-      <line x1="160" y1="480" x2="640" y2="480" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
-      <text x="400" y="490" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 5 — DECISÃO PELA VCI</text>
-
-      <!-- VCI COLAPSÁVEL -->
-      <rect x="60" y="496" width="180" height="90" rx="8" fill="#0a1f2a" stroke="#38bdf8" stroke-width="1.5"/>
-      <text x="150" y="512" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="700">VCI COLAPSÁVEL</text>
-      <text x="150" y="526" text-anchor="middle" fill="#8896a8" font-size="9">&lt; 1,5 cm ou cIVC &gt; 50%</text>
-      <text x="150" y="539" text-anchor="middle" fill="#8896a8" font-size="9">dIVC &gt; 18% em VM</text>
-      <line x1="72" y1="547" x2="228" y2="547" stroke="#2a3a52" stroke-width="0.5"/>
-      <text x="150" y="560" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="600">Reposição volêmica</text>
-      <text x="150" y="573" text-anchor="middle" fill="#8896a8" font-size="9">Cristaloide 250–500 mL</text>
-      <text x="150" y="586" text-anchor="middle" fill="#8896a8" font-size="9">Reavaliar após cada bolus</text>
-
-      <!-- VCI ZONA CINZENTA -->
-      <rect x="250" y="496" width="170" height="90" rx="8" fill="#1e1a08" stroke="#fbbf24" stroke-width="1.5"/>
-      <text x="335" y="512" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">ZONA CINZENTA</text>
-      <text x="335" y="526" text-anchor="middle" fill="#8896a8" font-size="9">VCI 1,5–2,1 cm</text>
-      <text x="335" y="539" text-anchor="middle" fill="#8896a8" font-size="9">cIVC 20–50%</text>
-      <line x1="262" y1="547" x2="408" y2="547" stroke="#3a2a18" stroke-width="0.5"/>
-      <text x="335" y="560" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="600">Realizar PLR (SSC 2026)</text>
-      <text x="335" y="573" text-anchor="middle" fill="#8896a8" font-size="9">VTI &gt; 12–15% → volume</text>
-      <text x="335" y="586" text-anchor="middle" fill="#8896a8" font-size="9">Sem resposta → vasopressor</text>
-
-      <!-- VCI DILATADA -->
-      <rect x="430" y="496" width="185" height="90" rx="8" fill="#1a0a0a" stroke="#f87171" stroke-width="1.5"/>
-      <text x="522" y="512" text-anchor="middle" fill="#f87171" font-size="10" font-weight="700">VCI DILATADA</text>
-      <text x="522" y="526" text-anchor="middle" fill="#8896a8" font-size="9">&gt; 2,1 cm ou dIVC &lt; 18%</text>
-      <text x="522" y="539" text-anchor="middle" fill="#8896a8" font-size="9">Colapso &lt; 20%</text>
-      <line x1="442" y1="547" x2="602" y2="547" stroke="#3a0a0a" stroke-width="0.5"/>
-      <text x="522" y="560" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="600">Não dar volume</text>
-      <text x="522" y="573" text-anchor="middle" fill="#8896a8" font-size="9">Eco urgente · TEP?</text>
-      <text x="522" y="586" text-anchor="middle" fill="#8896a8" font-size="9">Vasopressor / inotrópico</text>
-
-      <!-- Setas reavaliação -->
-      <line x1="150" y1="586" x2="150" y2="622" stroke="#38bdf8" stroke-width="1" marker-end="url(#ab)"/>
-      <line x1="335" y1="586" x2="335" y2="622" stroke="#fbbf24" stroke-width="1" marker-end="url(#aa)"/>
-      <line x1="522" y1="586" x2="522" y2="622" stroke="#f87171" stroke-width="1" marker-end="url(#ar)"/>
-
-      <!-- SEP REAVALIAÇÃO -->
-      <line x1="40" y1="610" x2="640" y2="610" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
-      <text x="340" y="620" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 6 — REAVALIAÇÃO SERIADA APÓS INTERVENÇÃO</text>
-
-      <!-- BOX REAVALIAÇÃO -->
-      <rect x="40" y="622" width="600" height="66" rx="8" fill="#111827" stroke="#2a3a52" stroke-width="1"/>
-      <text x="340" y="641" text-anchor="middle" fill="#e8edf5" font-size="11" font-weight="600">Metas atingidas?</text>
-      <text x="175" y="658" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ &lt; 6 mmHg?</text>
-      <text x="340" y="658" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ ≥ 70%?</text>
-      <text x="505" y="658" text-anchor="middle" fill="#8896a8" font-size="9">Lactato em queda?</text>
-      <text x="175" y="675" text-anchor="middle" fill="#8896a8" font-size="9">PAM ≥ 65 mmHg?</text>
-      <text x="340" y="675" text-anchor="middle" fill="#8896a8" font-size="9">Enchimento capilar &lt; 3 s?</text>
-      <text x="505" y="675" text-anchor="middle" fill="#8896a8" font-size="9">Diurese ≥ 0,5 mL/kg/h?</text>
-
-      <!-- Split sim/não -->
-      <line x1="340" y1="688" x2="340" y2="710" stroke="#4b5a6e" stroke-width="1.5" marker-end="url(#a0)"/>
-      <line x1="170" y1="710" x2="510" y2="710" stroke="#4b5a6e" stroke-width="1"/>
-      <line x1="170" y1="710" x2="170" y2="728" stroke="#34d399" stroke-width="1" marker-end="url(#ag)"/>
-      <line x1="510" y1="710" x2="510" y2="728" stroke="#f87171" stroke-width="1" marker-end="url(#ar)"/>
-      <text x="220" y="722" text-anchor="middle" fill="#34d399" font-size="9">Metas atingidas</text>
-      <text x="460" y="722" text-anchor="middle" fill="#f87171" font-size="9">Metas não atingidas</text>
-
-      <!-- OK -->
-      <rect x="55" y="728" width="230" height="60" rx="8" fill="#0a2a1e" stroke="#34d399" stroke-width="1.5"/>
-      <text x="170" y="748" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">Ressuscitação completa</text>
-      <text x="170" y="763" text-anchor="middle" fill="#8896a8" font-size="9">Manter monitoramento</text>
-      <text x="170" y="776" text-anchor="middle" fill="#8896a8" font-size="9">Considerar desmame de vasopressor</text>
-
-      <!-- NÃO OK -->
-      <rect x="395" y="728" width="230" height="60" rx="8" fill="#2a0a0a" stroke="#f87171" stroke-width="1.5"/>
-      <text x="510" y="748" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600">Reiniciar avaliação</text>
-      <text x="510" y="763" text-anchor="middle" fill="#8896a8" font-size="9">Repetir gasometria pareada</text>
-      <text x="510" y="776" text-anchor="middle" fill="#8896a8" font-size="9">POCUS e eco se necessário</text>
-
-      <!-- Seta retorno -->
-      <path d="M625 758 L652 758 L652 170 L580 170" stroke="#f87171" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#ar)"/>
-
-      <!-- ARMADILHAS -->
-      <line x1="40" y1="808" x2="640" y2="808" stroke="#2a3a52" stroke-width="0.5"/>
-      <text x="340" y="820" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.07em">ARMADILHAS E LIMITAÇÕES</text>
-
-      <rect x="40" y="828" width="185" height="76" rx="6" fill="#1a2236" stroke="#2a3a52" stroke-width="0.5"/>
-      <text x="132" y="845" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="600">SvcO₂ elevada — falsa segurança</text>
-      <text x="132" y="860" text-anchor="middle" fill="#8896a8" font-size="9">Sepse hiperdinámica</text>
-      <text x="132" y="873" text-anchor="middle" fill="#8896a8" font-size="9">Hipóxia citopática</text>
-      <text x="132" y="886" text-anchor="middle" fill="#8896a8" font-size="9">Coleta periférica</text>
-      <text x="132" y="899" text-anchor="middle" fill="#8896a8" font-size="9">Cateter mal posicionado</text>
-
-      <rect x="247" y="828" width="185" height="76" rx="6" fill="#1a2236" stroke="#2a3a52" stroke-width="0.5"/>
-      <text x="340" y="845" text-anchor="middle" fill="#fbbf24" font-size="9" font-weight="600">POCUS VCI — limitações</text>
-      <text x="340" y="860" text-anchor="middle" fill="#8896a8" font-size="9">Taquipneia → falso positivo</text>
-      <text x="340" y="873" text-anchor="middle" fill="#8896a8" font-size="9">TEP / DPOC → VCI dilatada</text>
-      <text x="340" y="886" text-anchor="middle" fill="#8896a8" font-size="9">PEEP alto → distorção</text>
-      <text x="340" y="899" text-anchor="middle" fill="#8896a8" font-size="9">Janela ruim → usar PLR</text>
-
-      <rect x="454" y="828" width="185" height="76" rx="6" fill="#1a2236" stroke="#2a3a52" stroke-width="0.5"/>
-      <text x="547" y="845" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="600">SSC 2026 — destaques</text>
-      <text x="547" y="860" text-anchor="middle" fill="#8896a8" font-size="9">Parâmetros dinâmicos (PLR)</text>
-      <text x="547" y="873" text-anchor="middle" fill="#8896a8" font-size="9">Vasopressor periférico precoce</text>
-      <text x="547" y="886" text-anchor="middle" fill="#8896a8" font-size="9">PAM 60–65 se ≥ 65 anos</text>
-      <text x="547" y="899" text-anchor="middle" fill="#8896a8" font-size="9">Cristaloide balanceado</text>
-
-      <!-- REGRA DE OURO -->
-      <rect x="40" y="918" width="600" height="42" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1"/>
-      <text x="340" y="936" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="700">REGRA DE OURO</text>
-      <text x="340" y="952" text-anchor="middle" fill="#8896a8" font-size="9">Gasometria pareada diz SE há hipoperfusão e QUANTO — POCUS VCI diz POR QUÊ e SE responde a volume</text>
-    </svg>
+    <div class="fx-step entry">
+      <div class="fx-head"><span class="fx-num">·</span><span class="fx-title">Suspeita de choque</span></div>
+      <div class="fx-sub">PAM &lt; 65 mmHg · lactato elevado · enchimento capilar &gt; 3 s · oligúria · alteração de consciência · pele moteada. Iniciar o protocolo em paralelo a história e exame focado.</div>
     </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">1</span><span class="fx-title">Identificar o padrão hemodinâmico</span></div>
+      <div class="fx-sub">POCUS rápido + clínica direcionada. O padrão guia a primeira intervenção antes mesmo da gasometria pareada estar pronta.</div>
+      <div class="fx-grid cols-4">
+        <div class="fx-box red">
+          <div class="fx-box-title">Hipovolêmico</div>
+          <span class="fx-box-criteria">DC ↓ · RVS ↑ · PVC ↓</span>
+          <div class="fx-box-action">VCI colapsável · pele fria · sangramento/perdas</div>
+          <div class="fx-box-detail">Volume é a 1ª intervenção. Vasopressor é ponte enquanto repõe.</div>
+        </div>
+        <div class="fx-box coral">
+          <div class="fx-box-title">Distributivo</div>
+          <span class="fx-box-criteria">DC ↑ · RVS ↓ · PVC variável</span>
+          <div class="fx-box-action">Pele quente · PP alargada · sepse, anafilaxia, neurogênico</div>
+          <div class="fx-box-detail">Vasopressor precoce (NA). Volume guiado por dinâmicos (PLR/VPP).</div>
+        </div>
+        <div class="fx-box amber">
+          <div class="fx-box-title">Cardiogênico</div>
+          <span class="fx-box-criteria">DC ↓ · RVS ↑ · PVC ↑</span>
+          <div class="fx-box-action">FE reduzida · linhas B difusas · IAM/miocardite/arritmia</div>
+          <div class="fx-box-detail">NA se PAM &lt; 65, dobutamina se hipoperfusão persistente. Não dar volume cego.</div>
+        </div>
+        <div class="fx-box blue">
+          <div class="fx-box-title">Obstrutivo</div>
+          <span class="fx-box-criteria">DC ↓ · RVS ↑ · PVC ↑</span>
+          <div class="fx-box-action">VD dilatado · derrame pericárdico · ausência de sliding</div>
+          <div class="fx-box-detail">Tratar a causa: drenar tamponamento · trombolisar TEP · descomprimir pneumotórax.</div>
+        </div>
+      </div>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">2</span><span class="fx-title">Gasometria pareada — coletar e calcular</span></div>
+      <div class="fx-sub">Arterial + venosa central simultaneamente (CVC, não periférica). Calcular dois parâmetros que se complementam: SvcO₂ (oferta vs. consumo) e Δ pCO₂ = pCO₂ venosa − pCO₂ arterial (fluxo tecidual).</div>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">3</span><span class="fx-title">Interpretar pelos quadrantes SvcO₂ × Δ pCO₂</span></div>
+      <div class="fx-grid cols-4">
+        <div class="fx-box green">
+          <div class="fx-box-title">Q1 · Adequado</div>
+          <span class="fx-box-criteria">SvcO₂ ≥ 70% · Δ pCO₂ &lt; 6</span>
+          <div class="fx-box-action">Sem hipoperfusão global</div>
+          <div class="fx-box-detail">Manter monitoramento. Lactato seriado, PAM, diurese, enchimento capilar. Reavaliar em 2–4 h.</div>
+        </div>
+        <div class="fx-box amber">
+          <div class="fx-box-title">Q2 · Oferta</div>
+          <span class="fx-box-criteria">SvcO₂ &lt; 70% · Δ pCO₂ &lt; 6</span>
+          <div class="fx-box-action">Problema na oferta (DO₂)</div>
+          <div class="fx-box-detail">Avaliar Hb, SaO₂ e DC. Transfundir se Hb &lt; 7. Otimizar ventilação. Avaliar inotrópico.</div>
+        </div>
+        <div class="fx-box coral">
+          <div class="fx-box-title">Q3 · Falsa segurança</div>
+          <span class="fx-box-criteria">SvcO₂ ≥ 70% · Δ pCO₂ ≥ 6</span>
+          <div class="fx-box-action">Fluxo ruim, saturação normal</div>
+          <div class="fx-box-detail">Não confiar na SvcO₂. Considerar shunting microcirculatório, hipóxia citopática, foco infeccioso não controlado.</div>
+        </div>
+        <div class="fx-box red">
+          <div class="fx-box-title">Q4 · Baixo débito</div>
+          <span class="fx-box-criteria">SvcO₂ &lt; 70% · Δ pCO₂ ≥ 6</span>
+          <div class="fx-box-action">Choque confirmado</div>
+          <div class="fx-box-detail">Identificar mecanismo. Eco point-of-care urgente. Volume, vasopressor ou inotrópico conforme padrão.</div>
+        </div>
+      </div>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">4</span><span class="fx-title">Avaliar a oferta de O₂ (DO₂) — onde intervir</span></div>
+      <div class="fx-sub">Especialmente útil em Q2 e Q4. DO₂ = DC × CaO₂ × 10. CaO₂ = (Hb × 1,34 × SaO₂) + (pO₂ × 0,003). Hemoglobina domina o transporte (~98%).</div>
+      <div class="fx-grid cols-3">
+        <div class="fx-box red">
+          <div class="fx-box-title">Hb baixa</div>
+          <div class="fx-box-action">Transfusão de hemácias</div>
+          <div class="fx-box-detail">Alvo Hb ≥ 7–8 g/dL em sepse · ≥ 8–10 em cardiopata.</div>
+        </div>
+        <div class="fx-box blue">
+          <div class="fx-box-title">SaO₂ baixa</div>
+          <div class="fx-box-action">O₂ suplementar · VNI · IOT</div>
+          <div class="fx-box-detail">Alvo SaO₂ ≥ 94%. Não cair em hiperóxia.</div>
+        </div>
+        <div class="fx-box amber">
+          <div class="fx-box-title">DC baixo</div>
+          <div class="fx-box-action">Volume · vasopressor · inotrópico</div>
+          <div class="fx-box-detail">IC ≥ 2,2 L/min/m². Próximo passo decide qual.</div>
+        </div>
+      </div>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">5</span><span class="fx-title">POCUS VCI + dinâmicos — decidir sobre volume</span></div>
+      <div class="fx-sub">Use a fórmula correta para o modo ventilatório. Em arritmia, esforço respiratório ou janela ruim, prefira PLR com VTI ou VPP (intubado).</div>
+      <div class="fx-grid cols-3">
+        <div class="fx-box blue">
+          <div class="fx-box-title">VCI colapsável</div>
+          <span class="fx-box-criteria">&lt; 1,5 cm · cIVC &gt; 50% · dIVC &gt; 18%</span>
+          <div class="fx-box-action">Reposição volêmica</div>
+          <div class="fx-box-detail">Cristaloide balanceado (Ringer lactato preferencial) 250–500 mL. Reavaliar após cada bolus.</div>
+        </div>
+        <div class="fx-box amber">
+          <div class="fx-box-title">Zona cinzenta</div>
+          <span class="fx-box-criteria">VCI 1,5–2,1 cm · cIVC 20–50%</span>
+          <div class="fx-box-action">PLR + medir VTI</div>
+          <div class="fx-box-detail">Aumento &gt; 12–15% no VTI subvalvar → administrar volume. Sem resposta → vasopressor.</div>
+        </div>
+        <div class="fx-box red">
+          <div class="fx-box-title">VCI dilatada</div>
+          <span class="fx-box-criteria">&gt; 2,1 cm · colapso &lt; 20%</span>
+          <div class="fx-box-action">Não administrar volume</div>
+          <div class="fx-box-detail">Eco urgente. Avaliar VD, TEP, tamponamento. Vasopressor e/ou inotrópico.</div>
+        </div>
+      </div>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">6</span><span class="fx-title">Iniciar e escalonar drogas vasoativas</span></div>
+      <div class="fx-sub">Alvo: PAM ≥ 65 mmHg (60–65 se ≥ 65 anos). SSC 2026: vasopressor pode ser iniciado em acesso periférico de bom calibre enquanto se obtém central.</div>
+      <div class="fx-grid cols-3">
+        <div class="fx-box coral">
+          <div class="fx-box-title">1ª droga</div>
+          <div class="fx-box-action">Noradrenalina 0,01–0,05 μg/kg/min</div>
+          <div class="fx-box-detail">Titular a cada 2–5 min. Acima de 0,25–0,5 μg/kg/min → considerar 2ª droga.</div>
+        </div>
+        <div class="fx-box purple">
+          <div class="fx-box-title">2ª droga</div>
+          <div class="fx-box-action">Vasopressina 0,03 U/min (fixa)</div>
+          <div class="fx-box-detail">Não titular. Permite reduzir NA. Considerar hidrocortisona 200 mg/dia se vasopressor crescente &gt; 4 h.</div>
+        </div>
+        <div class="fx-box amber">
+          <div class="fx-box-title">Inotrópico se DC baixo</div>
+          <div class="fx-box-action">Dobutamina 2,5–5 μg/kg/min</div>
+          <div class="fx-box-detail">Adicionar se hipoperfusão persiste apesar de PAM em alvo (FE reduzida no eco).</div>
+        </div>
+      </div>
+      <a class="fx-ref" onclick="goToSection('drogas')">Doses, diluições e escalonamento completo na aba Drogas</a>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">7</span><span class="fx-title">Reavaliação seriada após cada intervenção</span></div>
+      <div class="fx-sub">Conferir as 6 metas. Se atingidas, manter e iniciar desmame de vasopressor. Se não, reiniciar do passo 2.</div>
+      <div class="fx-grid cols-3">
+        <div class="fx-box"><div class="fx-box-action">Δ pCO₂ &lt; 6 mmHg</div></div>
+        <div class="fx-box"><div class="fx-box-action">SvcO₂ ≥ 70%</div></div>
+        <div class="fx-box"><div class="fx-box-action">Lactato em queda</div></div>
+        <div class="fx-box"><div class="fx-box-action">PAM em alvo</div></div>
+        <div class="fx-box"><div class="fx-box-action">Enchimento capilar &lt; 3 s</div></div>
+        <div class="fx-box"><div class="fx-box-action">Diurese ≥ 0,5 mL/kg/h</div></div>
+      </div>
+      <div class="fx-decision">
+        <div class="fx-box green">
+          <div class="fx-box-title">Metas atingidas</div>
+          <div class="fx-box-action">Ressuscitação completa</div>
+          <div class="fx-box-detail">Manter monitoramento. Iniciar desmame de vasopressor (NA primeiro, vasopressina por último). Reduzir 0,02–0,05 μg/kg/min a cada 15–30 min se PAM estável.</div>
+        </div>
+        <div class="fx-box red">
+          <div class="fx-box-title">Metas não atingidas</div>
+          <div class="fx-box-action">Reiniciar avaliação</div>
+          <div class="fx-box-detail">Repetir gasometria pareada. POCUS, eco se necessário. Reconsiderar diagnóstico (foco infeccioso? complicação?). Escalonar drogas.</div>
+        </div>
+      </div>
+      <div class="fx-loop">↻ Em metas não atingidas, retorne ao passo 2 (gasometria + quadrantes) com nova interpretação</div>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step">
+      <div class="fx-head"><span class="fx-num">!</span><span class="fx-title">Armadilhas e limitações</span></div>
+      <div class="fx-grid cols-3">
+        <div class="fx-box coral">
+          <div class="fx-box-title">SvcO₂ elevada</div>
+          <div class="fx-box-detail">Sepse hiperdinâmica · hipóxia citopática · coleta periférica · cateter mal posicionado · sedação profunda.</div>
+        </div>
+        <div class="fx-box amber">
+          <div class="fx-box-title">POCUS VCI</div>
+          <div class="fx-box-detail">Taquipneia → falso positivo · TEP/DPOC → VCI dilatada · PEEP alto distorce · arritmias dificultam · janela ruim → usar PLR.</div>
+        </div>
+        <div class="fx-box blue">
+          <div class="fx-box-title">SSC 2026 — destaques</div>
+          <div class="fx-box-detail">Parâmetros dinâmicos (PLR, VPP) &gt; estáticos · vasopressor periférico precoce · PAM 60–65 se ≥ 65 anos · cristaloide balanceado.</div>
+        </div>
+      </div>
+    </div>
+    <div class="fx-arrow"></div>
+
+    <div class="fx-step golden">
+      <div class="fx-title">Regra de ouro</div>
+      <div class="fx-sub"><strong style="color:var(--text);">Padrão hemodinâmico</strong> diz que <em>tipo</em> de choque · <strong style="color:var(--text);">gasometria pareada</strong> diz <em>se há e quanto</em> de hipoperfusão · <strong style="color:var(--text);">DO₂</strong> diz <em>onde intervir</em> na oferta · <strong style="color:var(--text);">POCUS VCI + PLR</strong> diz <em>se responde a volume</em> · <strong style="color:var(--text);">drogas</strong> conforme padrão e escalonamento</div>
+    </div>
+
   </div>
+
 </section>
 
 <!-- PADRÕES DE CHOQUE -->
@@ -631,13 +656,13 @@
 
   <div class="card">
     <div class="card-title purple">Os 4 tipos de choque — perfil hemodinâmico</div>
-    <table>
+    <div class="table-wrap"><table>
       <tr><th>Tipo</th><th>DC</th><th>RVS</th><th>PVC</th><th>Exemplo</th></tr>
       <tr><td><span class="pill pill-red">Hipovolêmico</span></td><td>Baixo</td><td>Alta</td><td>Baixa</td><td>Hemorragia, desidratação, queimadura</td></tr>
       <tr><td><span class="pill pill-coral">Distributivo</span></td><td>Alto</td><td>Baixa</td><td>Baixa/normal</td><td>Sepse, anafilaxia, neurogênico</td></tr>
       <tr><td><span class="pill pill-amber">Cardiogênico</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>IAM, miocardite, arritmia</td></tr>
       <tr><td><span class="pill pill-blue">Obstrutivo</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>TEP, tamponamento, pneumotórax</td></tr>
-    </table>
+    </table></div>
     <p style="font-size:12px;color:var(--muted);margin-top:8px;">DC = débito cardíaco · RVS = resistência vascular sistêmica · PVC = pressão venosa central</p>
   </div>
 
@@ -800,7 +825,7 @@
   <div class="sub-section active" data-sub="choque">
     <div class="card">
       <div class="card-title purple">1ª escolha por tipo de choque</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>Choque</th><th>1ª linha</th><th>2ª linha / adicionar se refratário</th><th>Alvo</th></tr>
         <tr><td><span class="pill pill-coral">Séptico</span></td><td>Noradrenalina</td><td>Vasopressina (NA &gt; 0,25–0,5 μg/kg/min) → Adrenalina → Hidrocortisona se vasopressor crescente</td><td>PAM ≥ 65 (60–65 se ≥ 65 anos)</td></tr>
         <tr><td><span class="pill pill-amber">Cardiogênico</span></td><td>Noradrenalina (PAM &lt; 65) ± Dobutamina</td><td>Milrinona · Levosimendana · suporte mecânico (BIA, ECMO)</td><td>PAM ≥ 65 · IC ≥ 2,2</td></tr>
@@ -808,7 +833,7 @@
         <tr><td><span class="pill pill-blue">Obstrutivo</span></td><td>Noradrenalina + tratar causa (drenar tamponamento, trombolisar TEP, descomprimir pneumotórax)</td><td>Adrenalina se parada iminente</td><td>Reverter a obstrução</td></tr>
         <tr><td><span class="pill pill-purple">Anafilático</span></td><td>Adrenalina IM 0,3–0,5 mg (lateral da coxa) — repetir a cada 5–15 min</td><td>Adrenalina IV em BIC se refratário · Volume · Anti-H1/H2 · corticoide</td><td>Reverter broncoespasmo e hipotensão</td></tr>
         <tr><td><span class="pill pill-green">Neurogênico</span></td><td>Noradrenalina (vaso + crono)</td><td>Fenilefrina se taquicardia · Atropina se bradicardia associada</td><td>PAM 85–90 (TRM agudo)</td></tr>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -1116,6 +1141,16 @@ function showSection(id,btn){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goToSection(id){
+  const sec=document.getElementById(id);
+  if(!sec)return;
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  sec.classList.add('active');
+  const btn=document.querySelector('.nav-btn[onclick*="\''+id+'\'"]');
+  if(btn)btn.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function showSubsection(sectionId,subKey,btn){
