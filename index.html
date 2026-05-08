@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avaliação Hemodinâmica e da Perfusão no Choque</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+  :root {
+    --bg:#0a0e1a; --bg2:#111827; --bg3:#1a2236;
+    --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.15);
+    --text:#e8edf5; --muted:#8896a8;
+    --accent:#38bdf8; --green:#34d399; --amber:#fbbf24;
+    --red:#f87171; --coral:#fb923c; --purple:#a78bfa; --teal:#2dd4bf;
+    --mono:'IBM Plex Mono',monospace; --sans:'IBM Plex Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh}
+  .header{background:linear-gradient(135deg,#0f1f3d 0%,#0a0e1a 100%);border-bottom:1px solid var(--border2);padding:24px 20px 20px;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:720px;margin:0 auto}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:var(--accent);font-family:var(--mono);font-size:10px;letter-spacing:0.08em;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+  .badge::before{content:'●';font-size:8px}
+  h1{font-size:clamp(18px,4vw,24px);font-weight:600;letter-spacing:-0.02em;color:#fff;line-height:1.2}
+  .subtitle{color:var(--muted);font-size:13px;margin-top:4px}
+  .nav{display:flex;gap:4px;margin-top:16px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+  .nav::-webkit-scrollbar{display:none}
+  .nav-btn{flex-shrink:0;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+  .nav-btn:hover{border-color:var(--border2);color:var(--text)}
+  .nav-btn.active{background:rgba(56,189,248,0.12);border-color:var(--accent);color:var(--accent)}
+  .main{max-width:720px;margin:0 auto;padding:20px}
+  .section{display:none}.section.active{display:block}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+  .card-title{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .card-title::before{content:'';display:inline-block;width:3px;height:12px;border-radius:2px;background:var(--accent)}
+  .card-title.green::before{background:var(--green)}.card-title.amber::before{background:var(--amber)}
+  .card-title.red::before{background:var(--red)}.card-title.purple::before{background:var(--purple)}
+  .card-title.teal::before{background:var(--teal)}.card-title.coral::before{background:var(--coral)}
+  .formula{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:13px;color:var(--accent);margin:10px 0;letter-spacing:0.02em}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  th{font-family:var(--mono);font-size:10px;letter-spacing:0.06em;color:var(--muted);text-align:left;padding:6px 10px;border-bottom:1px solid var(--border)}
+  td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(255,255,255,0.02)}
+  .pill{display:inline-block;padding:2px 10px;border-radius:20px;font-family:var(--mono);font-size:11px;font-weight:600}
+  .pill-green{background:rgba(52,211,153,0.15);color:var(--green);border:1px solid rgba(52,211,153,0.3)}
+  .pill-amber{background:rgba(251,191,36,0.15);color:var(--amber);border:1px solid rgba(251,191,36,0.3)}
+  .pill-red{background:rgba(248,113,113,0.15);color:var(--red);border:1px solid rgba(248,113,113,0.3)}
+  .pill-coral{background:rgba(251,146,60,0.15);color:var(--coral);border:1px solid rgba(251,146,60,0.3)}
+  .pill-blue{background:rgba(56,189,248,0.15);color:var(--accent);border:1px solid rgba(56,189,248,0.3)}
+  .pill-purple{background:rgba(167,139,250,0.15);color:var(--purple);border:1px solid rgba(167,139,250,0.3)}
+  .quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+  @media(max-width:480px){.quad-grid{grid-template-columns:1fr}}
+  .quad{background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)}
+  .quad-header{font-family:var(--mono);font-size:11px;font-weight:600;margin-bottom:8px}
+  .quad-body{font-size:12px;color:var(--muted);line-height:1.5}
+  .quad-body strong{color:var(--text);font-weight:500}
+  .quad.ok{border-color:rgba(52,211,153,0.3)}.quad.ok .quad-header{color:var(--green)}
+  .quad.warn{border-color:rgba(251,191,36,0.3)}.quad.warn .quad-header{color:var(--amber)}
+  .quad.danger{border-color:rgba(248,113,113,0.3)}.quad.danger .quad-header{color:var(--red)}
+  .alert-box{border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px;display:flex;gap:10px;align-items:flex-start}
+  .alert-box.info{background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2)}
+  .alert-box.warn{background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2)}
+  .alert-box.danger{background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2)}
+  .alert-box .icon{font-size:12px;flex-shrink:0;margin-top:2px;font-weight:700;font-family:var(--mono);color:var(--muted);width:16px;text-align:center}
+  .alert-box .content{flex:1}
+  .alert-box .content strong{display:block;margin-bottom:3px}
+  .flow{display:flex;flex-direction:column;gap:0}
+  .flow-step{display:flex;gap:14px;position:relative}
+  .flow-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+  .flow-dot{width:28px;height:28px;border-radius:50%;background:var(--bg3);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);flex-shrink:0}
+  .flow-connector{width:2px;flex:1;min-height:12px;background:var(--border);margin:4px 0}
+  .flow-content{padding-bottom:16px;flex:1;padding-top:4px}
+  .flow-title{font-weight:500;font-size:14px;color:var(--text);margin-bottom:4px}
+  .flow-desc{font-size:12px;color:var(--muted);line-height:1.5}
+  .vci-bar{display:flex;height:36px;border-radius:8px;overflow:hidden;margin:12px 0;border:1px solid var(--border)}
+  .vci-seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:600;flex-direction:column;line-height:1.2}
+  .vci-seg span{font-size:9px;font-weight:400;opacity:0.8}
+  .case-box{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:14px;margin:10px 0}
+  .case-title{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:0.05em;margin-bottom:8px}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .tag{font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:4px;border:1px solid var(--border2);color:var(--muted)}
+  .section-title{font-size:16px;font-weight:600;color:var(--text);margin:0 0 4px;letter-spacing:-0.01em}
+  .section-sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+  .footer{max-width:720px;margin:0 auto;padding:20px 20px 32px;border-top:1px solid var(--border);color:var(--muted);font-size:11px;font-family:var(--mono)}
+  .calc-input{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-family:var(--mono);font-size:14px;width:100%;outline:none;transition:border-color 0.2s}
+  .calc-input:focus{border-color:var(--accent)}
+  .calc-label{font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:4px;display:block}
+  .calc-field{margin-bottom:12px}
+  .calc-result{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-top:8px}
+  .calc-result-value{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--accent);margin-bottom:4px}
+  .calc-result-interp{font-size:12px;color:var(--muted)}
+  .fluxo-wrap{width:100%;overflow-x:auto}
+  .fluxo-wrap svg{min-width:340px;width:100%;height:auto;display:block}
+  @media(max-width:600px){.main{padding:16px}.header{padding:16px}h1{font-size:17px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="badge">GUIA CLÍNICO</div>
+    <h1>Avaliação Hemodinâmica e da Perfusão no Choque</h1>
+    
+    <nav class="nav">
+      <button class="nav-btn active" onclick="showSection('fisio',this)">Fisiologia</button>
+      <button class="nav-btn" onclick="showSection('scvo2',this)">SvcO₂</button>
+      <button class="nav-btn" onclick="showSection('dpco2',this)">Δ pCO₂</button>
+      <button class="nav-btn" onclick="showSection('quadrantes',this)">Quadrantes</button>
+      <button class="nav-btn" onclick="showSection('vci',this)">POCUS VCI</button>
+      <button class="nav-btn" onclick="showSection('integracao',this)">Integração</button>
+      <button class="nav-btn" onclick="showSection('fluxograma',this)">Fluxograma</button>
+      <button class="nav-btn" onclick="showSection('padroes',this)">Padrões</button>
+      <button class="nav-btn" onclick="showSection('do2',this)">DO₂ / CaO₂</button>
+      <button class="nav-btn" onclick="showSection('calc',this)">Calculadora</button>
+    </nav>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- FISIOLOGIA -->
+<section id="fisio" class="section active">
+  <p class="section-title">Base Fisiológica</p>
+  <p class="section-sub">O que os parâmetros medem e por que funcionam em conjunto</p>
+  <div class="card">
+    <div class="card-title">Princípio de Fick</div>
+    <div class="formula">VO₂ = DC × (CaO₂ − CvO₂)</div>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px;">O consumo de O₂ pelos tecidos é determinado pelo débito cardíaco e pela diferença entre o conteúdo arterial e venoso de O₂. Se o DC cai, a Hb cai ou a SatO₂ arterial cai, os tecidos extraem mais O₂ e a saturação venosa retornante ao coração <strong style="color:var(--text)">diminui</strong>.</p>
+  </div>
+  <div class="card">
+    <div class="card-title teal">Por que são necessários dois parâmetros?</div>
+    <div class="quad-grid">
+      <div class="quad ok"><div class="quad-header">SvcO₂</div><div class="quad-body">Reflete o <strong>balanço oferta vs. consumo de O₂</strong>. Responde: os tecidos estão recebendo O₂ suficiente?</div></div>
+      <div class="quad ok"><div class="quad-header">Δ pCO₂</div><div class="quad-body">Reflete a <strong>adequação do fluxo sanguíneo tecidual</strong>. Responde: o CO₂ está sendo carreado adequadamente?</div></div>
+    </div>
+    <div class="alert-box warn" style="margin-top:10px;">
+      <div class="icon">!</div>
+      <div class="content"><strong>Por que a SvcO₂ isolada não é suficiente?</strong>Na sepse hiperdinámica e na hipóxia citopática, a SvcO₂ pode ser normal ou elevada mesmo com hipoperfusão tecidual real. O Δ pCO₂ desmascara esses cenários.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title coral">Tipos de hipóxia tecidual</div>
+    <table>
+      <tr><th>Tipo</th><th>Mecanismo</th><th>SvcO₂</th></tr>
+      <tr><td>Hipóxica</td><td>Queda da SatO₂ arterial</td><td><span class="pill pill-red">Baixa</span></td></tr>
+      <tr><td>Anêmica</td><td>Queda da hemoglobina</td><td><span class="pill pill-red">Baixa</span></td></tr>
+      <tr><td>Estagnante</td><td>Queda do débito cardíaco</td><td><span class="pill pill-red">Baixa</span></td></tr>
+      <tr><td>Citopática</td><td>Disfunção mitocondrial — célula não utiliza O₂</td><td><span class="pill pill-amber">Alta (falsa)</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- SvcO2 -->
+<section id="scvo2" class="section">
+  <p class="section-title">SvcO₂ — Saturação Venosa Central</p>
+  <p class="section-sub">Como interpretar e onde coletar</p>
+  <div class="card">
+    <div class="card-title">Definição e coleta</div>
+    <p style="font-size:13px;color:var(--muted);">Medida pelo cateter venoso central posicionado na <strong style="color:var(--text)">veia cava superior</strong>. Representa o O₂ remanescente após a perfusão dos tecidos de cabeça, pescoço e membros superiores.</p>
+    <div class="alert-box warn" style="margin-top:10px;">
+      <div class="icon">!</div>
+      <div class="content"><strong>Coleta periférica não equivale à SvcO₂</strong>Sangue de veia periférica representa perfusão regional local e não substitui a coleta do CVC para avaliação hemodinâmica sistêmica.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title blue">Valores de referência</div>
+    <table>
+      <tr><th>SvcO₂</th><th>Interpretação</th><th>Conduta</th></tr>
+      <tr><td><span class="pill pill-red">&lt; 60%</span></td><td>Hipoperfusão grave / baixo débito crítico</td><td>Ação imediata</td></tr>
+      <tr><td><span class="pill pill-amber">60–70%</span></td><td>Zona de alerta</td><td>Avaliar DC, Hb, SatO₂</td></tr>
+      <tr><td><span class="pill pill-green">≥ 70%</span></td><td>Meta na ressuscitação</td><td>Manter + avaliar Δ pCO₂</td></tr>
+      <tr><td><span class="pill pill-coral">&gt; 80%</span></td><td>Atenção — pode ser falso</td><td>Verificar armadilhas</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title red">Armadilhas: SvcO₂ elevada não significa segurança</div>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">1</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Circulação hiperdinámica da sepse</div><div class="flow-desc">Débito cardíaco muito elevado — o sangue passa rapidamente pelos tecidos, com pouca extração de O₂. Pode haver shunting microcirculatório com hipóxia regional ativa.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">2</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Hipóxia citopática</div><div class="flow-desc">Disfunção mitocondrial grave — as células não conseguem utilizar o O₂ disponível. SvcO₂ elevada com lactato alto e acidose ativa. O O₂ está disponível, mas não gera ATP.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">3</div></div><div class="flow-content"><div class="flow-title">Outras causas</div><div class="flow-desc">FiO₂ muito elevada, cateter mal posicionado ou em cunha, sedação profunda (redução do consumo), cirrose avançada, ICC com shunt esquerda-direita.</div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title purple">SvcO₂ vs. SvO₂ mista</div>
+    <table>
+      <tr><th>Parâmetro</th><th>Acesso</th><th>Diferença</th></tr>
+      <tr><td>SvcO₂</td><td>CVC (veia cava superior)</td><td>Aprox. 5–7% acima da SvO₂ mista na doença crítica</td></tr>
+      <tr><td>SvO₂ mista</td><td>Cateter de Swan-Ganz (artéria pulmonar)</td><td>Padrão-ouro — representa todo o organismo</td></tr>
+    </table>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">Na sepse, o padrão pode se inverter: a SvcO₂ pode ser menor que a SvO₂ real pelo desvio de fluxo da circulação esplâncnica.</p>
+  </div>
+</section>
+
+<!-- DELTA pCO2 -->
+<section id="dpco2" class="section">
+  <p class="section-title">Δ pCO₂ — Gradiente Venoarterial</p>
+  <p class="section-sub">O marcador de fluxo que a SvcO₂ não captura</p>
+  <div class="card">
+    <div class="card-title teal">Cálculo</div>
+    <div class="formula">Δ pCO₂ = pCO₂ venosa central − pCO₂ arterial</div>
+    <div class="tag-row"><span class="tag">Normal: &lt; 6 mmHg</span><span class="tag">Baixo fluxo: ≥ 6 mmHg</span><span class="tag">Coletar simultaneamente</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Por que o CO₂ se acumula com baixo fluxo?</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">O CO₂ é o produto do metabolismo celular aeróbico. Com fluxo adequado, é carreado rapidamente. Com fluxo reduzido:</p>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot" style="border-color:var(--teal);color:var(--teal);">→</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">CO₂ acumula nos tecidos</div><div class="flow-desc">Estase — menor lavagem do produto do metabolismo celular</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot" style="border-color:var(--teal);color:var(--teal);">→</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">pCO₂ venosa se eleva</div><div class="flow-desc">O sangue que retorna ao coração carrega mais CO₂ do que o normal</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot" style="border-color:var(--teal);color:var(--teal);">→</div></div><div class="flow-content"><div class="flow-title">Gradiente ≥ 6 mmHg</div><div class="flow-desc">Sinaliza baixo débito cardíaco ou disfunção microcirculatória</div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title green">Vantagens sobre o lactato isolado</div>
+    <table>
+      <tr><th>Parâmetro</th><th>Limitação</th></tr>
+      <tr><td>Lactato</td><td>Pode estar elevado por causas não perfusionais (adrenalina, insuficiência hepática, metformina). Clearance lento — não rastreia mudanças rápidas.</td></tr>
+      <tr><td>Δ pCO₂</td><td>Marcador direto de fluxo. Normaliza rapidamente com melhora da perfusão. Detecta hipoperfusão mesmo com lactato normal.</td></tr>
+    </table>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content">Os dois parâmetros se complementam: o lactato indica <em>se há</em> dívida de O₂; o Δ pCO₂ indica <em>se o fluxo</em> está adequado para quitar essa dívida.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title amber">Surviving Sepsis Campaign 2026 — posição atual</div>
+    <div class="alert-box info" style="margin-bottom:12px;"><div class="icon">i</div><div class="content"><strong>Março de 2026</strong> — 129 recomendações, 46 novas. Publicado em Critical Care Medicine e Intensive Care Medicine. Endossado por 24 sociedades.</div></div>
+    <table>
+      <tr><th>Tema</th><th>Recomendação 2026</th><th>Força</th></tr>
+      <tr><td>Lactato</td><td>Medir em todos com sepse ou choque. Lactato seriado para guiar ressuscitação quando elevado.</td><td><span class="pill pill-amber">Condicional</span></td></tr>
+      <tr><td>Enchimento capilar</td><td>Utilizar como adjunto a outras medidas de perfusão para guiar ressuscitação.</td><td><span class="pill pill-amber">Condicional</span></td></tr>
+      <tr><td>Parâmetros dinâmicos</td><td><strong>Novo 2026:</strong> Preferir medidas dinâmicas (PLR, fluid challenge com SV/DC) em vez de exame físico ou medidas estáticas isoladas.</td><td><span class="pill pill-amber">Condicional</span></td></tr>
+      <tr><td>Monitoramento de DC</td><td>Evidência insuficiente para recomendar monitoramento minimamente invasivo além do cuidado habitual.</td><td><span class="pill pill-blue">Insuficiente</span></td></tr>
+      <tr><td>SvcO₂</td><td>Não é mais alvo primário mandatório em adultos. Mantém valor no monitoramento multimodal.</td><td><span class="pill pill-blue">Contexto</span></td></tr>
+      <tr><td>PAM — ≥ 65 anos</td><td><strong>Novo 2026:</strong> Alvo de PAM 60–65 mmHg para pacientes com 65 anos ou mais em choque séptico.</td><td><span class="pill pill-amber">Condicional</span></td></tr>
+      <tr><td>PAM — adultos gerais</td><td>Manter alvo inicial de PAM ≥ 65 mmHg com vasopressor.</td><td><span class="pill pill-green">Forte</span></td></tr>
+      <tr><td>Vasopressor periférico</td><td><strong>Novo 2026:</strong> Iniciar vasopressor por acesso periférico para restaurar PAM sem aguardar acesso central.</td><td><span class="pill pill-amber">Condicional</span></td></tr>
+      <tr><td>Cristaloide balanceado</td><td><strong>Novo 2026:</strong> Preferir Ringer lactato ou Hartmann a SF 0,9%.</td><td><span class="pill pill-amber">Condicional</span></td></tr>
+      <tr><td>Volume inicial</td><td>Pelo menos 30 mL/kg IV nas primeiras 3 horas, com reavaliação frequente para evitar sobrecarga.</td><td><span class="pill pill-amber">Condicional</span></td></tr>
+    </table>
+    <div class="alert-box warn" style="margin-top:12px;"><div class="icon">!</div><div class="content"><strong>Mensagem central do SSC 2026 para monitoramento</strong>Parâmetros dinâmicos (PLR com medida de SV/VTI, variação de pressão de pulso, Δ pCO₂) são superiores a medidas estáticas (PVC, diâmetro absoluto da VCI). O POCUS de VCI integra essa abordagem quando interpretado pelo índice de colapsibilidade ou distensibilidade.</div></div>
+  </div>
+</section>
+
+<!-- QUADRANTES -->
+<section id="quadrantes" class="section">
+  <p class="section-title">Os 4 Quadrantes</p>
+  <p class="section-sub">Interpretação combinada SvcO₂ + Δ pCO₂</p>
+  <div class="card">
+    <div class="card-title green">Quadrante 1 — Ressuscitação adequada</div>
+    <div class="formula" style="color:var(--green);">SvcO₂ ≥ 70%  +  Δ pCO₂ &lt; 6 mmHg</div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0;">Oferta de O₂ preservada e fluxo tecidual adequado. Os dois parâmetros em conjunto excluem hipoperfusão global.</p>
+    <div class="alert-box info"><div class="icon">→</div><div class="content"><strong>Conduta</strong>Verificar lactato — se ainda elevado, considerar hiperlactatemia tipo B. Não forçar volume. Monitoramento seriado a cada 2–4 h. Avaliar PAM, diurese e enchimento capilar.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title amber">Quadrante 2 — Baixa oferta de O₂</div>
+    <div class="formula" style="color:var(--amber);">SvcO₂ &lt; 70%  +  Δ pCO₂ &lt; 6 mmHg</div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0;">Os tecidos estão extraindo mais O₂ do que o normal, mas o fluxo ainda está mantido. O problema está na oferta, não no débito.</p>
+    <div class="alert-box warn"><div class="icon">→</div><div class="content"><strong>Investigar a tríade da oferta</strong>Hb baixa — considerar transfusão (alvo Hb &gt; 7–8 g/dL em sepse) · SatO₂ arterial baixa — otimizar oxigenação · DC baixo — avaliar com ecocardiografia ou POCUS</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title coral">Quadrante 3 — SvcO₂ falsamente normal (cenário mais perigoso)</div>
+    <div class="formula" style="color:var(--coral);">SvcO₂ ≥ 70%  +  Δ pCO₂ ≥ 6 mmHg</div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0;">A SvcO₂ transmite falsa sensação de segurança. O Δ pCO₂ elevado revela que o fluxo tecidual está comprometido apesar da saturação venosa aparentemente normal.</p>
+    <div class="alert-box danger"><div class="icon">!</div><div class="content"><strong>Causas prováveis</strong>Sepse hiperdinámica com shunting microcirculatório · Hipóxia citopática (disfunção mitocondrial) · Foco infeccioso não controlado · Isquemia mesentérica</div></div>
+    <div class="alert-box info" style="margin-top:8px;"><div class="icon">→</div><div class="content"><strong>Conduta:</strong> Não se tranquilizar com a SvcO₂. Reavaliar lactato, enchimento capilar e ecocardiografia. Otimizar vasopressor se DC adequado. Considerar dobutamina na presença de disfunção ventricular.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title red">Quadrante 4 — Choque com baixo débito confirmado</div>
+    <div class="formula" style="color:var(--red);">SvcO₂ &lt; 70%  +  Δ pCO₂ ≥ 6 mmHg</div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0;">Ambos os parâmetros alterados. Hipoperfusão com baixo débito cardíaco confirmado. Situação de maior urgência clínica.</p>
+    <div class="alert-box danger"><div class="icon">!</div><div class="content"><strong>Ação imediata — identificar o mecanismo</strong>Hipovolemia (VCI colapsável) → reposição volêmica · Disfunção ventricular (VCI dilatada, eco alterado) → inotrópico (dobutamina) · Vasoplegia (PAM baixa, DC alto) → vasopressor (noradrenalina)</div></div>
+  </div>
+</section>
+
+<!-- VCI -->
+<section id="vci" class="section">
+  <p class="section-title">POCUS — Veia Cava Inferior</p>
+  <p class="section-sub">Técnica, fórmulas e interpretação</p>
+  <div class="card">
+    <div class="card-title">Técnica de aquisição</div>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">1</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Janela subcostal longitudinal</div><div class="flow-desc">Probe em posição subxifoide, indicador voltado para cima (cefálico). Obter visão longitudinal da VCI entrando no átrio direito.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">2</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Local de medida</div><div class="flow-desc">1–2 cm da junção VCI–átrio direito (ou 3 cm da AD). Utilizar as veias hepáticas como referência anatômica.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">3</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">M-mode</div><div class="flow-desc">Ativar M-mode perpendicular ao eixo longitudinal da VCI. Medir no mínimo 3 ciclos respiratórios. Registrar diâmetro máximo (expiração) e mínimo (inspiração).</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">4</div></div><div class="flow-content"><div class="flow-title">Aplicar a fórmula correta para o modo ventilatório</div><div class="flow-desc">Ventilação espontânea → índice de colapsibilidade (cIVC) · Ventilação mecânica → índice de distensibilidade (dIVC)</div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title blue">Fórmulas — selecionar pelo modo ventilatório</div>
+    <div class="quad-grid">
+      <div class="quad ok" style="border-color:rgba(56,189,248,0.3);">
+        <div class="quad-header" style="color:var(--accent);">Ventilação espontânea</div>
+        <div class="formula" style="font-size:12px;padding:8px 10px;margin:6px 0;">cIVC = (Dmáx − Dmín) / Dmáx × 100</div>
+        <div class="quad-body"><strong>&gt; 50%</strong> — responsivo<br><strong>20–50%</strong> — zona cinzenta<br><strong>&lt; 20%</strong> — não responsivo<br><span style="font-size:11px;margin-top:4px;display:block;color:var(--muted);">VCI colapsa na inspiração (queda da pressão intratorácica)</span></div>
+      </div>
+      <div class="quad ok" style="border-color:rgba(167,139,250,0.3);">
+        <div class="quad-header" style="color:var(--purple);">Ventilação mecânica</div>
+        <div class="formula" style="font-size:12px;padding:8px 10px;margin:6px 0;color:var(--purple);">dIVC = (Dmáx − Dmín) / Dmín × 100</div>
+        <div class="quad-body"><strong>&gt; 18%</strong> — responsivo<br><strong>&lt; 18%</strong> — não responsivo<br><span style="font-size:11px;margin-top:4px;display:block;color:var(--muted);">VCI dilata na inspiração (elevação da pressão intratorácica)</span><br><span style="font-size:11px;color:var(--amber);">Válido: Vt ≥ 8 mL/kg, sem esforço espontâneo, ritmo regular</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title amber">Interpretação do diâmetro absoluto</div>
+    <div class="vci-bar">
+      <div class="vci-seg" style="width:28%;background:rgba(248,113,113,0.2);color:var(--red);">&lt; 1,5 cm<span>Hipovolemia</span></div>
+      <div class="vci-seg" style="width:35%;background:rgba(251,191,36,0.15);color:var(--amber);">1,5 – 2,1 cm<span>Indeterminado</span></div>
+      <div class="vci-seg" style="width:37%;background:rgba(52,211,153,0.15);color:var(--green);">&gt; 2,1 cm<span>Congestão / VD</span></div>
+    </div>
+    <table>
+      <tr><th>Diâmetro</th><th>Variação</th><th>Interpretação</th></tr>
+      <tr><td>&lt; 1,5 cm</td><td>Qualquer colapso</td><td><span class="pill pill-red">Hipovolemia</span> — muito provavelmente responsivo</td></tr>
+      <tr><td>1,5–2,1 cm</td><td>Variável</td><td><span class="pill pill-amber">Zona cinzenta</span> — realizar PLR ou fluid challenge</td></tr>
+      <tr><td>&gt; 2,1 cm</td><td>&lt; 20% colapso</td><td><span class="pill pill-green">Congestão / PVC elevada</span> — não responsivo, avaliar VD</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title red">Limitações relevantes</div>
+    <table>
+      <tr><th>Situação</th><th>Problema</th></tr>
+      <tr><td>Taquipneia / esforço respiratório aumentado</td><td>Colapso da VCI mesmo sem hipovolemia — falso positivo</td></tr>
+      <tr><td>Pressão abdominal elevada</td><td>Ascite, obesidade e gestação alteram diâmetro e variação</td></tr>
+      <tr><td>Disfunção de VD / TEP</td><td>VCI dilatada sem hipervolemia real</td></tr>
+      <tr><td>PEEP elevado</td><td>VCI artificialmente dilatada em ventilação mecânica</td></tr>
+      <tr><td>Fibrilação atrial / arritmias</td><td>Variação respiratória irregular — difícil de padronizar</td></tr>
+      <tr><td>Janela acústica inadequada</td><td>Obesidade, cirurgia prévia, curativo abdominal</td></tr>
+    </table>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>PLR como alternativa universal (SSC 2026)</strong>Elevar MMII a 45° por 60–90 s. Válido em ventilação espontânea, mecânica e na presença de arritmias, sem necessidade de acesso central. Aumento do VTI aórtico ou subvalvar esquerdo &gt; 12–15% prediz responsividade a volume.</div></div>
+  </div>
+</section>
+
+<!-- INTEGRAÇÃO -->
+<section id="integracao" class="section">
+  <p class="section-title">Integração Clínica</p>
+  <p class="section-sub">Gasometria pareada + POCUS VCI em conjunto</p>
+  <div class="card">
+    <div class="card-title purple">Regra fundamental</div>
+    <div class="quad-grid">
+      <div class="quad" style="border-color:rgba(56,189,248,0.3);"><div class="quad-header" style="color:var(--accent);">Gasometria pareada</div><div class="quad-body">Responde: <strong>SE há hipoperfusão</strong> e qual o mecanismo (oferta vs. fluxo)</div></div>
+      <div class="quad" style="border-color:rgba(45,212,191,0.3);"><div class="quad-header" style="color:var(--teal);">POCUS VCI</div><div class="quad-body">Responde: <strong>POR QUE</strong> e se o paciente vai <strong>responder a volume</strong></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title green">Cenário 1 — Hipoperfusão + VCI colapsável</div>
+    <div class="formula" style="color:var(--green);font-size:12px;">Δ pCO₂ ≥ 6  +  SvcO₂ baixa  +  VCI &lt; 1,5 cm ou cIVC &gt; 50%</div>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">→</div><div class="content"><strong>Hipovolemia confirmada — reposição volêmica com segurança</strong><br>Cristaloide balanceado 250–500 mL em bolus. Reavaliar SvcO₂, Δ pCO₂ e VCI após cada bolus. Metas: Δ pCO₂ &lt; 6 mmHg e SvcO₂ &gt; 70%.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title red">Cenário 2 — Hipoperfusão + VCI dilatada</div>
+    <div class="formula" style="color:var(--red);font-size:12px;">Δ pCO₂ ≥ 6  +  SvcO₂ baixa  +  VCI &gt; 2,1 cm ou dIVC &lt; 18%</div>
+    <div class="alert-box danger" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Baixo débito com congestão — não administrar volume</strong><br>Considerar disfunção ventricular (ecocardiografia de urgência), TEP ou tamponamento. Avaliar vasopressor (noradrenalina) e/ou inotrópico (dobutamina). Ecocardiografia point-of-care orienta a decisão.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title amber">Cenário 3 — Zona cinzenta de VCI</div>
+    <div class="formula" style="color:var(--amber);font-size:12px;">Hipoperfusão presente  +  VCI 1,5–2,1 cm ou cIVC 20–50%</div>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">→</div><div class="content"><strong>Utilizar PLR para decidir (SSC 2026)</strong><br>Elevar MMII a 45° por 60–90 s. Medir VTI aórtico antes e após. Aumento &gt; 12–15% — responsivo, administrar volume. Sem resposta — não administrar volume, avaliar vasopressor.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title coral">Cenário 4 — SvcO₂ normal com Δ pCO₂ elevado (o mais traiçoeiro)</div>
+    <div class="formula" style="color:var(--coral);font-size:12px;">SvcO₂ ≥ 70%  +  Δ pCO₂ ≥ 6  +  VCI qualquer</div>
+    <div class="alert-box danger" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>SvcO₂ é falsa segurança</strong><br>O Δ pCO₂ elevado revela fluxo tecidual inadequado apesar da saturação venosa aparentemente normal. Considerar sepse hiperdinámica, hipóxia citopática ou foco não controlado. VCI colapsável — tentar volume; sem resposta — considerar inotrópico.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Painel multimodal completo (SSC 2026)</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Nenhum parâmetro isolado é suficiente. Avaliar em conjunto:</p>
+    <div class="tag-row"><span class="pill pill-blue">SvcO₂</span><span class="pill pill-blue">Δ pCO₂</span><span class="pill pill-blue">Lactato</span><span class="pill pill-blue">Enchimento capilar</span><span class="pill pill-blue">PAM</span><span class="pill pill-blue">POCUS VCI</span><span class="pill pill-blue">Diurese</span></div>
+    <div class="case-box" style="margin-top:12px;">
+      <div class="case-title">CASO — JUREMA, 79 anos, PS 05/05/2026</div>
+      <table>
+        <tr><th>Gasometria</th><th>Horário</th><th>pH</th><th>pCO₂</th><th>HCO₃</th><th>BE</th><th>SatO₂</th></tr>
+        <tr><td>Arterial</td><td>21h25</td><td>7,316</td><td>37,8</td><td>18,9</td><td>−7,3</td><td>97,7%</td></tr>
+        <tr><td>Venosa</td><td>22h00</td><td>7,241</td><td>50,9</td><td>21,4</td><td>−6,0</td><td>74%</td></tr>
+        <tr><td>Arterial</td><td>08h (CM)</td><td>7,341</td><td>47,0</td><td>24,8</td><td>−0,9</td><td>95,4%</td></tr>
+      </table>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted);"><strong style="color:var(--amber);">Δ pCO₂ às 21–22h: 50,9 − 37,8 = 13,1 mmHg</strong> — muito acima do limite de 6 mmHg. Hipoperfusão tecidual ativa apesar da SvcO₂ venosa de 74% (coleta periférica — não reflete SvcO₂ real). Acidose metabólica primária com fadiga respiratória instalada. Melhora significativa na manhã seguinte.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FLUXOGRAMA -->
+<section id="fluxograma" class="section">
+  <p class="section-title">Fluxograma Integrado</p>
+  <p class="section-sub">Do choque à conduta — gasometria pareada + POCUS VCI · SSC 2026</p>
+  <div class="card" style="padding:12px 8px;">
+    <div class="fluxo-wrap">
+    <svg viewBox="0 0 680 1020" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans,sans-serif">
+      <defs>
+        <marker id="a0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#4b5a6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+      </defs>
+
+      <!-- ENTRADA -->
+      <rect x="190" y="14" width="300" height="50" rx="10" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="340" y="33" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="600">SUSPEITA DE CHOQUE / SEPSE</text>
+      <text x="340" y="52" text-anchor="middle" fill="#8896a8" font-size="10">PAM baixa · lactato elevado · sinais de hipoperfusão</text>
+      <line x1="340" y1="64" x2="340" y2="88" stroke="#4b5a6e" stroke-width="1.5" marker-end="url(#a0)"/>
+
+      <!-- PASSO 1 -->
+      <rect x="150" y="88" width="380" height="44" rx="8" fill="#1a2236" stroke="#4b5a6e" stroke-width="1"/>
+      <text x="340" y="106" text-anchor="middle" fill="#e8edf5" font-size="11" font-weight="600">PASSO 1 — Coletar gasometria pareada</text>
+      <text x="340" y="122" text-anchor="middle" fill="#8896a8" font-size="10">Arterial + venosa central simultaneamente</text>
+      <line x1="340" y1="132" x2="340" y2="154" stroke="#4b5a6e" stroke-width="1.5" marker-end="url(#a0)"/>
+
+      <!-- PASSO 2 -->
+      <rect x="100" y="154" width="480" height="44" rx="8" fill="#1a2236" stroke="#4b5a6e" stroke-width="1"/>
+      <text x="340" y="172" text-anchor="middle" fill="#e8edf5" font-size="11" font-weight="600">PASSO 2 — Calcular SvcO₂ e Δ pCO₂</text>
+      <text x="340" y="188" text-anchor="middle" fill="#8896a8" font-size="10">Δ pCO₂ = pCO₂ venosa − pCO₂ arterial   ·   SvcO₂ coletada da veia cava superior (CVC)</text>
+
+      <!-- SEPARADOR -->
+      <line x1="40" y1="212" x2="640" y2="212" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <text x="340" y="224" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 3 — INTERPRETAÇÃO POR QUADRANTES</text>
+
+      <!-- SPLIT 4 -->
+      <line x1="340" y1="198" x2="340" y2="232" stroke="#4b5a6e" stroke-width="1"/>
+      <line x1="95" y1="232" x2="585" y2="232" stroke="#4b5a6e" stroke-width="1"/>
+      <line x1="95"  y1="232" x2="95"  y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
+      <line x1="258" y1="232" x2="258" y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
+      <line x1="422" y1="232" x2="422" y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
+      <line x1="585" y1="232" x2="585" y2="252" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
+
+      <!-- Q1 -->
+      <rect x="18" y="252" width="155" height="76" rx="8" fill="#0a2a1e" stroke="#34d399" stroke-width="1.5"/>
+      <text x="95" y="269" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">Q1 — ADEQUADO</text>
+      <text x="95" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ ≥ 70%</text>
+      <text x="95" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ &lt; 6 mmHg</text>
+      <line x1="28" y1="305" x2="162" y2="305" stroke="#1a3a2a" stroke-width="0.5"/>
+      <text x="95" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Sem hipoperfusão global</text>
+
+      <!-- Q2 -->
+      <rect x="182" y="252" width="152" height="76" rx="8" fill="#2a1e08" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="258" y="269" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">Q2 — OFERTA</text>
+      <text x="258" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ &lt; 70%</text>
+      <text x="258" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ &lt; 6 mmHg</text>
+      <line x1="192" y1="305" x2="324" y2="305" stroke="#3a2a18" stroke-width="0.5"/>
+      <text x="258" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Problema na oferta</text>
+
+      <!-- Q3 -->
+      <rect x="346" y="252" width="152" height="76" rx="8" fill="#2a1208" stroke="#fb923c" stroke-width="1.5"/>
+      <text x="422" y="269" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="700">Q3 — FALSA SEGURANÇA</text>
+      <text x="422" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ ≥ 70%</text>
+      <text x="422" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ ≥ 6 mmHg</text>
+      <line x1="356" y1="305" x2="488" y2="305" stroke="#3a1a08" stroke-width="0.5"/>
+      <text x="422" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Fluxo ruim, sat. normal</text>
+
+      <!-- Q4 -->
+      <rect x="509" y="252" width="153" height="76" rx="8" fill="#2a0a0a" stroke="#f87171" stroke-width="1.5"/>
+      <text x="585" y="269" text-anchor="middle" fill="#f87171" font-size="10" font-weight="700">Q4 — BAIXO DÉBITO</text>
+      <text x="585" y="284" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ &lt; 70%</text>
+      <text x="585" y="297" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ ≥ 6 mmHg</text>
+      <line x1="519" y1="305" x2="651" y2="305" stroke="#3a0a0a" stroke-width="0.5"/>
+      <text x="585" y="319" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="500">Choque confirmado</text>
+
+      <!-- Setas para POCUS -->
+      <line x1="95"  y1="328" x2="95"  y2="368" stroke="#34d399" stroke-width="1" marker-end="url(#ag)"/>
+      <line x1="258" y1="328" x2="258" y2="368" stroke="#fbbf24" stroke-width="1" marker-end="url(#aa)"/>
+      <line x1="422" y1="328" x2="422" y2="368" stroke="#fb923c" stroke-width="1" marker-end="url(#a0)"/>
+      <line x1="585" y1="328" x2="585" y2="368" stroke="#f87171" stroke-width="1" marker-end="url(#ar)"/>
+
+      <!-- SEP POCUS -->
+      <line x1="40" y1="354" x2="640" y2="354" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <text x="340" y="364" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 4 — POCUS DE VCI</text>
+
+      <!-- Q1 MONITORAR -->
+      <rect x="18" y="368" width="155" height="86" rx="8" fill="#0a2a1e" stroke="#34d399" stroke-width="1"/>
+      <text x="95" y="384" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600">Monitorar</text>
+      <text x="95" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Avaliar lactato seriado</text>
+      <text x="95" y="412" text-anchor="middle" fill="#8896a8" font-size="9">PAM, diurese</text>
+      <text x="95" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Enchimento capilar</text>
+      <text x="95" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Reavalie em 2–4 h</text>
+
+      <!-- Q2 POCUS -->
+      <rect x="182" y="368" width="152" height="86" rx="8" fill="#1a2236" stroke="#fbbf24" stroke-width="1"/>
+      <text x="258" y="384" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="600">POCUS VCI</text>
+      <text x="258" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Avaliar Hb, SatO₂, DC</text>
+      <text x="258" y="412" text-anchor="middle" fill="#8896a8" font-size="9">Colapsável → volume</text>
+      <text x="258" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Dilatada → eco urgente</text>
+      <text x="258" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Hb &lt; 7 → transfusão</text>
+
+      <!-- Q3 POCUS -->
+      <rect x="346" y="368" width="152" height="86" rx="8" fill="#1a2236" stroke="#fb923c" stroke-width="1"/>
+      <text x="422" y="384" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="600">POCUS VCI + Eco</text>
+      <text x="422" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Não confiar na SvcO₂</text>
+      <text x="422" y="412" text-anchor="middle" fill="#8896a8" font-size="9">Reavaliar lactato</text>
+      <text x="422" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Foco infeccioso?</text>
+      <text x="422" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Hipóxia citopática?</text>
+
+      <!-- Q4 POCUS -->
+      <rect x="509" y="368" width="153" height="86" rx="8" fill="#2a0a0a" stroke="#f87171" stroke-width="1"/>
+      <text x="585" y="384" text-anchor="middle" fill="#f87171" font-size="10" font-weight="600">POCUS VCI urgente</text>
+      <text x="585" y="399" text-anchor="middle" fill="#8896a8" font-size="9">Identificar mecanismo</text>
+      <text x="585" y="412" text-anchor="middle" fill="#8896a8" font-size="9">Colapsável ou dilatada</text>
+      <text x="585" y="425" text-anchor="middle" fill="#8896a8" font-size="9">Eco point-of-care</text>
+      <text x="585" y="438" text-anchor="middle" fill="#8896a8" font-size="9">Ação imediata</text>
+
+      <!-- Setas para decisão VCI -->
+      <line x1="258" y1="454" x2="258" y2="496" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
+      <line x1="422" y1="454" x2="422" y2="496" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
+      <line x1="585" y1="454" x2="585" y2="496" stroke="#4b5a6e" stroke-width="1" marker-end="url(#a0)"/>
+
+      <!-- SEP DECISÃO VCI -->
+      <line x1="160" y1="480" x2="640" y2="480" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <text x="400" y="490" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 5 — DECISÃO PELA VCI</text>
+
+      <!-- VCI COLAPSÁVEL -->
+      <rect x="60" y="496" width="180" height="90" rx="8" fill="#0a1f2a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="150" y="512" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="700">VCI COLAPSÁVEL</text>
+      <text x="150" y="526" text-anchor="middle" fill="#8896a8" font-size="9">&lt; 1,5 cm ou cIVC &gt; 50%</text>
+      <text x="150" y="539" text-anchor="middle" fill="#8896a8" font-size="9">dIVC &gt; 18% em VM</text>
+      <line x1="72" y1="547" x2="228" y2="547" stroke="#2a3a52" stroke-width="0.5"/>
+      <text x="150" y="560" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="600">Reposição volêmica</text>
+      <text x="150" y="573" text-anchor="middle" fill="#8896a8" font-size="9">Cristaloide 250–500 mL</text>
+      <text x="150" y="586" text-anchor="middle" fill="#8896a8" font-size="9">Reavaliar após cada bolus</text>
+
+      <!-- VCI ZONA CINZENTA -->
+      <rect x="250" y="496" width="170" height="90" rx="8" fill="#1e1a08" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="335" y="512" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">ZONA CINZENTA</text>
+      <text x="335" y="526" text-anchor="middle" fill="#8896a8" font-size="9">VCI 1,5–2,1 cm</text>
+      <text x="335" y="539" text-anchor="middle" fill="#8896a8" font-size="9">cIVC 20–50%</text>
+      <line x1="262" y1="547" x2="408" y2="547" stroke="#3a2a18" stroke-width="0.5"/>
+      <text x="335" y="560" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="600">Realizar PLR (SSC 2026)</text>
+      <text x="335" y="573" text-anchor="middle" fill="#8896a8" font-size="9">VTI &gt; 12–15% → volume</text>
+      <text x="335" y="586" text-anchor="middle" fill="#8896a8" font-size="9">Sem resposta → vasopressor</text>
+
+      <!-- VCI DILATADA -->
+      <rect x="430" y="496" width="185" height="90" rx="8" fill="#1a0a0a" stroke="#f87171" stroke-width="1.5"/>
+      <text x="522" y="512" text-anchor="middle" fill="#f87171" font-size="10" font-weight="700">VCI DILATADA</text>
+      <text x="522" y="526" text-anchor="middle" fill="#8896a8" font-size="9">&gt; 2,1 cm ou dIVC &lt; 18%</text>
+      <text x="522" y="539" text-anchor="middle" fill="#8896a8" font-size="9">Colapso &lt; 20%</text>
+      <line x1="442" y1="547" x2="602" y2="547" stroke="#3a0a0a" stroke-width="0.5"/>
+      <text x="522" y="560" text-anchor="middle" fill="#e8edf5" font-size="9" font-weight="600">Não dar volume</text>
+      <text x="522" y="573" text-anchor="middle" fill="#8896a8" font-size="9">Eco urgente · TEP?</text>
+      <text x="522" y="586" text-anchor="middle" fill="#8896a8" font-size="9">Vasopressor / inotrópico</text>
+
+      <!-- Setas reavaliação -->
+      <line x1="150" y1="586" x2="150" y2="622" stroke="#38bdf8" stroke-width="1" marker-end="url(#ab)"/>
+      <line x1="335" y1="586" x2="335" y2="622" stroke="#fbbf24" stroke-width="1" marker-end="url(#aa)"/>
+      <line x1="522" y1="586" x2="522" y2="622" stroke="#f87171" stroke-width="1" marker-end="url(#ar)"/>
+
+      <!-- SEP REAVALIAÇÃO -->
+      <line x1="40" y1="610" x2="640" y2="610" stroke="#2a3a52" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <text x="340" y="620" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.08em">PASSO 6 — REAVALIAÇÃO SERIADA APÓS INTERVENÇÃO</text>
+
+      <!-- BOX REAVALIAÇÃO -->
+      <rect x="40" y="622" width="600" height="66" rx="8" fill="#111827" stroke="#2a3a52" stroke-width="1"/>
+      <text x="340" y="641" text-anchor="middle" fill="#e8edf5" font-size="11" font-weight="600">Metas atingidas?</text>
+      <text x="175" y="658" text-anchor="middle" fill="#8896a8" font-size="9">Δ pCO₂ &lt; 6 mmHg?</text>
+      <text x="340" y="658" text-anchor="middle" fill="#8896a8" font-size="9">SvcO₂ ≥ 70%?</text>
+      <text x="505" y="658" text-anchor="middle" fill="#8896a8" font-size="9">Lactato em queda?</text>
+      <text x="175" y="675" text-anchor="middle" fill="#8896a8" font-size="9">PAM ≥ 65 mmHg?</text>
+      <text x="340" y="675" text-anchor="middle" fill="#8896a8" font-size="9">Enchimento capilar &lt; 3 s?</text>
+      <text x="505" y="675" text-anchor="middle" fill="#8896a8" font-size="9">Diurese ≥ 0,5 mL/kg/h?</text>
+
+      <!-- Split sim/não -->
+      <line x1="340" y1="688" x2="340" y2="710" stroke="#4b5a6e" stroke-width="1.5" marker-end="url(#a0)"/>
+      <line x1="170" y1="710" x2="510" y2="710" stroke="#4b5a6e" stroke-width="1"/>
+      <line x1="170" y1="710" x2="170" y2="728" stroke="#34d399" stroke-width="1" marker-end="url(#ag)"/>
+      <line x1="510" y1="710" x2="510" y2="728" stroke="#f87171" stroke-width="1" marker-end="url(#ar)"/>
+      <text x="220" y="722" text-anchor="middle" fill="#34d399" font-size="9">Metas atingidas</text>
+      <text x="460" y="722" text-anchor="middle" fill="#f87171" font-size="9">Metas não atingidas</text>
+
+      <!-- OK -->
+      <rect x="55" y="728" width="230" height="60" rx="8" fill="#0a2a1e" stroke="#34d399" stroke-width="1.5"/>
+      <text x="170" y="748" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">Ressuscitação completa</text>
+      <text x="170" y="763" text-anchor="middle" fill="#8896a8" font-size="9">Manter monitoramento</text>
+      <text x="170" y="776" text-anchor="middle" fill="#8896a8" font-size="9">Considerar desmame de vasopressor</text>
+
+      <!-- NÃO OK -->
+      <rect x="395" y="728" width="230" height="60" rx="8" fill="#2a0a0a" stroke="#f87171" stroke-width="1.5"/>
+      <text x="510" y="748" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600">Reiniciar avaliação</text>
+      <text x="510" y="763" text-anchor="middle" fill="#8896a8" font-size="9">Repetir gasometria pareada</text>
+      <text x="510" y="776" text-anchor="middle" fill="#8896a8" font-size="9">POCUS e eco se necessário</text>
+
+      <!-- Seta retorno -->
+      <path d="M625 758 L652 758 L652 170 L580 170" stroke="#f87171" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+
+      <!-- ARMADILHAS -->
+      <line x1="40" y1="808" x2="640" y2="808" stroke="#2a3a52" stroke-width="0.5"/>
+      <text x="340" y="820" text-anchor="middle" fill="#4b5a6e" font-size="9" font-weight="600" letter-spacing="0.07em">ARMADILHAS E LIMITAÇÕES</text>
+
+      <rect x="40" y="828" width="185" height="76" rx="6" fill="#1a2236" stroke="#2a3a52" stroke-width="0.5"/>
+      <text x="132" y="845" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="600">SvcO₂ elevada — falsa segurança</text>
+      <text x="132" y="860" text-anchor="middle" fill="#8896a8" font-size="9">Sepse hiperdinámica</text>
+      <text x="132" y="873" text-anchor="middle" fill="#8896a8" font-size="9">Hipóxia citopática</text>
+      <text x="132" y="886" text-anchor="middle" fill="#8896a8" font-size="9">Coleta periférica</text>
+      <text x="132" y="899" text-anchor="middle" fill="#8896a8" font-size="9">Cateter mal posicionado</text>
+
+      <rect x="247" y="828" width="185" height="76" rx="6" fill="#1a2236" stroke="#2a3a52" stroke-width="0.5"/>
+      <text x="340" y="845" text-anchor="middle" fill="#fbbf24" font-size="9" font-weight="600">POCUS VCI — limitações</text>
+      <text x="340" y="860" text-anchor="middle" fill="#8896a8" font-size="9">Taquipneia → falso positivo</text>
+      <text x="340" y="873" text-anchor="middle" fill="#8896a8" font-size="9">TEP / DPOC → VCI dilatada</text>
+      <text x="340" y="886" text-anchor="middle" fill="#8896a8" font-size="9">PEEP alto → distorção</text>
+      <text x="340" y="899" text-anchor="middle" fill="#8896a8" font-size="9">Janela ruim → usar PLR</text>
+
+      <rect x="454" y="828" width="185" height="76" rx="6" fill="#1a2236" stroke="#2a3a52" stroke-width="0.5"/>
+      <text x="547" y="845" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="600">SSC 2026 — destaques</text>
+      <text x="547" y="860" text-anchor="middle" fill="#8896a8" font-size="9">Parâmetros dinâmicos (PLR)</text>
+      <text x="547" y="873" text-anchor="middle" fill="#8896a8" font-size="9">Vasopressor periférico precoce</text>
+      <text x="547" y="886" text-anchor="middle" fill="#8896a8" font-size="9">PAM 60–65 se ≥ 65 anos</text>
+      <text x="547" y="899" text-anchor="middle" fill="#8896a8" font-size="9">Cristaloide balanceado</text>
+
+      <!-- REGRA DE OURO -->
+      <rect x="40" y="918" width="600" height="42" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1"/>
+      <text x="340" y="936" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="700">REGRA DE OURO</text>
+      <text x="340" y="952" text-anchor="middle" fill="#8896a8" font-size="9">Gasometria pareada diz SE há hipoperfusão e QUANTO — POCUS VCI diz POR QUÊ e SE responde a volume</text>
+    </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PADRÕES DE CHOQUE -->
+<section id="padroes" class="section">
+  <p class="section-title">Padrões Hemodinâmicos no Choque</p>
+  <p class="section-sub">Resistência vascular, pressão de pulso e identificação do mecanismo</p>
+
+  <div class="card">
+    <div class="card-title purple">Os 4 tipos de choque — perfil hemodinâmico</div>
+    <table>
+      <tr><th>Tipo</th><th>DC</th><th>RVS</th><th>PVC</th><th>Exemplo</th></tr>
+      <tr><td><span class="pill pill-red">Hipovolêmico</span></td><td>Baixo</td><td>Alta</td><td>Baixa</td><td>Hemorragia, desidratação, queimadura</td></tr>
+      <tr><td><span class="pill pill-coral">Distributivo</span></td><td>Alto</td><td>Baixa</td><td>Baixa/normal</td><td>Sepse, anafilaxia, neurogênico</td></tr>
+      <tr><td><span class="pill pill-amber">Cardiogênico</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>IAM, miocardite, arritmia</td></tr>
+      <tr><td><span class="pill pill-blue">Obstrutivo</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>TEP, tamponamento, pneumotórax</td></tr>
+    </table>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">DC = débito cardíaco · RVS = resistência vascular sistêmica · PVC = pressão venosa central</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title teal">Pressão de pulso — o que revela</div>
+    <div class="formula">Pressão de pulso = PAS − PAD</div>
+    <p style="font-size:13px;color:var(--muted);margin:8px 0;">Normal: 40–60 mmHg. Reflete indiretamente o volume sistólico e a complacência aórtica.</p>
+    <table>
+      <tr><th>Pressão de pulso</th><th>Interpretação</th><th>Pensar em</th></tr>
+      <tr><td><span class="pill pill-red">Estreita &lt; 25 mmHg</span></td><td>Baixo volume sistólico</td><td>Hipovolemia, tamponamento, cardiogênico — pode responder a volume</td></tr>
+      <tr><td><span class="pill pill-green">Normal 40–60 mmHg</span></td><td>Volume sistólico preservado</td><td>Distributivo (sepse, vasoplegia)</td></tr>
+      <tr><td><span class="pill pill-amber">Alargada &gt; 60 mmHg</span></td><td>Baixa resistência periférica</td><td>Vasoplegia, insuficiência aórtica, circulação hiperdinámica</td></tr>
+    </table>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content">Pressão diastólica baixa com PP alargada sugere vasoplegia — resistência vascular diminuída. Vasopressor em vez de volume.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title blue">Variação de Pressão de Pulso (VPP) — paciente intubado</div>
+    <div class="formula">VPP = (PPmáx − PPmín) / [(PPmáx + PPmín) / 2] × 100</div>
+    <div class="tag-row">
+      <span class="tag">Válido: VM controlada · Vt ≥ 8 mL/kg · Ritmo sinusal</span>
+    </div>
+    <table>
+      <tr><th>VPP</th><th>Interpretação</th></tr>
+      <tr><td><span class="pill pill-green">&lt; 9%</span></td><td>Não responsivo a volume</td></tr>
+      <tr><td><span class="pill pill-amber">9–13%</span></td><td>Zona cinzenta — considerar fluid challenge</td></tr>
+      <tr><td><span class="pill pill-red">&gt; 13%</span></td><td>Responsivo a volume — repor com segurança</td></tr>
+    </table>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Limitações da VPP</strong>Ventilação espontânea ou assistida · FA / arritmias · Vt &lt; 8 mL/kg · Hipertensão abdominal · Disfunção grave de VD. Nessas situações preferir PLR com medida de VTI.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title green">PLR + VTI — avaliação funcional universal</div>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">1</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Posição inicial</div><div class="flow-desc">Paciente em decúbito dorsal com cabeceira a 45°. Medir VTI subvalvar aórtico (VSVE) pelo Doppler pulsado no ecocardiograma point-of-care.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">2</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Manobra PLR</div><div class="flow-desc">Deitar completamente e elevar os MMII a 45° por 60–90 s. Isso mobiliza 300–500 mL de sangue venoso para o tórax — equivale a um bolus passivo e reversível.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">3</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Medir VTI após PLR</div><div class="flow-desc">Repetir medida do VTI subvalvar. Aumento ≥ 12–15% prediz responsividade a volume com alta sensibilidade e especificidade.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">4</div></div><div class="flow-content"><div class="flow-title">Retornar à posição inicial</div><div class="flow-desc">O efeito é totalmente reversível — sem risco de sobrecarga hídrica. Válido em ventilação espontânea, mecânica, arritmias e DPOC.</div></div></div>
+    </div>
+    <div class="alert-box info"><div class="icon">i</div><div class="content">O PLR com VTI é o preditor de responsividade a volume mais robusto disponível à beira do leito — recomendado pelo SSC 2026 como método dinâmico preferencial.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title amber">Diferenciando cardiogênico de obstrutivo</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Ambos têm DC baixo, RVS alta e PVC alta — o POCUS diferencia:</p>
+    <table>
+      <tr><th>Achado POCUS</th><th>Cardiogênico</th><th>Obstrutivo</th></tr>
+      <tr><td>Função VE</td><td>Reduzida</td><td>Normal ou hiperdinâmica</td></tr>
+      <tr><td>VCI</td><td>Dilatada, pouco colapsável</td><td>Dilatada, pouco colapsável</td></tr>
+      <tr><td>Pericárdio</td><td>Sem derrame (em geral)</td><td>Derrame em tamponamento</td></tr>
+      <tr><td>Pulmão</td><td>Linhas B difusas (congestão)</td><td>Linhas A (TEP) ou ausência de deslizamento (pneumotórax)</td></tr>
+      <tr><td>VD</td><td>Pode dilatar em IAM de VD</td><td>Dilatado em TEP maciço (D paradoxal)</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- DO2 / CaO2 -->
+<section id="do2" class="section">
+  <p class="section-title">DO₂ e CaO₂ — Oferta de Oxigênio</p>
+  <p class="section-sub">A origem do balanço — quanto O₂ chega aos tecidos</p>
+
+  <div class="card">
+    <div class="card-title">Hierarquia das fórmulas</div>
+    <div class="formula">DO₂ = DC × CaO₂ × 10</div>
+    <div class="formula" style="color:var(--teal);">CaO₂ = (Hb × 1,34 × SaO₂) + (pO₂ × 0,003)</div>
+    <p style="font-size:13px;color:var(--muted);margin-top:10px;">O DO₂ é a quantidade total de O₂ entregue aos tecidos por minuto (mL/min). O CaO₂ é o conteúdo de O₂ no sangue arterial (mL O₂/dL sangue). O fator 10 converte dL para L.</p>
+    <table style="margin-top:10px;">
+      <tr><th>Parâmetro</th><th>Normal</th><th>Unidade</th></tr>
+      <tr><td>DO₂</td><td>950–1150</td><td>mL O₂/min</td></tr>
+      <tr><td>CaO₂</td><td>18–20</td><td>mL O₂/dL</td></tr>
+      <tr><td>DC (repouso)</td><td>4–8</td><td>L/min</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title teal">Componentes do CaO₂</div>
+    <div class="quad-grid">
+      <div class="quad ok">
+        <div class="quad-header">Componente ligado à Hb</div>
+        <div class="formula" style="font-size:11px;padding:8px;margin:6px 0;color:var(--green);">Hb × 1,34 × SaO₂</div>
+        <div class="quad-body">Responsável por <strong>~98%</strong> do transporte de O₂. 1 g de Hb carrega 1,34 mL de O₂ quando saturada.</div>
+      </div>
+      <div class="quad ok">
+        <div class="quad-header">Componente dissolvido</div>
+        <div class="formula" style="font-size:11px;padding:8px;margin:6px 0;color:var(--teal);">pO₂ × 0,003</div>
+        <div class="quad-body">Responsável por <strong>~2%</strong> do transporte. Só ganha relevância em hiperbárica ou com Hb muito baixa.</div>
+      </div>
+    </div>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Implicação clínica fundamental</strong>A hemoglobina domina o transporte de O₂. Uma Hb de 7 g/dL com SaO₂ de 100% entrega menos O₂ que uma Hb de 12 g/dL com SaO₂ de 95%. Por isso anemia grave agrava qualquer tipo de choque.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title blue">Como estimar o DC à beira do leito</div>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">1</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">VTI pelo POCUS (método preferencial)</div><div class="flow-desc">DC = VTI subvalvar aórtico × área do VSVE × FC. O VSVE é calculado como π × (diâmetro/2)². Método não invasivo com boa correlação com termodiluição.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">2</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Fick reverso (quando VO₂ estimado)</div><div class="flow-desc">DC = VO₂ / (CaO₂ − CvO₂). Estimativa de VO₂ = 125 × SC (ou 3,5 mL/kg/min). Útil quando não há ecocardiografia disponível.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">3</div></div><div class="flow-content"><div class="flow-title">Índice cardíaco (IC)</div><div class="flow-desc">IC = DC / SC (superfície corporal). Normal: 2,5–4,0 L/min/m². IC &lt; 2,2 L/min/m² define baixo débito hemodinâmico.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title coral">O triângulo da oferta — onde intervir</div>
+    <table>
+      <tr><th>Componente do DO₂</th><th>Intervenção</th><th>Meta</th></tr>
+      <tr><td>Hb baixa</td><td>Transfusão de hemácias</td><td>Hb ≥ 7–8 g/dL em sepse / ≥ 8–10 em cardiopata</td></tr>
+      <tr><td>SaO₂ baixa</td><td>O₂ suplementar, VNI, IOT</td><td>SaO₂ ≥ 94%</td></tr>
+      <tr><td>DC baixo</td><td>Volume, inotrópico, vasopressor</td><td>IC ≥ 2,2 L/min/m² · PAM ≥ 65 mmHg</td></tr>
+    </table>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content">O DO₂ conecta tudo: a SvcO₂ baixa sinaliza que o DO₂ está inadequado para a demanda. O Δ pCO₂ elevado confirma que o fluxo está insuficiente. O POCUS de VCI orienta qual componente do DC está falhando.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title green">Calculadora DO₂ e CaO₂</div>
+    <div class="quad-grid">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="calc-field"><label class="calc-label">Hemoglobina (g/dL)</label><input type="number" id="hb" class="calc-input" placeholder="ex: 10" step="0.1" min="0" max="25" oninput="calcDO2()"></div>
+        <div class="calc-field"><label class="calc-label">SaO₂ arterial (%)</label><input type="number" id="sao2" class="calc-input" placeholder="ex: 97" step="0.1" min="0" max="100" oninput="calcDO2()"></div>
+        <div class="calc-field"><label class="calc-label">pO₂ arterial (mmHg)</label><input type="number" id="po2" class="calc-input" placeholder="ex: 90" min="0" max="600" oninput="calcDO2()"></div>
+        <div class="calc-field"><label class="calc-label">Débito cardíaco (L/min)</label><input type="number" id="dc" class="calc-input" placeholder="ex: 5" step="0.1" min="0" max="20" oninput="calcDO2()"></div>
+      </div>
+      <div>
+        <div class="calc-result" id="result-do2" style="display:none;">
+          <div style="margin-bottom:12px;">
+            <div class="calc-label">CaO₂</div>
+            <div class="calc-result-value" id="val-cao2">—</div>
+            <div class="calc-result-interp" id="interp-cao2"></div>
+          </div>
+          <div>
+            <div class="calc-label">DO₂</div>
+            <div class="calc-result-value" id="val-do2">—</div>
+            <div class="calc-result-interp" id="interp-do2"></div>
+          </div>
+        </div>
+        <div id="result-do2-empty" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:14px;color:var(--muted);font-size:12px;text-align:center;">Preencha os campos ao lado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULADORA -->
+<section id="calc" class="section">
+  <p class="section-title">Calculadora Clínica</p>
+  <p class="section-sub">Calcule e interprete os parâmetros na beira do leito</p>
+  <div class="card">
+    <div class="card-title blue">Δ pCO₂ venoarterial</div>
+    <div class="calc-field"><label class="calc-label">pCO₂ venosa central (mmHg)</label><input type="number" id="pco2v" class="calc-input" placeholder="ex: 48" min="0" max="150" oninput="calcDelta()"></div>
+    <div class="calc-field"><label class="calc-label">pCO₂ arterial (mmHg)</label><input type="number" id="pco2a" class="calc-input" placeholder="ex: 38" min="0" max="150" oninput="calcDelta()"></div>
+    <div class="calc-result" id="result-delta" style="display:none;"><div class="calc-result-value" id="val-delta">—</div><div class="calc-result-interp" id="interp-delta"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title teal">cIVC — Índice de Colapsibilidade (ventilação espontânea)</div>
+    <div class="calc-field"><label class="calc-label">Diâmetro máximo VCI — expiração (cm)</label><input type="number" id="vcimax" class="calc-input" placeholder="ex: 2.2" step="0.1" min="0" max="5" oninput="calcVCI()"></div>
+    <div class="calc-field"><label class="calc-label">Diâmetro mínimo VCI — inspiração (cm)</label><input type="number" id="vcimin" class="calc-input" placeholder="ex: 0.9" step="0.1" min="0" max="5" oninput="calcVCI()"></div>
+    <div class="calc-result" id="result-vci" style="display:none;"><div class="calc-result-value" id="val-vci">—</div><div class="calc-result-interp" id="interp-vci"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title purple">dIVC — Índice de Distensibilidade (ventilação mecânica)</div>
+    <div class="calc-field"><label class="calc-label">Diâmetro máximo VCI — inspiração (cm)</label><input type="number" id="dvcimx" class="calc-input" placeholder="ex: 2.4" step="0.1" min="0" max="5" oninput="calcDVCI()"></div>
+    <div class="calc-field"><label class="calc-label">Diâmetro mínimo VCI — expiração (cm)</label><input type="number" id="dvcimn" class="calc-input" placeholder="ex: 1.8" step="0.1" min="0" max="5" oninput="calcDVCI()"></div>
+    <div class="calc-result" id="result-dvci" style="display:none;"><div class="calc-result-value" id="val-dvci">—</div><div class="calc-result-interp" id="interp-dvci"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title amber">Fórmula de Winter — compensação respiratória na acidose metabólica</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Verifica se a compensação respiratória está adequada para o grau de acidose metabólica</p>
+    <div class="calc-field"><label class="calc-label">HCO₃ medido (mmol/L)</label><input type="number" id="hco3" class="calc-input" placeholder="ex: 18" min="0" max="50" oninput="calcWinter()"></div>
+    <div class="calc-field"><label class="calc-label">pCO₂ arterial medido (mmHg)</label><input type="number" id="pco2w" class="calc-input" placeholder="ex: 37" min="0" max="100" oninput="calcWinter()"></div>
+    <div class="calc-result" id="result-winter" style="display:none;"><div class="calc-result-value" id="val-winter">—</div><div class="calc-result-interp" id="interp-winter"></div></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div>Referências: Surviving Sepsis Campaign 2026 (CCM + ICM) · LITFL · StatPearls · Critical Care Medicine 2021 · REBEL EM · Atualizado maio/2026</div>
+</footer>
+
+<script>
+function calcDO2(){
+  const hb=parseFloat(document.getElementById('hb').value);
+  const sao2=parseFloat(document.getElementById('sao2').value);
+  const po2=parseFloat(document.getElementById('po2').value);
+  const dc=parseFloat(document.getElementById('dc').value);
+  const empty=document.getElementById('result-do2-empty');
+  const res=document.getElementById('result-do2');
+  if(isNaN(hb)||isNaN(sao2)||isNaN(po2)){res.style.display='none';empty.style.display='block';return;}
+  const cao2=(hb*1.34*(sao2/100))+(po2*0.003);
+  document.getElementById('val-cao2').textContent=cao2.toFixed(1)+' mL O₂/dL';
+  let cc='var(--green)';
+  let ci='Normal (18–20 mL O₂/dL)';
+  if(cao2<14){cc='var(--red)';ci='Muito reduzido — avaliar Hb e SaO₂';}
+  else if(cao2<17){cc='var(--amber)';ci='Reduzido — verificar componentes';}
+  document.getElementById('val-cao2').style.color=cc;
+  document.getElementById('interp-cao2').innerHTML=ci;
+  if(!isNaN(dc)&&dc>0){
+    const do2=dc*cao2*10;
+    document.getElementById('val-do2').textContent=do2.toFixed(0)+' mL O₂/min';
+    let dc2='var(--green)';
+    let di='Normal (950–1150 mL O₂/min)';
+    if(do2<500){dc2='var(--red)';di='Gravemente reduzido — hipoperfusão crítica';}
+    else if(do2<700){dc2='var(--amber)';di='Reduzido — avaliar DC e CaO₂';}
+    document.getElementById('val-do2').style.color=dc2;
+    document.getElementById('interp-do2').innerHTML=di;
+  } else {
+    document.getElementById('val-do2').textContent='—';
+    document.getElementById('interp-do2').innerHTML='Informe o DC para calcular DO₂';
+    document.getElementById('val-do2').style.color='var(--muted)';
+  }
+  empty.style.display='none';
+  res.style.display='block';
+}
+function showSection(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function calcDelta(){
+  const v=parseFloat(document.getElementById('pco2v').value);
+  const a=parseFloat(document.getElementById('pco2a').value);
+  const el=document.getElementById('result-delta');
+  if(isNaN(v)||isNaN(a)){el.style.display='none';return;}
+  const d=v-a;
+  document.getElementById('val-delta').textContent=d.toFixed(1)+' mmHg';
+  let t,c;
+  if(d<6){t='Normal (&lt; 6 mmHg) — fluxo tecidual adequado';c='var(--green)';}
+  else if(d<10){t='Elevado (6–10 mmHg) — possível baixo fluxo tecidual';c='var(--amber)';}
+  else{t='Muito elevado (&gt; 10 mmHg) — baixo débito / hipoperfusão significativa';c='var(--red)';}
+  document.getElementById('val-delta').style.color=c;
+  document.getElementById('interp-delta').innerHTML=t;
+  el.style.display='block';
+}
+function calcVCI(){
+  const mx=parseFloat(document.getElementById('vcimax').value);
+  const mn=parseFloat(document.getElementById('vcimin').value);
+  const el=document.getElementById('result-vci');
+  if(isNaN(mx)||isNaN(mn)||mx<=0){el.style.display='none';return;}
+  const c=(mx-mn)/mx*100;
+  document.getElementById('val-vci').textContent=c.toFixed(1)+'% (cIVC)';
+  let t,col;
+  if(c>50){t='&gt; 50% — Muito provavelmente responsivo a volume';col='var(--green)';}
+  else if(c>=20){t='20–50% — Zona cinzenta — realizar PLR ou fluid challenge mínimo';col='var(--amber)';}
+  else{t='&lt; 20% — Provavelmente não responsivo — avaliar causa da VCI dilatada';col='var(--red)';}
+  let d='';
+  if(mx<1.5)d=' · VCI &lt; 1,5 cm — hipovolemia provável';
+  else if(mx>2.1)d=' · VCI &gt; 2,1 cm — congestão / pressão de VD elevada';
+  document.getElementById('val-vci').style.color=col;
+  document.getElementById('interp-vci').innerHTML=t+d;
+  el.style.display='block';
+}
+function calcDVCI(){
+  const mx=parseFloat(document.getElementById('dvcimx').value);
+  const mn=parseFloat(document.getElementById('dvcimn').value);
+  const el=document.getElementById('result-dvci');
+  if(isNaN(mx)||isNaN(mn)||mn<=0){el.style.display='none';return;}
+  const d=(mx-mn)/mn*100;
+  document.getElementById('val-dvci').textContent=d.toFixed(1)+'% (dIVC)';
+  let t,c;
+  if(d>18){t='&gt; 18% — Responsivo a volume em ventilação mecânica';c='var(--green)';}
+  else{t='≤ 18% — Não responsivo — não administrar volume adicional';c='var(--red)';}
+  document.getElementById('val-dvci').style.color=c;
+  document.getElementById('interp-dvci').innerHTML=t;
+  el.style.display='block';
+}
+function calcWinter(){
+  const h=parseFloat(document.getElementById('hco3').value);
+  const p=parseFloat(document.getElementById('pco2w').value);
+  const el=document.getElementById('result-winter');
+  if(isNaN(h)||isNaN(p)){el.style.display='none';return;}
+  const exp=1.5*h+8;
+  const lo=(exp-2).toFixed(1),hi=(exp+2).toFixed(1);
+  document.getElementById('val-winter').textContent='Esperado: '+lo+'–'+hi+' mmHg';
+  let t,c;
+  if(p>=(exp-2)&&p<=(exp+2)){t='pCO₂ medido ('+p+') dentro do esperado — compensação respiratória <strong>adequada</strong>. Distúrbio simples.';c='var(--green)';}
+  else if(p<(exp-2)){t='pCO₂ medido ('+p+') <strong>abaixo</strong> do esperado — alcalose respiratória primária associada (distúrbio misto).';c='var(--amber)';}
+  else{t='pCO₂ medido ('+p+') <strong>acima</strong> do esperado — acidose respiratória primária associada (distúrbio misto).';c='var(--coral)';}
+  document.getElementById('val-winter').style.color=c;
+  document.getElementById('interp-winter').innerHTML=t;
+  el.style.display='block';
+}
+</script>
+</body>
+</html>
