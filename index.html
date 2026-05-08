@@ -34,15 +34,30 @@
   .card-title.green::before{background:var(--green)}.card-title.amber::before{background:var(--amber)}
   .card-title.red::before{background:var(--red)}.card-title.purple::before{background:var(--purple)}
   .card-title.teal::before{background:var(--teal)}.card-title.coral::before{background:var(--coral)}
-  .formula{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:13px;color:var(--accent);margin:10px 0;letter-spacing:0.02em}
+  .formula{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:12px 18px;font-family:var(--mono);font-size:14px;color:var(--accent);margin:10px 0;letter-spacing:0.03em;line-height:1.7;text-align:center;overflow-x:auto;white-space:nowrap}
+  .formula sub{font-size:0.7em;letter-spacing:0;vertical-align:sub;color:inherit;opacity:0.85;margin-left:0.5px}
+  .formula sup{font-size:0.7em;letter-spacing:0;vertical-align:super;color:inherit;opacity:0.85}
+  .formula .op{display:inline-block;margin:0 0.4em;color:var(--muted);font-weight:400}
+  .formula .num{color:var(--text);opacity:0.9}
+  .formula .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 0.25em;line-height:1.1}
+  .formula .frac > span:first-child{padding:0 0.4em 2px;border-bottom:1px solid currentColor}
+  .formula .frac > span:last-child{padding:2px 0.4em 0}
+  .formula.teal{color:var(--teal)}
+  .formula.green{color:var(--green)}
+  .formula.purple{color:var(--purple)}
+  .formula.amber{color:var(--amber)}
+  .formula.red{color:var(--red)}
+  .formula.coral{color:var(--coral)}
+  .formula.compact{padding:8px 12px;font-size:13px}
   table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
   .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0}
   .table-wrap table{margin:0;min-width:560px}
+  .table-wrap table th{white-space:nowrap}
   th{font-family:var(--mono);font-size:10px;letter-spacing:0.06em;color:var(--muted);text-align:left;padding:6px 10px;border-bottom:1px solid var(--border)}
   td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
   tr:last-child td{border-bottom:none}
   tr:hover td{background:rgba(255,255,255,0.02)}
-  .pill{display:inline-block;padding:2px 10px;border-radius:20px;font-family:var(--mono);font-size:11px;font-weight:600}
+  .pill{display:inline-block;padding:2px 10px;border-radius:20px;font-family:var(--mono);font-size:11px;font-weight:600;white-space:nowrap}
   .pill-green{background:rgba(52,211,153,0.15);color:var(--green);border:1px solid rgba(52,211,153,0.3)}
   .pill-amber{background:rgba(251,191,36,0.15);color:var(--amber);border:1px solid rgba(251,191,36,0.3)}
   .pill-red{background:rgba(248,113,113,0.15);color:var(--red);border:1px solid rgba(248,113,113,0.3)}
@@ -160,13 +175,6 @@
   .card.collapsible .card-body{display:none;padding:0 16px 16px}
   .card.collapsible.open .card-body{display:block}
   .card.collapsible .card-body > *:first-child{margin-top:4px}
-  .eq{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:14px 18px;margin:10px 0;text-align:center;color:var(--accent);overflow-x:auto}
-  .eq.teal{color:var(--teal)}
-  .eq.green{color:var(--green)}
-  .eq.purple{color:var(--purple)}
-  .eq.amber{color:var(--amber)}
-  .eq mjx-container{margin:0 !important}
-  .eq mjx-container[display="true"]{margin:0 !important}
   .glossary-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:24px;margin-bottom:0}
   .glossary-card .glossary-title{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px}
   .glossary-card dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 14px;margin:0}
@@ -175,10 +183,6 @@
   .glossary-card dl > div{display:block;padding:3px 0}
   @media(max-width:600px){.main{padding:16px}.header{padding:16px}h1{font-size:17px}}
 </style>
-<script>
-  window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'},startup:{typeset:true}};
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
 </head>
 <body>
 
@@ -213,8 +217,8 @@
   <div class="card">
     <div class="card-title">Princípio de Fick — oferta vs. demanda</div>
     <div class="quad-grid">
-      <div class="quad ok"><div class="quad-header" style="color:var(--accent);">DO₂ — oferta</div><div class="eq" style="font-size:14px;padding:10px;margin:6px 0;">$$DO_2 = DC \times CaO_2 \times 10$$</div><div class="quad-body">O quanto de O₂ o coração entrega aos tecidos por minuto. Normal: <strong>950–1150 mL/min</strong>.</div></div>
-      <div class="quad ok"><div class="quad-header" style="color:var(--teal);">VO₂ — demanda (consumo)</div><div class="eq teal" style="font-size:14px;padding:10px;margin:6px 0;">$$VO_2 = DC \times (CaO_2 - CvO_2)$$</div><div class="quad-body">O quanto de O₂ os tecidos efetivamente consomem. Normal: <strong>200–300 mL/min</strong>.</div></div>
+      <div class="quad ok"><div class="quad-header" style="color:var(--accent);">DO₂ — oferta</div><div class="formula compact">DO<sub>2</sub><span class="op">=</span>DC<span class="op">×</span>CaO<sub>2</sub><span class="op">×</span><span class="num">10</span></div><div class="quad-body">O quanto de O₂ o coração entrega aos tecidos por minuto. Normal: <strong>950–1150 mL/min</strong>.</div></div>
+      <div class="quad ok"><div class="quad-header" style="color:var(--teal);">VO₂ — demanda (consumo)</div><div class="formula teal compact">VO<sub>2</sub><span class="op">=</span>DC<span class="op">×</span>(CaO<sub>2</sub><span class="op">−</span>CvO<sub>2</sub>)</div><div class="quad-body">O quanto de O₂ os tecidos efetivamente consomem. Normal: <strong>200–300 mL/min</strong>.</div></div>
     </div>
     <p style="font-size:13px;color:var(--muted);margin-top:10px;">Em condições normais, a oferta é cerca de <strong style="color:var(--text);">4× a demanda</strong> — taxa de extração de O₂ ≈ 25%. Se DC cai, Hb cai ou SaO₂ cai, a oferta despenca; os tecidos extraem mais O₂ e a saturação venosa retornante ao coração <strong style="color:var(--text);">diminui</strong>. É essa diferença que se mede como SvcO₂.</p>
     <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content"><strong>Por que DO₂ e VO₂ se conectam</strong>Quando DO₂ cai mas a demanda continua, o organismo compensa aumentando a extração — SvcO₂ cai. Quando a demanda excede a capacidade de extração (DO₂ crítico), surge metabolismo anaeróbico e lactato sobe. É a base de toda a interpretação dos quadrantes.</div></div>
@@ -310,7 +314,7 @@
   <p class="section-sub">O marcador de fluxo que a SvcO₂ não captura</p>
   <div class="card">
     <div class="card-title teal">Cálculo</div>
-    <div class="eq">$$\Delta pCO_2 = pCO_{2\,venosa\,central} - pCO_{2\,arterial}$$</div>
+    <div class="formula">Δ pCO<sub>2</sub><span class="op">=</span>pCO<sub>2 venosa central</sub><span class="op">−</span>pCO<sub>2 arterial</sub></div>
     <div class="tag-row"><span class="tag">Normal: &lt; 6 mmHg</span><span class="tag">Baixo fluxo: ≥ 6 mmHg</span><span class="tag">Coletar simultaneamente</span></div>
   </div>
   <div class="card">
@@ -400,12 +404,12 @@
     <div class="quad-grid">
       <div class="quad ok" style="border-color:rgba(56,189,248,0.3);">
         <div class="quad-header" style="color:var(--accent);">Ventilação espontânea</div>
-        <div class="eq" style="padding:10px;margin:6px 0;">$$cIVC = \frac{D_{max} - D_{min}}{D_{max}} \times 100$$</div>
+        <div class="formula compact">cIVC<span class="op">=</span><span class="frac"><span>D<sub>max</sub> − D<sub>min</sub></span><span>D<sub>max</sub></span></span><span class="op">×</span><span class="num">100</span></div>
         <div class="quad-body"><strong>&gt; 50%</strong> — responsivo<br><strong>20–50%</strong> — zona cinzenta<br><strong>&lt; 20%</strong> — não responsivo<br><span style="font-size:11px;margin-top:4px;display:block;color:var(--muted);">VCI colapsa na inspiração (queda da pressão intratorácica)</span></div>
       </div>
       <div class="quad ok" style="border-color:rgba(167,139,250,0.3);">
         <div class="quad-header" style="color:var(--purple);">Ventilação mecânica</div>
-        <div class="eq purple" style="padding:10px;margin:6px 0;">$$dIVC = \frac{D_{max} - D_{min}}{D_{min}} \times 100$$</div>
+        <div class="formula purple compact">dIVC<span class="op">=</span><span class="frac"><span>D<sub>max</sub> − D<sub>min</sub></span><span>D<sub>min</sub></span></span><span class="op">×</span><span class="num">100</span></div>
         <div class="quad-body"><strong>&gt; 18%</strong> — responsivo<br><strong>&lt; 18%</strong> — não responsivo<br><span style="font-size:11px;margin-top:4px;display:block;color:var(--muted);">VCI dilata na inspiração (elevação da pressão intratorácica)</span><br><span style="font-size:11px;color:var(--amber);">Válido: Vt ≥ 8 mL/kg, sem esforço espontâneo, ritmo regular</span></div>
       </div>
     </div>
@@ -709,12 +713,13 @@
       <tr><td><span class="pill pill-red">Hipovolêmico</span></td><td>Baixo</td><td>Alta</td><td>Baixa</td><td>Baixa</td><td>Normal</td><td>Baixa</td><td>Hemorragia, desidratação, queimadura</td></tr>
       <tr><td><span class="pill pill-coral">Distributivo</span></td><td>Alto</td><td>Baixa</td><td>Baixa/normal</td><td>Baixa/normal</td><td>Normal</td><td>Alta (falsa)</td><td>Sepse, anafilaxia, neurogênico</td></tr>
       <tr><td><span class="pill pill-amber">Cardiogênico</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td><strong style="color:var(--amber);">Alta</strong></td><td>Alta</td><td>Baixa</td><td>IAM, miocardite, arritmia</td></tr>
-      <tr><td><span class="pill pill-blue">Obstrutivo (TEP)</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>Normal/baixa</td><td><strong style="color:var(--amber);">Alta</strong></td><td>Baixa</td><td>TEP maciço (sobrecarga de VD)</td></tr>
-      <tr><td><span class="pill pill-blue">Obstrutivo (tamp.)</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>Alta (equalizada)</td><td>Alta (equalizada)</td><td>Baixa</td><td>Tamponamento, pneumotórax hipertensivo</td></tr>
+      <tr><td><span class="pill pill-blue">TEP / obstrutivo VD</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>Normal/baixa</td><td><strong style="color:var(--amber);">Alta</strong></td><td>Baixa</td><td>TEP maciço (sobrecarga de VD)</td></tr>
+      <tr><td><span class="pill pill-blue">Tamponamento</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>Alta (equalizada)</td><td>Alta (equalizada)</td><td>Baixa</td><td>Tamponamento pericárdico, pneumotórax hipertensivo</td></tr>
     </table></div>
     <p style="font-size:12px;color:var(--muted);margin-top:8px;">DC = débito cardíaco · IC = índice cardíaco · RVS = resistência vascular sistêmica · PVC = pressão venosa central · PoAP = pressão de oclusão da artéria pulmonar (wedge / PAOP) · PAP = pressão da artéria pulmonar</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:6px;"><span style="color:var(--amber);font-weight:600;">Em destaque amarelo</span> · achado-chave que define o padrão hemodinâmico em cada tipo de choque.</p>
     <div style="margin-top:14px;">
-      <div class="card-title" style="margin-bottom:8px;">Mnemônico para prova — diagnóstico pelo padrão</div>
+      <div class="card-title" style="margin-bottom:8px;">Diagnóstico rápido pelo padrão hemodinâmico</div>
       <div class="table-wrap"><table>
         <tr><th>Achado-chave</th><th>+ Outros parâmetros</th><th>Diagnóstico</th></tr>
         <tr><td><strong>PoAP alta</strong></td><td>PAP normal ou alta · PVC alta</td><td><span class="pill pill-amber">Cardiogênico</span></td></tr>
@@ -761,7 +766,7 @@
 
   <div class="card">
     <div class="card-title teal">Pressão de pulso — o que revela</div>
-    <div class="eq teal">$$PP = PAS - PAD$$</div>
+    <div class="formula teal">PP<span class="op">=</span>PAS<span class="op">−</span>PAD</div>
     <p style="font-size:13px;color:var(--muted);margin:8px 0;">Normal: 40–60 mmHg. Reflete indiretamente o volume sistólico e a complacência aórtica.</p>
     <table>
       <tr><th>Pressão de pulso</th><th>Interpretação</th><th>Pensar em</th></tr>
@@ -774,7 +779,7 @@
 
   <div class="card">
     <div class="card-title blue">Variação de Pressão de Pulso (VPP) — paciente intubado</div>
-    <div class="eq">$$VPP = \frac{PP_{max} - PP_{min}}{(PP_{max} + PP_{min})/2} \times 100$$</div>
+    <div class="formula">VPP<span class="op">=</span><span class="frac"><span>PP<sub>max</sub> − PP<sub>min</sub></span><span>(PP<sub>max</sub> + PP<sub>min</sub>) / 2</span></span><span class="op">×</span><span class="num">100</span></div>
     <div class="tag-row">
       <span class="tag">Válido: VM controlada · Vt ≥ 8 mL/kg · Ritmo sinusal</span>
     </div>
@@ -819,8 +824,8 @@
 
   <div class="card">
     <div class="card-title">Hierarquia das fórmulas</div>
-    <div class="eq">$$DO_2 = DC \times CaO_2 \times 10$$</div>
-    <div class="eq teal">$$CaO_2 = (Hb \times 1{,}34 \times SaO_2) + (pO_2 \times 0{,}003)$$</div>
+    <div class="formula">DO<sub>2</sub><span class="op">=</span>DC<span class="op">×</span>CaO<sub>2</sub><span class="op">×</span><span class="num">10</span></div>
+    <div class="formula teal">CaO<sub>2</sub><span class="op">=</span>(Hb<span class="op">×</span><span class="num">1,34</span><span class="op">×</span>SaO<sub>2</sub>)<span class="op">+</span>(pO<sub>2</sub><span class="op">×</span><span class="num">0,003</span>)</div>
     <p style="font-size:13px;color:var(--muted);margin-top:10px;">O DO₂ é a quantidade total de O₂ entregue aos tecidos por minuto (mL/min). O CaO₂ é o conteúdo de O₂ no sangue arterial (mL O₂/dL sangue). O fator 10 converte dL para L.</p>
     <table style="margin-top:10px;">
       <tr><th>Parâmetro</th><th>Normal</th><th>Unidade</th></tr>
@@ -835,12 +840,12 @@
     <div class="quad-grid">
       <div class="quad ok">
         <div class="quad-header">Componente ligado à Hb</div>
-        <div class="eq green" style="padding:10px;margin:6px 0;font-size:14px;">$$Hb \times 1{,}34 \times SaO_2$$</div>
+        <div class="formula green compact">Hb<span class="op">×</span><span class="num">1,34</span><span class="op">×</span>SaO<sub>2</sub></div>
         <div class="quad-body">Responsável por <strong>~98%</strong> do transporte de O₂. 1 g de Hb carrega 1,34 mL de O₂ quando saturada.</div>
       </div>
       <div class="quad ok">
         <div class="quad-header">Componente dissolvido</div>
-        <div class="eq teal" style="padding:10px;margin:6px 0;font-size:14px;">$$pO_2 \times 0{,}003$$</div>
+        <div class="formula teal compact">pO<sub>2</sub><span class="op">×</span><span class="num">0,003</span></div>
         <div class="quad-body">Responsável por <strong>~2%</strong> do transporte. Só ganha relevância em hiperbárica ou com Hb muito baixa.</div>
       </div>
     </div>
@@ -1132,7 +1137,7 @@
 
   <div class="card">
     <div class="card-title blue">Δ pCO₂ venoarterial</div>
-    <div class="eq" style="font-size:14px;">$$\Delta pCO_2 = pCO_{2\,venosa} - pCO_{2\,arterial}$$</div>
+    <div class="formula">Δ pCO<sub>2</sub><span class="op">=</span>pCO<sub>2 venosa</sub><span class="op">−</span>pCO<sub>2 arterial</sub></div>
     <div class="calc-fields">
       <div class="calc-field"><label class="calc-label">pCO₂ venosa central (mmHg)</label><input type="number" id="pco2v" class="calc-input" placeholder="ex: 48" min="0" max="150" oninput="calcDelta()"></div>
       <div class="calc-field"><label class="calc-label">pCO₂ arterial (mmHg)</label><input type="number" id="pco2a" class="calc-input" placeholder="ex: 38" min="0" max="150" oninput="calcDelta()"></div>
@@ -1143,7 +1148,7 @@
 
   <div class="card">
     <div class="card-title teal">cIVC — Índice de Colapsibilidade (ventilação espontânea)</div>
-    <div class="eq teal" style="font-size:14px;">$$cIVC = \frac{D_{max} - D_{min}}{D_{max}} \times 100$$</div>
+    <div class="formula teal">cIVC<span class="op">=</span><span class="frac"><span>D<sub>max</sub> − D<sub>min</sub></span><span>D<sub>max</sub></span></span><span class="op">×</span><span class="num">100</span></div>
     <div class="calc-fields">
       <div class="calc-field"><label class="calc-label">Diâmetro máximo VCI — expiração (cm)</label><input type="number" id="vcimax" class="calc-input" placeholder="ex: 2.2" step="0.1" min="0" max="5" oninput="calcVCI()"></div>
       <div class="calc-field"><label class="calc-label">Diâmetro mínimo VCI — inspiração (cm)</label><input type="number" id="vcimin" class="calc-input" placeholder="ex: 0.9" step="0.1" min="0" max="5" oninput="calcVCI()"></div>
@@ -1154,7 +1159,7 @@
 
   <div class="card">
     <div class="card-title purple">dIVC — Índice de Distensibilidade (ventilação mecânica)</div>
-    <div class="eq purple" style="font-size:14px;">$$dIVC = \frac{D_{max} - D_{min}}{D_{min}} \times 100$$</div>
+    <div class="formula purple">dIVC<span class="op">=</span><span class="frac"><span>D<sub>max</sub> − D<sub>min</sub></span><span>D<sub>min</sub></span></span><span class="op">×</span><span class="num">100</span></div>
     <div class="calc-fields">
       <div class="calc-field"><label class="calc-label">Diâmetro máximo VCI — inspiração (cm)</label><input type="number" id="dvcimx" class="calc-input" placeholder="ex: 2.4" step="0.1" min="0" max="5" oninput="calcDVCI()"></div>
       <div class="calc-field"><label class="calc-label">Diâmetro mínimo VCI — expiração (cm)</label><input type="number" id="dvcimn" class="calc-input" placeholder="ex: 1.8" step="0.1" min="0" max="5" oninput="calcDVCI()"></div>
@@ -1165,7 +1170,7 @@
 
   <div class="card">
     <div class="card-title blue">VPP — Variação de Pressão de Pulso (paciente intubado)</div>
-    <div class="eq" style="font-size:14px;">$$VPP = \frac{PP_{max} - PP_{min}}{(PP_{max} + PP_{min})/2} \times 100$$</div>
+    <div class="formula">VPP<span class="op">=</span><span class="frac"><span>PP<sub>max</sub> − PP<sub>min</sub></span><span>(PP<sub>max</sub> + PP<sub>min</sub>) / 2</span></span><span class="op">×</span><span class="num">100</span></div>
     <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Prediz responsividade a volume. Válido em VM controlada, Vt ≥ 8 mL/kg e ritmo sinusal. Use as pressões de pulso (PAS − PAD) máxima e mínima de um mesmo ciclo respiratório.</p>
     <div class="calc-fields">
       <div class="calc-field"><label class="calc-label">PP máxima — inspiração (mmHg)</label><input type="number" id="ppmax" class="calc-input" placeholder="ex: 55" min="0" max="200" oninput="calcVPP()"></div>
@@ -1177,8 +1182,8 @@
 
   <div class="card">
     <div class="card-title green">DO₂ e CaO₂ — oferta de oxigênio</div>
-    <div class="eq green" style="font-size:14px;">$$CaO_2 = (Hb \times 1{,}34 \times SaO_2) + (pO_2 \times 0{,}003)$$</div>
-    <div class="eq" style="font-size:14px;">$$DO_2 = DC \times CaO_2 \times 10$$</div>
+    <div class="formula green">CaO<sub>2</sub><span class="op">=</span>(Hb<span class="op">×</span><span class="num">1,34</span><span class="op">×</span>SaO<sub>2</sub>)<span class="op">+</span>(pO<sub>2</sub><span class="op">×</span><span class="num">0,003</span>)</div>
+    <div class="formula">DO<sub>2</sub><span class="op">=</span>DC<span class="op">×</span>CaO<sub>2</sub><span class="op">×</span><span class="num">10</span></div>
     <div class="calc-fields">
       <div class="calc-field"><label class="calc-label">Hemoglobina (g/dL)</label><input type="number" id="hb" class="calc-input" placeholder="ex: 10" step="0.1" min="0" max="25" oninput="calcDO2()"></div>
       <div class="calc-field"><label class="calc-label">SaO₂ arterial (%)</label><input type="number" id="sao2" class="calc-input" placeholder="ex: 97" step="0.1" min="0" max="100" oninput="calcDO2()"></div>
@@ -1202,7 +1207,7 @@
 
   <div class="card">
     <div class="card-title amber">Fórmula de Winter — compensação respiratória na acidose metabólica</div>
-    <div class="eq amber" style="font-size:14px;">$$pCO_{2\,esperado} = 1{,}5 \times HCO_3^- + 8 \pm 2$$</div>
+    <div class="formula amber">pCO<sub>2 esperado</sub><span class="op">=</span><span class="num">1,5</span><span class="op">×</span>HCO<sub>3</sub><sup>−</sup><span class="op">+</span><span class="num">8</span><span class="op">±</span><span class="num">2</span></div>
     <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Verifica se a compensação respiratória está adequada para o grau de acidose metabólica.</p>
     <div class="calc-fields">
       <div class="calc-field"><label class="calc-label">HCO₃ medido (mmol/L)</label><input type="number" id="hco3" class="calc-input" placeholder="ex: 18" min="0" max="50" oninput="calcWinter()"></div>
