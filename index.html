@@ -789,6 +789,13 @@
     <div class="calc-field"><label class="calc-label">pCO₂ arterial medido (mmHg)</label><input type="number" id="pco2w" class="calc-input" placeholder="ex: 37" min="0" max="100" oninput="calcWinter()"></div>
     <div class="calc-result" id="result-winter" style="display:none;"><div class="calc-result-value" id="val-winter">—</div><div class="calc-result-interp" id="interp-winter"></div></div>
   </div>
+  <div class="card">
+    <div class="card-title blue">VPP — Variação de Pressão de Pulso (paciente intubado)</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Prediz responsividade a volume. Válido em VM controlada, Vt ≥ 8 mL/kg e ritmo sinusal. Use as pressões de pulso (PAS − PAD) máxima e mínima de um mesmo ciclo respiratório.</p>
+    <div class="calc-field"><label class="calc-label">PP máxima — inspiração (mmHg)</label><input type="number" id="ppmax" class="calc-input" placeholder="ex: 55" min="0" max="200" oninput="calcVPP()"></div>
+    <div class="calc-field"><label class="calc-label">PP mínima — expiração (mmHg)</label><input type="number" id="ppmin" class="calc-input" placeholder="ex: 42" min="0" max="200" oninput="calcVPP()"></div>
+    <div class="calc-result" id="result-vpp" style="display:none;"><div class="calc-result-value" id="val-vpp">—</div><div class="calc-result-interp" id="interp-vpp"></div></div>
+  </div>
 </section>
 
 </main>
@@ -899,6 +906,28 @@ function calcWinter(){
   else{t='pCO₂ medido ('+p+') <strong>acima</strong> do esperado — acidose respiratória primária associada (distúrbio misto).';c='var(--coral)';}
   document.getElementById('val-winter').style.color=c;
   document.getElementById('interp-winter').innerHTML=t;
+  el.style.display='block';
+}
+function calcVPP(){
+  const mx=parseFloat(document.getElementById('ppmax').value);
+  const mn=parseFloat(document.getElementById('ppmin').value);
+  const el=document.getElementById('result-vpp');
+  if(isNaN(mx)||isNaN(mn)||(mx+mn)<=0){el.style.display='none';return;}
+  if(mn>mx){
+    document.getElementById('val-vpp').textContent='Inválido';
+    document.getElementById('val-vpp').style.color='var(--red)';
+    document.getElementById('interp-vpp').innerHTML='PP mínima não pode ser maior que PP máxima — verifique os valores.';
+    el.style.display='block';
+    return;
+  }
+  const v=(mx-mn)/((mx+mn)/2)*100;
+  document.getElementById('val-vpp').textContent=v.toFixed(1)+'% (VPP)';
+  let t,c;
+  if(v>13){t='&gt; 13% — Responsivo a volume — repor com segurança (cristaloide balanceado 250–500 mL, reavaliar)';c='var(--red)';}
+  else if(v>=9){t='9–13% — Zona cinzenta — considerar fluid challenge mínimo ou PLR com VTI antes de decidir';c='var(--amber)';}
+  else{t='&lt; 9% — Não responsivo a volume — não administrar volume adicional, avaliar vasopressor ou inotrópico';c='var(--green)';}
+  document.getElementById('val-vpp').style.color=c;
+  document.getElementById('interp-vpp').innerHTML=t+' <span style="display:block;margin-top:6px;font-size:11px;color:var(--muted);">Lembre-se das limitações: ventilação espontânea, FA/arritmias, Vt &lt; 8 mL/kg, hipertensão abdominal e disfunção grave de VD reduzem a confiabilidade — preferir PLR com VTI nessas situações.</span>';
   el.style.display='block';
 }
 </script>
