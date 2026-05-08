@@ -22,9 +22,8 @@
   .badge::before{content:'●';font-size:8px}
   h1{font-size:clamp(18px,4vw,24px);font-weight:600;letter-spacing:-0.02em;color:#fff;line-height:1.2}
   .subtitle{color:var(--muted);font-size:13px;margin-top:4px}
-  .nav{display:flex;gap:4px;margin-top:16px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
-  .nav::-webkit-scrollbar{display:none}
-  .nav-btn{flex-shrink:0;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+  .nav{display:flex;flex-wrap:wrap;gap:4px;margin-top:16px}
+  .nav-btn{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:10px;padding:5px 10px;border-radius:6px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
   .nav-btn:hover{border-color:var(--border2);color:var(--text)}
   .nav-btn.active{background:rgba(56,189,248,0.12);border-color:var(--accent);color:var(--accent)}
   .main{max-width:720px;margin:0 auto;padding:20px}
@@ -139,9 +138,8 @@
   .fx-ref{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--accent);background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);padding:2px 8px;border-radius:4px;margin-top:6px;cursor:pointer;text-decoration:none}
   .fx-ref:hover{background:rgba(56,189,248,0.18);color:var(--accent)}
   .fx-ref::before{content:'→';font-size:10px}
-  .sub-nav{display:flex;gap:4px;margin:0 0 16px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
-  .sub-nav::-webkit-scrollbar{display:none}
-  .sub-nav-btn{flex-shrink:0;background:var(--bg2);border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:10px;padding:5px 12px;border-radius:5px;cursor:pointer;transition:all 0.2s;white-space:nowrap;letter-spacing:0.04em}
+  .sub-nav{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 16px}
+  .sub-nav-btn{background:var(--bg2);border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:10px;padding:5px 10px;border-radius:5px;cursor:pointer;transition:all 0.2s;white-space:nowrap;letter-spacing:0.04em}
   .sub-nav-btn:hover{border-color:var(--border2);color:var(--text)}
   .sub-nav-btn.active{background:rgba(167,139,250,0.12);border-color:var(--purple);color:var(--purple)}
   .sub-section{display:none}
@@ -188,9 +186,34 @@
   <p class="section-title">Base Fisiológica</p>
   <p class="section-sub">O que os parâmetros medem e por que funcionam em conjunto</p>
   <div class="card">
-    <div class="card-title">Princípio de Fick</div>
-    <div class="formula">VO₂ = DC × (CaO₂ − CvO₂)</div>
-    <p style="font-size:13px;color:var(--muted);margin-top:8px;">O consumo de O₂ pelos tecidos é determinado pelo débito cardíaco e pela diferença entre o conteúdo arterial e venoso de O₂. Se o DC cai, a Hb cai ou a SatO₂ arterial cai, os tecidos extraem mais O₂ e a saturação venosa retornante ao coração <strong style="color:var(--text)">diminui</strong>.</p>
+    <div class="card-title">Princípio de Fick — oferta vs. demanda</div>
+    <div class="quad-grid">
+      <div class="quad ok"><div class="quad-header" style="color:var(--accent);">DO₂ — oferta</div><div class="formula" style="font-size:12px;padding:8px 10px;margin:6px 0;">DO₂ = DC × CaO₂ × 10</div><div class="quad-body">O quanto de O₂ o coração entrega aos tecidos por minuto. Normal: <strong>950–1150 mL/min</strong>.</div></div>
+      <div class="quad ok"><div class="quad-header" style="color:var(--teal);">VO₂ — demanda (consumo)</div><div class="formula" style="font-size:12px;padding:8px 10px;margin:6px 0;color:var(--teal);">VO₂ = DC × (CaO₂ − CvO₂)</div><div class="quad-body">O quanto de O₂ os tecidos efetivamente consomem. Normal: <strong>200–300 mL/min</strong>.</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-top:10px;">Em condições normais, a oferta é cerca de <strong style="color:var(--text);">4× a demanda</strong> — taxa de extração de O₂ ≈ 25%. Se DC cai, Hb cai ou SaO₂ cai, a oferta despenca; os tecidos extraem mais O₂ e a saturação venosa retornante ao coração <strong style="color:var(--text);">diminui</strong>. É essa diferença que se mede como SvcO₂.</p>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content"><strong>Por que DO₂ e VO₂ se conectam</strong>Quando DO₂ cai mas a demanda continua, o organismo compensa aumentando a extração — SvcO₂ cai. Quando a demanda excede a capacidade de extração (DO₂ crítico), surge metabolismo anaeróbico e lactato sobe. É a base de toda a interpretação dos quadrantes.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title purple">Frank-Starling — fundamento da fluido-responsividade</div>
+    <p style="font-size:13px;color:var(--muted);">A força de contração ventricular aumenta com o estiramento das fibras miocárdicas (pré-carga). Em volumes baixos a curva é íngreme — pequenos aumentos de pré-carga geram grandes aumentos de volume sistólico. Após o platô, mais volume não gera mais débito; só congestão.</p>
+    <div class="quad-grid" style="margin-top:10px;">
+      <div class="quad ok"><div class="quad-header" style="color:var(--green);">Porção ascendente</div><div class="quad-body"><strong>Responsivo a volume</strong> — bolus aumenta DC. É o que PLR, VPP e cIVC tentam predizer. Aproximadamente metade dos pacientes em choque está aqui.</div></div>
+      <div class="quad ok"><div class="quad-header" style="color:var(--red);">Platô / queda</div><div class="quad-body"><strong>Não responsivo</strong> — bolus não aumenta DC, só congestão pulmonar e edema. Volume passa a ser deletério. Vasopressor ou inotrópico.</div></div>
+    </div>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Por que isso importa na beira do leito</strong>Sem testar, você não sabe em qual ponto da curva o paciente está. Daí a regra: nunca assumir que choque = volume. Sempre avaliar responsividade dinâmica (PLR + VTI, VPP, cIVC) antes de cada bolus.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title amber">Choque críptico (oculto)</div>
+    <p style="font-size:13px;color:var(--muted);">Definição clássica: hipoperfusão tecidual presente em paciente com PAM aparentemente normal (≥ 65 mmHg) e sinais clínicos sutis ou ausentes. Identificado pela elevação do <strong style="color:var(--text);">lactato &gt; 2 mmol/L</strong> sem hipotensão franca.</p>
+    <table style="margin-top:10px;">
+      <tr><th>Achado</th><th>Interpretação</th></tr>
+      <tr><td>PAM ≥ 65 mmHg</td><td>Aparentemente "estável"</td></tr>
+      <tr><td>Lactato &gt; 2 mmol/L</td><td>Hipoperfusão tecidual já instalada</td></tr>
+      <tr><td>Δ pCO₂ ≥ 6 mmHg</td><td>Confirma fluxo tecidual inadequado</td></tr>
+      <tr><td>Enchimento capilar &gt; 3 s</td><td>Sinal precoce mesmo com PAM normal</td></tr>
+    </table>
+    <div class="alert-box danger" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Por que é perigoso</strong>O paciente parece "ok" pelos sinais vitais habituais, mas já está com dívida de O₂ ativa. Mortalidade comparável à do choque com hipotensão. Tratar com a mesma urgência: ressuscitação volêmica guiada, vasopressor se necessário, controle do foco. PAM em alvo não é igual a perfusão adequada.</div></div>
   </div>
   <div class="card">
     <div class="card-title teal">Por que são necessários dois parâmetros?</div>
@@ -655,15 +678,50 @@
   <p class="section-sub">Resistência vascular, pressão de pulso e identificação do mecanismo</p>
 
   <div class="card">
-    <div class="card-title purple">Os 4 tipos de choque — perfil hemodinâmico</div>
+    <div class="card-title purple">Os 4 tipos de choque — perfil hemodinâmico completo</div>
     <div class="table-wrap"><table>
-      <tr><th>Tipo</th><th>DC</th><th>RVS</th><th>PVC</th><th>Exemplo</th></tr>
-      <tr><td><span class="pill pill-red">Hipovolêmico</span></td><td>Baixo</td><td>Alta</td><td>Baixa</td><td>Hemorragia, desidratação, queimadura</td></tr>
-      <tr><td><span class="pill pill-coral">Distributivo</span></td><td>Alto</td><td>Baixa</td><td>Baixa/normal</td><td>Sepse, anafilaxia, neurogênico</td></tr>
-      <tr><td><span class="pill pill-amber">Cardiogênico</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>IAM, miocardite, arritmia</td></tr>
-      <tr><td><span class="pill pill-blue">Obstrutivo</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>TEP, tamponamento, pneumotórax</td></tr>
+      <tr><th>Tipo</th><th>DC / IC</th><th>RVS</th><th>PVC</th><th>PoAP</th><th>PAP</th><th>SvO₂</th><th>Exemplo</th></tr>
+      <tr><td><span class="pill pill-red">Hipovolêmico</span></td><td>Baixo</td><td>Alta</td><td>Baixa</td><td>Baixa</td><td>Normal</td><td>Baixa</td><td>Hemorragia, desidratação, queimadura</td></tr>
+      <tr><td><span class="pill pill-coral">Distributivo</span></td><td>Alto</td><td>Baixa</td><td>Baixa/normal</td><td>Baixa/normal</td><td>Normal</td><td>Alta (falsa)</td><td>Sepse, anafilaxia, neurogênico</td></tr>
+      <tr><td><span class="pill pill-amber">Cardiogênico</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td><strong style="color:var(--amber);">Alta</strong></td><td>Alta</td><td>Baixa</td><td>IAM, miocardite, arritmia</td></tr>
+      <tr><td><span class="pill pill-blue">Obstrutivo (TEP)</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>Normal/baixa</td><td><strong style="color:var(--amber);">Alta</strong></td><td>Baixa</td><td>TEP maciço (sobrecarga de VD)</td></tr>
+      <tr><td><span class="pill pill-blue">Obstrutivo (tamp.)</span></td><td>Baixo</td><td>Alta</td><td>Alta</td><td>Alta (equalizada)</td><td>Alta (equalizada)</td><td>Baixa</td><td>Tamponamento, pneumotórax hipertensivo</td></tr>
     </table></div>
-    <p style="font-size:12px;color:var(--muted);margin-top:8px;">DC = débito cardíaco · RVS = resistência vascular sistêmica · PVC = pressão venosa central</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">DC = débito cardíaco · IC = índice cardíaco · RVS = resistência vascular sistêmica · PVC = pressão venosa central · PoAP = pressão de oclusão da artéria pulmonar (wedge / PAOP) · PAP = pressão da artéria pulmonar</p>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content"><strong>Mnemônico para prova</strong>PoAP <strong>alta</strong> isolada → cardiogênico. PoAP <strong>normal/baixa</strong> com PAP alta → TEP/obstrutivo de VD. PoAP e PAP <strong>equalizadas e altas</strong> → tamponamento. PoAP <strong>baixa</strong> com DC baixo → hipovolêmico. DC <strong>alto</strong> com RVS baixa → distributivo.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title teal">Classificação por fluxo — alto vs. baixo débito</div>
+    <p style="font-size:13px;color:var(--muted);">Eixo complementar à classificação anatômica. Define rapidamente a abordagem inicial: <strong>distributivo é o único choque de alto fluxo</strong>; todos os outros são de baixo fluxo.</p>
+    <div class="quad-grid" style="margin-top:10px;">
+      <div class="quad ok" style="border-color:rgba(251,146,60,0.35);">
+        <div class="quad-header" style="color:var(--coral);">Alto fluxo (DC alto)</div>
+        <div class="quad-body"><strong>Distributivo</strong> (sepse, anafilaxia, neurogênico, insuficiência hepática avançada). RVS muito baixa, PP alargada, pele quente. <strong>Vasopressor</strong> é a 1ª intervenção; volume guiado por dinâmicos.</div>
+      </div>
+      <div class="quad ok" style="border-color:rgba(248,113,113,0.35);">
+        <div class="quad-header" style="color:var(--red);">Baixo fluxo (DC baixo)</div>
+        <div class="quad-body"><strong>Hipovolêmico, cardiogênico, obstrutivo</strong>. RVS compensatoriamente elevada, PP estreita, pele fria. Tratamento varia conforme o subtipo: volume (hipovolêmico), inotrópico (cardiogênico) ou tratar a causa (obstrutivo).</div>
+      </div>
+    </div>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Atenção a sobreposições</strong>Sepse pode ter componente de baixo fluxo (cardiomiopatia séptica) — DC normal ou baixo apesar de RVS reduzida. Cardiogênico pode evoluir com vasoplegia secundária. Reavaliar o padrão com POCUS sempre que a clínica não bate com o esperado.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title blue">PoAP e PAP — interpretação prática</div>
+    <p style="font-size:13px;color:var(--muted);">Medidas obtidas pelo cateter de Swan-Ganz (artéria pulmonar). Pouco usadas hoje na prática rotineira (POCUS substitui na maioria dos casos), mas <strong>caem em prova</strong> e ainda são úteis em centros de transplante e cirurgia cardíaca.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Medida</th><th>O que reflete</th><th>Valor normal</th><th>Alterações</th></tr>
+      <tr><td><strong>PoAP</strong> (wedge / PAOP)</td><td>Pressão no átrio esquerdo — pré-carga do VE</td><td>6–12 mmHg</td><td>↑ em IC esquerda, estenose mitral, sobrecarga de volume · ↓ em hipovolemia</td></tr>
+      <tr><td><strong>PAP sistólica</strong></td><td>Pressão sistólica na artéria pulmonar</td><td>15–30 mmHg</td><td>↑ em hipertensão pulmonar, TEP, IC esquerda crônica</td></tr>
+      <tr><td><strong>PAP diastólica</strong></td><td>Pressão diastólica na artéria pulmonar</td><td>4–12 mmHg</td><td>Aproxima-se da PoAP em ausência de doença pulmonar</td></tr>
+      <tr><td><strong>PAP média</strong></td><td>Média da pressão pulmonar</td><td>9–18 mmHg</td><td>HP se &gt; 25 mmHg em repouso (definição clássica)</td></tr>
+    </table></div>
+    <div class="quad-grid" style="margin-top:12px;">
+      <div class="quad ok"><div class="quad-header" style="color:var(--amber);">PoAP alta + PAP alta</div><div class="quad-body"><strong>HP pós-capilar</strong> — a causa é o coração esquerdo. Tratar IC esquerda.</div></div>
+      <div class="quad ok"><div class="quad-header" style="color:var(--blue);">PoAP normal + PAP alta</div><div class="quad-body"><strong>HP pré-capilar</strong> — TEP, HAP idiopática, doença pulmonar. Tratar a causa pulmonar.</div></div>
+    </div>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content"><strong>Por que ainda importa</strong>Mesmo sem Swan-Ganz, o conceito ajuda a interpretar o eco point-of-care: VD dilatado com septo paradoxal sugere PAP alta; AE dilatado e linhas B sugere PoAP alta. POCUS substitui Swan na maioria dos cenários hoje.</div></div>
   </div>
 
   <div class="card">
