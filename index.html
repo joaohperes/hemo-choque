@@ -238,6 +238,9 @@
   .back-to-top:hover{color:var(--accent);border-color:var(--accent)}
   @media(max-width:480px){.fx-arrow{display:none}}
   @media(max-width:700px){.footer-grid{grid-template-columns:1fr !important}}
+  .sig{border-bottom:1px dashed rgba(56,189,248,0.4);cursor:help;position:relative;display:inline}
+  .sig::after{content:attr(data-def);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2d47;border:1px solid rgba(56,189,248,0.35);color:var(--text);font-family:var(--sans);font-size:12px;font-weight:400;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:300;max-width:260px;white-space:normal;text-align:center;line-height:1.4}
+  .sig:hover::after,.sig:focus::after{opacity:1}
 </style>
 </head>
 <body>
@@ -1074,7 +1077,7 @@
       <tr><td><strong>BAV total / BAVT</strong></td><td>FC &lt; 40 + hipotensão</td><td>Atropina 0,5–1 mg IV; se refratário → marca-passo transcutâneo</td></tr>
       <tr><td><strong>Taquicardia sinusal</strong></td><td>FC &gt; 120 com choque</td><td>Tratar a causa do choque — controle de frequência é contraproducente</td></tr>
     </table></div>
-    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Regra do plantão</strong>Toda arritmia com instabilidade hemodinâmica é elétrica até prova em contrário — cardiovertir não esperar amiodarona fazer efeito. Amiodarona é para manutenção após cardioversão ou para estabilidade hemodinâmica.</div></div>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Regra do plantão</strong>Toda arritmia com instabilidade hemodinâmica requer cardioversão imediata — não espere a amiodarona fazer efeito. Amiodarona é opção em pacientes estáveis ou como manutenção do ritmo após cardioversão bem-sucedida.</div></div>
   </div>
 
   <div class="card">
@@ -1861,10 +1864,10 @@
       <div>
         <div style="color:var(--green);font-weight:600;letter-spacing:0.06em;margin-bottom:8px;">AUTORES</div>
         <div style="line-height:1.8;color:var(--muted);">
-          <strong style="color:var(--text);">João Peres</strong><br>
+          <strong style="color:var(--text);">João H. Peres</strong><br>
           <span style="color:var(--accent);">@joaohperes</span><br>
           <br>
-          <strong style="color:var(--text);">César Seidler</strong><br>
+          <strong style="color:var(--text);">César A. Seidler Junior</strong><br>
           <span style="color:var(--accent);">@caseidlercj</span>
         </div>
       </div>
@@ -1872,7 +1875,10 @@
     </div>
     <div style="border-top:1px solid var(--border);padding-top:10px;color:var(--muted);opacity:0.55;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;">
       <span>Avaliação Hemodinâmica e da Perfusão no Choque · Guia clínico não-comercial · SSC 2026 · LITFL · StatPearls</span>
-      <span>Atualizado maio/2026</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;opacity:0.7;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="#fb923c"/><path d="M8 12.5c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z" fill="#fff" opacity="0.9"/></svg>
+        Feito com Claude
+      </span>
     </div>
   </div>
 </footer>
@@ -2081,6 +2087,56 @@ document.addEventListener('DOMContentLoaded',function(){
       if(window.scrollY>300)btt.classList.add('visible');
       else btt.classList.remove('visible');
     },{passive:true});
+    // Acronym tooltips — mark .sig spans in prose text nodes
+    (function injectAcronymTooltips(){
+      // Sort keys longest-first so "Δ pCO₂" matches before "pCO₂"
+      const keys=Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length);
+      // Escape for regex
+      const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      // Build one big alternation regex (word-boundary aware where possible)
+      const pat=new RegExp('('+keys.map(k=>{
+        // For keys with spaces/₂ etc, just literal match; else add word boundaries
+        return /^[A-Za-z0-9]+$/.test(k)?'\\b'+esc(k)+'\\b':esc(k);
+      }).join('|')+')','g');
+      // Only walk text inside these containers; skip nav, headers, scripts, glossary itself
+      const SKIP_TAGS=new Set(['SCRIPT','STYLE','BUTTON','INPUT','LABEL','ABBR','TH']);
+      const SKIP_CLASSES=['nav','nav-btn','card-title','section-title','section-sub','sig','glossary-card','sub-nav','calc-label','calc-result-label','badge','tag','pill'];
+      function shouldSkip(el){
+        if(!el||el.nodeType!==1)return false;
+        if(SKIP_TAGS.has(el.tagName))return true;
+        if(SKIP_CLASSES.some(c=>el.classList&&el.classList.contains(c)))return true;
+        return false;
+      }
+      function walkText(node){
+        if(node.nodeType===3){
+          const txt=node.nodeValue;
+          if(!pat.test(txt))return;
+          pat.lastIndex=0;
+          const frag=document.createDocumentFragment();
+          let last=0,m;
+          while((m=pat.exec(txt))!==null){
+            if(m.index>last)frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+            const span=document.createElement('span');
+            span.className='sig';
+            span.setAttribute('data-def',GLOSSARY[m[1]]||m[1]);
+            span.textContent=m[1];
+            frag.appendChild(span);
+            last=m.index+m[0].length;
+          }
+          if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
+          node.parentNode.replaceChild(frag,node);
+          return;
+        }
+        if(node.nodeType===1&&shouldSkip(node))return;
+        // Don't walk the siglas section (it's the glossary itself)
+        if(node.id==='siglas')return;
+        Array.from(node.childNodes).forEach(walkText);
+      }
+      document.querySelectorAll('main section').forEach(sec=>{
+        if(sec.id==='siglas')return;
+        walkText(sec);
+      });
+    })();
   }catch(e){}
 });
 function calcDelta(){
