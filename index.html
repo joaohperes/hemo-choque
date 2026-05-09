@@ -249,6 +249,7 @@
       <button class="nav-btn" onclick="showSection('integracao',this)">Integração</button>
       <button class="nav-btn" onclick="showSection('fluxograma',this)">Fluxograma</button>
       <button class="nav-btn" onclick="showSection('padroes',this)">Padrões</button>
+      <button class="nav-btn" onclick="showSection('ecg',this)">ECG</button>
       <button class="nav-btn" onclick="showSection('do2',this)">DO₂ / CaO₂</button>
       <button class="nav-btn" onclick="showSection('drogas',this)">Drogas</button>
       <button class="nav-btn" onclick="showSection('calc',this)">Calculadora</button>
@@ -999,6 +1000,97 @@
   </div>
 </section>
 
+<!-- ECG NO CHOQUE -->
+<section id="ecg" class="section">
+  <p class="section-title">ECG no Choque</p>
+  <p class="section-sub">Padrões que mudam conduta na beira do leito — IAM de VD, TEP, tamponamento e arritmias instáveis</p>
+
+  <div class="alert-box warn">
+    <div class="icon">!</div>
+    <div class="content"><strong>ECG é ferramenta de triagem, não de exclusão</strong>ECG normal não exclui TEP maciço, tamponamento inicial nem isquemia posterior. Sempre interpretar no contexto clínico e integrar com POCUS, gasometria e exame físico.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title red">IAM com supra de ST — reconhecimento rápido</div>
+    <div class="table-wrap"><table>
+      <tr><th>Território</th><th>Derivações com supra</th><th>Artéria culpada</th><th>Implicação no choque</th></tr>
+      <tr><td><strong>Anterior extenso</strong></td><td>V1–V6, I, aVL</td><td>DA proximal</td><td>Disfunção de VE grave — choque cardiogênico de pior prognóstico</td></tr>
+      <tr><td><strong>Inferior</strong></td><td>II, III, aVF</td><td>CD ou Cx</td><td>Atenção: pode ter acometimento de VD — ver abaixo</td></tr>
+      <tr><td><strong>VD</strong></td><td>V3R–V4R (derivações direitas)</td><td>CD proximal</td><td>Dependente de pré-carga — volume com cautela, evitar nitratos</td></tr>
+      <tr><td><strong>Posterior</strong></td><td>Infra em V1–V3 + onda R alta</td><td>CD ou Cx posterior</td><td>Espelho do supra posterior — derivações V7–V9 confirmam</td></tr>
+      <tr><td><strong>Lateral alto</strong></td><td>I, aVL</td><td>DA diagonal ou Cx</td><td>Frequentemente pequeno mas pode ser isolado — não subestimar</td></tr>
+    </table></div>
+    <div class="alert-box danger" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>IAM de VD — armadilha hemodinâmica</strong>Supra em II, III, aVF → sempre fazer V3R e V4R. Supra ≥ 1 mm em V4R = IAM de VD. Esses pacientes têm VD dependente de pré-carga: volume 250–500 mL antes de vasopressor. Nitratos e diuréticos podem precipitar colapso hemodinâmico súbito.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title blue">TEP de alto risco — padrões eletrocardiográficos</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Nenhum padrão é patognomônico. O mais específico (S1Q3T3) tem sensibilidade baixa (~20%). O ECG no TEP serve para suporte diagnóstico e para excluir IAM como diagnóstico diferencial.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Achado</th><th>Significado</th><th>Sensibilidade</th></tr>
+      <tr><td><strong>S1Q3T3</strong></td><td>Onda S em DI + onda Q + inversão de T em DIII</td><td>~20%</td></tr>
+      <tr><td><strong>Bloqueio de ramo direito (completo ou incompleto)</strong></td><td>Sobrecarga aguda de VD</td><td>~25%</td></tr>
+      <tr><td><strong>Inversão de onda T em V1–V4</strong></td><td>Sobrecarga de VD — correlaciona com PAP elevada</td><td>~34%</td></tr>
+      <tr><td><strong>Taquicardia sinusal</strong></td><td>Achado mais frequente (~40%) — inespecífico</td><td>~40%</td></tr>
+      <tr><td><strong>Fibrilação atrial / flutter</strong></td><td>Sobrecarga atrial direita por hipertensão pulmonar aguda</td><td>&lt;10%</td></tr>
+      <tr><td><strong>ECG normal</strong></td><td>Presente em ~20% dos casos confirmados de TEP</td><td>—</td></tr>
+    </table></div>
+    <div class="alert-box info" style="margin-top:10px;"><div class="icon">i</div><div class="content"><strong>Combinação com POCUS</strong>VD dilatado no POCUS + S1Q3T3 + hipotensão = TEP de alto risco até prova em contrário. Não esperar TC se instabilidade hemodinâmica — considerar trombólise empírica conforme protocolo.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title amber">Tamponamento pericárdico — pistas no ECG</div>
+    <div class="quad-grid">
+      <div class="quad warn">
+        <div class="quad-header">Microvoltagem</div>
+        <div class="quad-body">QRS amplitude &lt; 5 mm em derivações dos membros e &lt; 10 mm nas precordiais. Frequente em derrames volumosos. Também ocorre em obesidade, DPOC e mixedema.</div>
+      </div>
+      <div class="quad warn">
+        <div class="quad-header">Alternância elétrica</div>
+        <div class="quad-body">Variação cíclica da amplitude e/ou eixo do QRS. <strong>Muito específico</strong> para tamponamento hemodinâmico — coração "balançando" no líquido pericárdico. Raramente ocorre por outra causa.</div>
+      </div>
+    </div>
+    <div class="alert-box danger" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Tríade de Beck</strong>Hipotensão + estase jugular + bulhas abafadas. Quando associada à alternância elétrica e microvoltagem no ECG = tamponamento confirmado clinicamente. POCUS de janela subcostal é confirmatório e guia a pericardiocentese.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title coral">Arritmias com repercussão hemodinâmica</div>
+    <div class="table-wrap"><table>
+      <tr><th>Arritmia</th><th>Critério de instabilidade</th><th>Conduta imediata</th></tr>
+      <tr><td><strong>FA com resposta ventricular rápida</strong></td><td>PAM &lt; 65 + sinais de hipoperfusão + FC &gt; 150</td><td>Cardioversão elétrica sincronizada (200 J bifásico). Se estável: controle de frequência</td></tr>
+      <tr><td><strong>Flutter atrial</strong></td><td>Instabilidade hemodinâmica</td><td>Cardioversão elétrica sincronizada (50–100 J bifásico)</td></tr>
+      <tr><td><strong>Taquicardia ventricular monomórfica</strong></td><td>Com pulso + instabilidade</td><td>Cardioversão elétrica sincronizada (100 J). Sem pulso → PCR</td></tr>
+      <tr><td><strong>Taquicardia ventricular polimórfica / FV</strong></td><td>Sempre instável</td><td>Desfibrilação (200 J bifásico) + PCR protocolo</td></tr>
+      <tr><td><strong>BAV total / BAVT</strong></td><td>FC &lt; 40 + hipotensão</td><td>Atropina 0,5–1 mg IV; se refratário → marca-passo transcutâneo</td></tr>
+      <tr><td><strong>Taquicardia sinusal</strong></td><td>FC &gt; 120 com choque</td><td>Tratar a causa do choque — controle de frequência é contraproducente</td></tr>
+    </table></div>
+    <div class="alert-box warn" style="margin-top:10px;"><div class="icon">!</div><div class="content"><strong>Regra do plantão</strong>Toda arritmia com instabilidade hemodinâmica é elétrica até prova em contrário — cardiovertir não esperar amiodarona fazer efeito. Amiodarona é para manutenção após cardioversão ou para estabilidade hemodinâmica.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title purple">Distúrbios metabólicos no ECG — quando o choque é a causa</div>
+    <div class="table-wrap"><table>
+      <tr><th>Distúrbio</th><th>Achado no ECG</th><th>Quando suspeitar no choque</th></tr>
+      <tr><td><strong>Hipercalemia grave</strong></td><td>Onda T apiculada → QRS alargado → onda sinusoidal → FV</td><td>Choque séptico com IRA · rhabdomiólise · hemólise maciça</td></tr>
+      <tr><td><strong>Hipocalemia</strong></td><td>Onda U proeminente · ST rebaixado · alargamento de QT</td><td>Sepse com perdas GI · uso de diuréticos · hiperaldosteronismo</td></tr>
+      <tr><td><strong>Hipotermia</strong></td><td>Onda J de Osborn (deflexão positiva no ponto J) · FC bradicárdica</td><td>Choque + temperatura &lt; 35°C — medir temperatura central</td></tr>
+      <tr><td><strong>Acidose grave</strong></td><td>QRS alargado · PR prolongado (efeito da hipercalemia associada)</td><td>Qualquer choque com pH &lt; 7,1 · intoxicação por antidepressivos tricíclicos</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title green">Checklist ECG rápido no choque — 60 segundos</div>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">1</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Ritmo e frequência</div><div class="flow-desc">Sinusal? Taquicardico (&gt; 100)? Bradicárdico (&lt; 60)? FA/flutter? Taquicardia ventricular?</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">2</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Supra de ST</div><div class="flow-desc">Alguma derivação com supra? → Ativar protocolo IAM. Inferior → fazer V3R/V4R. Difuso? Pensar pericardite ou espasmo.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">3</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Sinais de sobrecarga de VD</div><div class="flow-desc">S1Q3T3? Bloqueio de ramo direito? Inversão T em V1–V4? → TEP até prova em contrário.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">4</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Microvoltagem / alternância elétrica</div><div class="flow-desc">QRS &lt; 5 mm nos membros + alternância de amplitude → tamponamento. POCUS subcostal imediato.</div></div></div>
+      <div class="flow-step"><div class="flow-line"><div class="flow-dot">5</div></div><div class="flow-content"><div class="flow-title">Distúrbios metabólicos</div><div class="flow-desc">Onda T apiculada (hipercalemia)? QRS alargado difuso? Onda U? → Checar eletrólitos e gasometria.</div></div></div>
+    </div>
+  </div>
+
+</section>
+
 <!-- DO2 / CaO2 -->
 <section id="do2" class="section">
   <p class="section-title">DO₂ e CaO₂ — Oferta de Oxigênio</p>
@@ -1399,6 +1491,18 @@
     <div class="calc-result" id="result-winter" style="display:none;"><div class="calc-result-value" id="val-winter">—</div><div class="calc-result-interp" id="interp-winter"></div></div>
   </div>
 
+  <div class="card">
+    <div class="card-title red">Lactato clearance — depuração em 2 horas</div>
+    <div class="formula red"><span class="frac"><span>Lac<sub>0h</sub> − Lac<sub>2h</sub></span><span>Lac<sub>0h</sub></span></span><span class="op">×</span><span class="num">100</span></div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Meta SSC 2026: clearance ≥ 10% em 2 h é sinal de resposta à ressuscitação. Alternativa ao uso de SvcO₂ seriada quando não há CVC disponível.</p>
+    <div class="calc-fields">
+      <div class="calc-field"><label class="calc-label">Lactato inicial — T0 (mmol/L)</label><input type="number" id="lac0" class="calc-input" placeholder="ex: 6,2" min="0" max="30" step="0.1" oninput="calcLactate()"></div>
+      <div class="calc-field"><label class="calc-label">Lactato em 2 h — T2h (mmol/L)</label><input type="number" id="lac2" class="calc-input" placeholder="ex: 4,8" min="0" max="30" step="0.1" oninput="calcLactate()"></div>
+    </div>
+    <div class="calc-result empty" id="result-lactate-empty"><div class="calc-result-empty-msg">Preencha os campos acima</div></div>
+    <div class="calc-result" id="result-lactate" style="display:none;"><div class="calc-result-value" id="val-lactate">—</div><div class="calc-result-interp" id="interp-lactate"></div></div>
+  </div>
+
 </section>
 
 <!-- PRÁTICA -->
@@ -1675,7 +1779,12 @@
       <div><dt>IC</dt><dd>Insuficiência cardíaca (também índice cardíaco — depende do contexto)</dd></div>
       <div><dt>TEP</dt><dd>Tromboembolismo pulmonar</dd></div>
       <div><dt>TRM</dt><dd>Trauma raquimedular</dd></div>
+      <div><dt>ECG</dt><dd>Eletrocardiograma</dd></div>
       <div><dt>FA</dt><dd>Fibrilação atrial</dd></div>
+      <div><dt>FV</dt><dd>Fibrilação ventricular</dd></div>
+      <div><dt>TV</dt><dd>Taquicardia ventricular</dd></div>
+      <div><dt>BAVT</dt><dd>Bloqueio atrioventricular total (BAV de 3° grau)</dd></div>
+      <div><dt>BRD</dt><dd>Bloqueio de ramo direito</dd></div>
       <div><dt>EV</dt><dd>Extrassístole ventricular</dd></div>
       <div><dt>QT</dt><dd>Intervalo QT do ECG</dd></div>
       <div><dt>DRC</dt><dd>Doença renal crônica</dd></div>
@@ -1715,7 +1824,31 @@
 </main>
 
 <footer class="footer">
-  <div>Referências: Surviving Sepsis Campaign 2026 (CCM + ICM) · LITFL · StatPearls · Critical Care Medicine 2021 · REBEL EM · Atualizado maio/2026</div>
+  <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:14px;">
+    <div style="flex:1;min-width:220px;">
+      <div style="color:var(--accent);font-weight:600;letter-spacing:0.06em;margin-bottom:6px;">REFERÊNCIAS PRINCIPAIS</div>
+      <div style="line-height:1.8;color:var(--muted);">
+        Evans L et al. <em>Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021</em>. CCM/ICM. Atualização 2026.<br>
+        Perera P et al. <em>The RUSH exam: Rapid Ultrasound in SHock in the evaluation of the critically ill patient</em>. Emerg Med Clin N Am. 2010.<br>
+        Vincent JL &amp; De Backer D. <em>Circulatory Shock</em>. N Engl J Med. 2013;369:1726–1734.<br>
+        Hernandez G et al. <em>Venoarterial pCO₂ gradient as a marker of impaired tissue perfusion</em>. Intensive Care Med. 2013.<br>
+        Monnet X &amp; Teboul JL. <em>Passive leg raising: five rules, not a single game</em>. Crit Care. 2015.<br>
+        Maizel J et al. <em>Diagnosis of central hypovolemia by using passive leg raising</em>. Intensive Care Med. 2007.
+      </div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="color:var(--amber);font-weight:600;letter-spacing:0.06em;margin-bottom:6px;">AVISO DE USO</div>
+      <div style="line-height:1.7;color:var(--muted);">
+        Este guia é material de apoio clínico para profissionais de saúde.<br>
+        <strong style="color:var(--text);">Não substitui</strong> o julgamento médico individualizado, os protocolos institucionais nem a consulta com especialistas.<br>
+        Doses e condutas devem ser confirmadas na bula, no protocolo do serviço e com o farmacêutico clínico.<br>
+        Atualizado maio/2026. Dados clínicos sujeit­os a revisão com novas evidências.
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid var(--border);padding-top:10px;color:var(--muted);opacity:0.6;">
+    Avaliação Hemodinâmica e da Perfusão no Choque · Guia clínico não-comercial para plantão · Baseado em SSC 2026 · LITFL · StatPearls · REBEL EM
+  </div>
 </footer>
 
 <script>
@@ -1759,6 +1892,28 @@ function calcDO2(){
     document.getElementById('val-do2').style.color='var(--muted)';
   }
   showCalcResult('do2',true);
+}
+function calcLactate(){
+  const lac0=parseFloat(document.getElementById('lac0').value);
+  const lac2=parseFloat(document.getElementById('lac2').value);
+  if(isNaN(lac0)||isNaN(lac2)||lac0<=0){showCalcResult('lactate',false);return;}
+  const cl=((lac0-lac2)/lac0)*100;
+  document.getElementById('val-lactate').textContent=cl.toFixed(1)+'%';
+  let color='var(--green)';
+  let interp='';
+  if(cl>=10){
+    color='var(--green)';
+    interp='<strong style="color:var(--green);">Resposta adequada (clearance ≥ 10%)</strong> — ressuscitação eficaz. Lactato em queda. Manter conduta e reavaliação em 2 h.';
+  } else if(cl>=0){
+    color='var(--amber)';
+    interp='<strong style="color:var(--amber);">Clearance insuficiente (&lt; 10%)</strong> — resposta parcial ou ausente. Reavaliar foco, gasometria, padrão hemodinâmico. Considerar escalonamento de drogas ou POCUS de urgência.';
+  } else {
+    color='var(--red)';
+    interp='<strong style="color:var(--red);">Lactato em ascensão — piora metabólica</strong>. Investigar foco não controlado, hipoperfusão persistente, hipóxia citopática. Reavaliar toda a abordagem hemodinâmica urgente.';
+  }
+  document.getElementById('val-lactate').style.color=color;
+  document.getElementById('interp-lactate').innerHTML=interp;
+  showCalcResult('lactate',true);
 }
 function showSection(id,btn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -1822,7 +1977,7 @@ const GLOSSARY={
   'AD':'Átrio direito','AE':'Átrio esquerdo',
   'SSC':'Surviving Sepsis Campaign','UTI':'Unidade de terapia intensiva','PCR':'Parada cardiorrespiratória',
   'IAM':'Infarto agudo do miocárdio','TEP':'Tromboembolismo pulmonar','TRM':'Trauma raquimedular',
-  'FA':'Fibrilação atrial','EV':'Extrassístole ventricular','QT':'Intervalo QT do ECG',
+  'ECG':'Eletrocardiograma','FA':'Fibrilação atrial','FV':'Fibrilação ventricular','TV':'Taquicardia ventricular','BAVT':'Bloqueio atrioventricular total','EV':'Extrassístole ventricular','QT':'Intervalo QT do ECG','BRD':'Bloqueio de ramo direito',
   'DRC':'Doença renal crônica','DPOC':'Doença pulmonar obstrutiva crônica',
   'BIA':'Balão intra-aórtico','ECMO':'Extracorporeal membrane oxygenation','CEC':'Circulação extracorpórea',
   'HIA':'Hipertensão intra-abdominal',
@@ -1845,9 +2000,10 @@ const SECTION_ACRONYMS={
   integracao:['Δ pCO₂','SvcO₂','VCI','cIVC','dIVC','PLR','VTI','PAM','TEP','SSC','POCUS'],
   fluxograma:['DC','IC','RVS','PVC','VCI','cIVC','dIVC','SvcO₂','Δ pCO₂','DO₂','CaO₂','SaO₂','Hb','pO₂','pCO₂','PLR','VPP','VTI','TEP','NA','PAM','PP','FE','VD','VNI','IOT','IAM','DPOC','CVC','POCUS','SSC','PEEP'],
   padroes:['DC','IC','RVS','PVC','PoAP','PAP','SvO₂','PP','VPP','PLR','VTI','VSVE','VD','VE','AE','HP','HAP','TEP','FA','IAM','DPOC','PAS','PAD','PAOP','VM','POCUS','SSC','Vt'],
+  ecg:['ECG','IAM','TEP','FA','FV','TV','BAVT','PCR','BRD','VD','VE','PAM','DPOC','DRC','SSC','POCUS'],
   do2:['DO₂','CaO₂','CvO₂','VO₂','DC','IC','Hb','SaO₂','pO₂','SvcO₂','Δ pCO₂','VCI','VSVE','VTI','POCUS','VNI','IOT','PAM'],
   drogas:['NA','PAM','BIC','IV','IM','SC (via)','SG','SF','CVC','PCR','SSC','DC','IC','TEP','BIA','ECMO','G6PD','ISRS','IMAO','VPP','PLR','VTI','QT','FA','EV','FE','DRC','TRM','CEC','PDE-3','UTI','SvcO₂','Δ pCO₂','VCI','POCUS'],
-  calc:['Δ pCO₂','pCO₂','cIVC','dIVC','VPP','PP','PAS','PAD','HCO₃','DO₂','CaO₂','Hb','SaO₂','pO₂','DC','VM','Vt','VCI'],
+  calc:['Δ pCO₂','pCO₂','cIVC','dIVC','VPP','PP','PAS','PAD','HCO₃','DO₂','CaO₂','Hb','SaO₂','pO₂','DC','VM','Vt','VCI','SSC'],
   pratica:['SvcO₂','Δ pCO₂','PAM','PP','VCI','FE','Hb','SaO₂','VPP','PLR','VTI','NA','BIA','ECMO','VNI','IOT','TEP','DC','POCUS','VE','IAM','SpO₂','AAS','EDA','IV','RUSH']
 };
 function injectGlossaryFooters(){
