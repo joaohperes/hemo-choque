@@ -101,6 +101,11 @@
   .case-step.q2 .case-step-label::before{background:var(--amber)}
   .case-step.q3 .case-step-label::before{background:var(--coral)}
   .case-step.q4 .case-step-label::before{background:var(--red)}
+  .case-reveal{display:none}
+  .case-reveal.open{display:block}
+  .case-reveal-btn{margin-top:14px;padding:9px 18px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.3);color:var(--accent);font-family:var(--mono);font-size:11px;letter-spacing:0.05em;border-radius:7px;cursor:pointer;width:100%;text-align:center;transition:background 0.15s}
+  .case-reveal-btn:hover{background:rgba(56,189,248,0.15)}
+  .case-reveal-btn.open{background:rgba(56,189,248,0.05);color:var(--muted);border-color:var(--border)}
   .case-data{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px 14px;margin:6px 0;font-size:12px}
   .case-data > div{padding:4px 0}
   .case-data dt{display:inline;font-family:var(--mono);font-size:11px;color:var(--muted)}
@@ -239,7 +244,7 @@
   @media(max-width:480px){.fx-arrow{display:none}}
   @media(max-width:700px){.footer-grid{grid-template-columns:1fr !important}}
   .sig{border-bottom:1px dashed rgba(56,189,248,0.4);cursor:help;position:relative;display:inline}
-  .sig::after{content:attr(data-def);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2d47;border:1px solid rgba(56,189,248,0.35);color:var(--text);font-family:var(--sans);font-size:12px;font-weight:400;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:300;max-width:260px;white-space:normal;text-align:center;line-height:1.4}
+  .sig::after{content:attr(data-def);position:absolute;bottom:calc(100% + 7px);left:0;transform:none;background:#1a2844;border:1px solid rgba(56,189,248,0.4);color:var(--text);font-family:var(--sans);font-size:12px;font-weight:400;white-space:normal;padding:6px 10px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:400;width:200px;text-align:left;line-height:1.45;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
   .sig:hover::after,.sig:focus::after{opacity:1}
 </style>
 </head>
@@ -281,7 +286,7 @@
   <div class="card">
     <div class="card-title">Princípio de Fick — oferta vs. demanda</div>
     <div class="quad-grid">
-      <div class="quad ok"><div class="quad-header" style="color:var(--accent);">DO₂ — oferta</div><div class="formula compact">DO<sub>2</sub><span class="op">=</span>DC<span class="op">×</span>CaO<sub>2</sub><span class="op">×</span><span class="num">10</span></div><div class="quad-body">O quanto de O₂ o coração entrega aos tecidos por minuto. Normal: <strong>950–1150 mL/min</strong>.</div></div>
+      <div class="quad ok"><div class="quad-header" style="color:var(--accent);">DO₂ — oferta</div><div class="formula compact">DO<sub>2</sub><span class="op">=</span>DC<span class="op">×</span>CaO<sub>2</sub><span class="op">×</span><span class="num">10</span></div><div class="quad-body">O quanto de O₂ o coração entrega aos tecidos por minuto. Normal: <strong style="white-space:nowrap">950–1150 mL/min</strong>.</div></div>
       <div class="quad ok"><div class="quad-header" style="color:var(--teal);">VO₂ — demanda (consumo)</div><div class="formula teal compact">VO<sub>2</sub><span class="op">=</span>DC<span class="op">×</span>(CaO<sub>2</sub><span class="op">−</span>CvO<sub>2</sub>)</div><div class="quad-body">O quanto de O₂ os tecidos efetivamente consomem. Normal: <strong>200–300 mL/min</strong>.</div></div>
     </div>
     <p style="font-size:13px;color:var(--muted);margin-top:10px;">Em condições normais, a oferta é cerca de <strong style="color:var(--text);">4× a demanda</strong> — taxa de extração de O₂ ≈ 25%. Se DC cai, Hb cai ou SaO₂ cai, a oferta despenca; os tecidos extraem mais O₂ e a saturação venosa retornante ao coração <strong style="color:var(--text);">diminui</strong>. É essa diferença que se mede como SvcO₂.</p>
@@ -1521,21 +1526,20 @@
 <!-- PRÁTICA -->
 <section id="pratica" class="section">
   <p class="section-title">Casos Práticos</p>
-  <p class="section-sub">4 cenários simulados cobrindo os 4 quadrantes — treine a integração antes do plantão</p>
+  <p class="section-sub">8 cenários simulados — 2 por quadrante · leia, raciocine, depois revele a resposta</p>
 
   <div class="alert-box info">
     <div class="icon">i</div>
-    <div class="content"><strong>Como usar esta aba</strong>Para cada caso: leia a apresentação e os dados, tente classificar mentalmente o quadrante e identificar o tipo de choque, depois confira com a análise. Os casos são <strong>simulados</strong> — pacientes e dados fictícios construídos para ilustrar conceitos.</div>
+    <div class="content"><strong>Como usar</strong>Leia a apresentação e os dados de cada caso. Tente identificar o quadrante (Q1–Q4) e o tipo de choque antes de clicar em "Ver análise". Os casos são fictícios — construídos para ilustrar padrões clínicos reais.</div>
   </div>
 
+  <!-- Q1-A -->
   <div class="card">
-    <div class="card-title green">Caso 1 · Q1 — Hiperlactatemia tipo B (não é choque)</div>
-
+    <div class="card-title green">Caso 1 · Q1-A</div>
     <div class="case-step">
       <div class="case-step-label">Apresentação</div>
       <p style="font-size:13px;color:var(--muted);">Mulher, 42 anos, diabética em uso crônico de metformina. Internada por celulite em MID em antibioticoterapia há 24 h. Plantonista chamado por <strong style="color:var(--text);">lactato 4,2 mmol/L</strong> em coleta de rotina. PA 118 × 76 mmHg, FC 88, FR 16, SpO₂ 97% em AA, diurese mantida, enchimento capilar 2 s, pele quente e corada.</p>
     </div>
-
     <div class="case-step">
       <div class="case-step-label">Dados</div>
       <dl class="case-data">
@@ -1547,36 +1551,74 @@
         <div><dt>SaO₂</dt><dd>97%</dd></div>
       </dl>
     </div>
-
-    <div class="case-step q1">
-      <div class="case-step-label">Análise — Quadrante 1</div>
-      <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% <strong style="color:var(--text);">e</strong> Δ pCO₂ &lt; 6 mmHg → Q1 (adequado). Apesar do lactato elevado, não há sinais de hipoperfusão tecidual: oferta preservada e fluxo tecidual adequado. PAM ok, enchimento capilar normal, diurese mantida.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Diagnóstico</div>
-      <p style="font-size:13px;color:var(--text);"><strong>Hiperlactatemia tipo B</strong> — provavelmente associada à metformina + processo inflamatório (celulite). Não é choque.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Conduta</div>
-      <p style="font-size:13px;color:var(--muted);">Manter ATB para foco infeccioso. Suspender metformina temporariamente (revisar com endócrino). Repetir lactato em 4 h para tendência. <strong style="color:var(--red);">Não administrar volume reflexo</strong> só por causa do lactato isolado.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">O que ensina</div>
-      <p style="font-size:13px;color:var(--muted);">Lactato isoladamente <strong>não define choque</strong>. SvcO₂ + Δ pCO₂ normais excluem hipoperfusão global. Hiperlactatemia tipo B (sem hipóxia tecidual) tem causas farmacológicas, hepáticas e tumorais — tratar a causa, não o número.</p>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q1">
+        <div class="case-step-label">Análise — Quadrante 1</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% <strong style="color:var(--text);">e</strong> Δ pCO₂ &lt; 6 mmHg → Q1 (adequado). Apesar do lactato elevado, não há sinais de hipoperfusão tecidual: oferta preservada e fluxo adequado. PAM ok, enchimento capilar normal, diurese mantida.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Hiperlactatemia tipo B</strong> — associada à metformina + processo inflamatório. Não é choque.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);">Manter ATB. Suspender metformina temporariamente. Repetir lactato em 4 h. <strong style="color:var(--red);">Não administrar volume reflexo</strong> só pelo lactato isolado.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">Lactato isolado <strong>não define choque</strong>. SvcO₂ + Δ pCO₂ normais excluem hipoperfusão global. Hiperlactatemia tipo B tem causas farmacológicas, hepáticas e tumorais.</p>
+      </div>
     </div>
   </div>
 
+  <!-- Q1-B -->
   <div class="card">
-    <div class="card-title amber">Caso 2 · Q2 — Anemia que descompensa coronariopatia</div>
-
+    <div class="card-title green">Caso 2 · Q1-B</div>
     <div class="case-step">
       <div class="case-step-label">Apresentação</div>
-      <p style="font-size:13px;color:var(--muted);">Homem, 68 anos, coronariopata (3 stents) em uso de AAS, clopidogrel e estatina. PS por melena há 3 dias e dispneia progressiva. Refere fadiga e dor torácica leve em esforço. PA 102 × 64 mmHg, FC 108, FR 24, SpO₂ 91% em AA, palidez cutâneo-mucosa importante, enchimento capilar 3 s, pele fria.</p>
+      <p style="font-size:13px;color:var(--muted);">Homem, 58 anos, cirrose Child-B em acompanhamento. Admitido por confusão mental leve após infecção urinária. Recebeu 1 L de cristaloide na UBS. PA 108 × 70 mmHg, FC 96, FR 18, SpO₂ 95% em AA, ascite moderada, sem cianose, enchimento capilar 2 s, diurese presente (0,6 mL/kg/h). Lactato colhido: <strong style="color:var(--text);">3,6 mmol/L</strong>.</p>
     </div>
+    <div class="case-step">
+      <div class="case-step-label">Dados</div>
+      <dl class="case-data">
+        <div><dt>PAM</dt><dd>83 mmHg</dd></div>
+        <div><dt>Lactato</dt><dd>3,6 mmol/L</dd></div>
+        <div><dt>SvcO₂</dt><dd>78%</dd></div>
+        <div><dt>Δ pCO₂</dt><dd>3 mmHg</dd></div>
+        <div><dt>Hb</dt><dd>10,1 g/dL</dd></div>
+        <div><dt>SaO₂</dt><dd>95%</dd></div>
+        <div><dt>VCI</dt><dd>2,0 cm, variação 25%</dd></div>
+      </dl>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q1">
+        <div class="case-step-label">Análise — Quadrante 1</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% e Δ pCO₂ &lt; 6 mmHg → Q1. Sem hipoperfusão global. Lactato elevado neste contexto é tipicamente hepático: cirrose reduz clearance e aumenta produção intestinal de lactato mesmo sem choque.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Hiperlactatemia tipo B por disfunção hepática</strong> com infecção urinária desencadeante. Sem choque.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);">ATB para ITU. Monitorar e repetir gasometria. Não expandir volume desnecessariamente (ascite, risco de síndrome hepatorrenal). Avaliar encefalopatia com lactulose/rifaximina.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">Cirrose = lactato cronicamente elevado por menor clearance hepático. Q1 com lactato alto em cirrótico não é choque até prova em contrário — Δ pCO₂ e SvcO₂ são os árbitros.</p>
+      </div>
+    </div>
+  </div>
 
+  <!-- Q2-A -->
+  <div class="card">
+    <div class="card-title amber">Caso 3 · Q2-A</div>
+    <div class="case-step">
+      <div class="case-step-label">Apresentação</div>
+      <p style="font-size:13px;color:var(--muted);">Homem, 68 anos, coronariopata (3 stents). PS por melena há 3 dias e dispneia progressiva. Fadiga e dor torácica leve em esforço. PA 102 × 64 mmHg, FC 108, FR 24, SpO₂ 91% em AA, palidez cutâneo-mucosa importante, enchimento capilar 3 s, pele fria.</p>
+    </div>
     <div class="case-step">
       <div class="case-step-label">Dados</div>
       <dl class="case-data">
@@ -1587,82 +1629,159 @@
         <div><dt>Hb</dt><dd>6,2 g/dL</dd></div>
         <div><dt>SaO₂</dt><dd>92%</dd></div>
         <div><dt>VCI</dt><dd>1,4 cm, colapsável</dd></div>
-        <div><dt>FE (POCUS)</dt><dd>Preservada</dd></div>
+        <div><dt>FE</dt><dd>Preservada</dd></div>
       </dl>
     </div>
-
-    <div class="case-step q2">
-      <div class="case-step-label">Análise — Quadrante 2</div>
-      <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% <strong style="color:var(--text);">e</strong> Δ pCO₂ &lt; 6 mmHg → Q2 (problema na oferta). O fluxo tecidual está mantido (Δ pCO₂ ok), mas a oferta de O₂ está inadequada. Tríade da oferta: <strong style="color:var(--text);">Hb 6,2 g/dL</strong> é o componente alterado dominante.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Diagnóstico</div>
-      <p style="font-size:13px;color:var(--text);"><strong>Choque hipovolêmico/anêmico por sangramento digestivo</strong> com descompensação miocárdica iminente em coronariopata.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Conduta</div>
-      <p style="font-size:13px;color:var(--muted);">Acesso calibroso, tipagem e reserva. <strong style="color:var(--text);">Transfusão de hemácias</strong> (alvo Hb &gt; 8 em coronariopata). EDA de urgência. Correção da SaO₂ com O₂ nasal. Reposição volêmica cautelosa com cristaloide 250 mL e reavaliar (VCI já colapsável). Suspender AAS/clopidogrel após discussão. Cardiologia para avaliar isquemia.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Ensina</div>
-      <p style="font-size:13px;color:var(--muted);">Em Q2, sempre rodar a <strong>tríade da oferta</strong>: Hb · SaO₂ · DC. Paciente "mal sem motivo" cuja única alteração é a Hb — transfundir muda o jogo. Em coronariopata, alvo de Hb mais alto (8–10) que em sepse (7–8).</p>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q2">
+        <div class="case-step-label">Análise — Quadrante 2</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ &lt; 6 mmHg → Q2 (problema na oferta de O₂). Fluxo tecidual mantido (Δ pCO₂ ok), mas oferta inadequada. Tríade: <strong style="color:var(--text);">Hb 6,2 g/dL</strong> é o culpado dominante.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque anêmico por sangramento digestivo</strong> com descompensação miocárdica iminente em coronariopata.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);">Acesso calibroso, tipagem e reserva. <strong style="color:var(--text);">Transfusão</strong> (alvo Hb &gt; 8 em coronariopata). EDA urgente. O₂ nasal. Cristaloide 250 mL cauteloso. Suspender AAS/clopidogrel após discussão.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">Em Q2, rodar sempre a <strong>tríade da oferta</strong>: Hb · SaO₂ · DC. Paciente "mal sem motivo" cuja única alteração é a Hb — transfundir muda o jogo. Em coronariopata, alvo Hb mais alto (8–10) que em sepse (7–8).</p>
+      </div>
     </div>
   </div>
 
+  <!-- Q2-B -->
   <div class="card">
-    <div class="card-title coral">Caso 3 · Q3 — Sepse hiperdinâmica com falsa segurança</div>
-
+    <div class="card-title amber">Caso 4 · Q2-B</div>
     <div class="case-step">
       <div class="case-step-label">Apresentação</div>
-      <p style="font-size:13px;color:var(--muted);">Mulher, 35 anos, previamente hígida, internada há 24 h por pielonefrite com bacteremia. Em NA 0,15 μg/kg/min após 2 L de cristaloide. Plantonista contente: PAM em alvo, "SvcO₂ ótima". Mas o lactato vinha caindo lentamente. PA 92 × 50 mmHg (PP <strong style="color:var(--text);">42 mmHg</strong>), FC 122, FR 28, SpO₂ 96%, pele quente, enchimento capilar 4 s, diurese reduzida (0,3 mL/kg/h).</p>
+      <p style="font-size:13px;color:var(--muted);">Mulher, 29 anos, previamente hígida, acidente motociclístico. Fratura fechada de fêmur bilateral e pelve. Chegou responsiva mas agitada. PA 88 × 56 mmHg, FC 138, FR 26, SpO₂ 99% em O₂ máscara, pele fria e pálida, enchimento capilar 4 s. Hemostasia cirúrgica em andamento.</p>
     </div>
-
     <div class="case-step">
       <div class="case-step-label">Dados</div>
       <dl class="case-data">
         <div><dt>PAM</dt><dd>67 mmHg</dd></div>
-        <div><dt>Lactato</dt><dd>3,8 mmol/L (ainda alto)</dd></div>
+        <div><dt>Lactato</dt><dd>6,1 mmol/L</dd></div>
+        <div><dt>SvcO₂</dt><dd>52%</dd></div>
+        <div><dt>Δ pCO₂</dt><dd>4 mmHg</dd></div>
+        <div><dt>Hb</dt><dd>7,4 g/dL</dd></div>
+        <div><dt>SaO₂</dt><dd>99%</dd></div>
+        <div><dt>VCI</dt><dd>1,1 cm, muito colapsável</dd></div>
+      </dl>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q2">
+        <div class="case-step-label">Análise — Quadrante 2</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ &lt; 6 mmHg → Q2. Hemorragia aguda com redução rápida de Hb. SaO₂ preservada pelo O₂ suplementar. Fluxo tecidual ainda compensado (Δ pCO₂ ok) mas SvcO₂ muito baixa — oferta colapsando.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque hemorrágico classe III–IV</strong> por trauma de pelve e fêmur bilateral.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);">Hemostasia definitiva urgente. Protocolo de transfusão maciça (CH:PFC:plaquetas 1:1:1). Ácido tranexâmico &lt; 3 h do trauma. Cristaloide mínimo (permissive hypotension até hemostasia: PAM 50–65). Cinto pélvico se fratura de pelve aberta.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">Trauma hemorrágico também é Q2 — Hb caindo rápido derruba a oferta antes de o DC conseguir compensar. Δ pCO₂ ainda baixo não significa segurança: é uma janela estreita. Hemostasia é a intervenção, não o volume.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3-A -->
+  <div class="card">
+    <div class="card-title coral">Caso 5 · Q3-A</div>
+    <div class="case-step">
+      <div class="case-step-label">Apresentação</div>
+      <p style="font-size:13px;color:var(--muted);">Mulher, 35 anos, internada há 24 h por pielonefrite com bacteremia. Em NA 0,15 μg/kg/min após 2 L de cristaloide. Plantonista tranquilo: PAM em alvo, "SvcO₂ ótima". Lactato caindo lentamente. PA 92 × 50 mmHg, FC 122, FR 28, SpO₂ 96%, pele quente, enchimento capilar 4 s, diurese 0,3 mL/kg/h.</p>
+    </div>
+    <div class="case-step">
+      <div class="case-step-label">Dados</div>
+      <dl class="case-data">
+        <div><dt>PAM</dt><dd>67 mmHg</dd></div>
+        <div><dt>Lactato</dt><dd>3,8 mmol/L</dd></div>
         <div><dt>SvcO₂</dt><dd>82%</dd></div>
         <div><dt>Δ pCO₂</dt><dd>9 mmHg</dd></div>
         <div><dt>Hb</dt><dd>10,8 g/dL</dd></div>
         <div><dt>SaO₂</dt><dd>96%</dd></div>
-        <div><dt>FE (POCUS)</dt><dd>Hiperdinâmica</dd></div>
+        <div><dt>FE</dt><dd>Hiperdinâmica</dd></div>
         <div><dt>VCI</dt><dd>1,8 cm, variação 30%</dd></div>
       </dl>
     </div>
-
-    <div class="case-step q3">
-      <div class="case-step-label">Análise — Quadrante 3 (o mais traiçoeiro)</div>
-      <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% <strong style="color:var(--text);">mas</strong> Δ pCO₂ ≥ 6 mmHg → Q3 (falsa segurança). A SvcO₂ alta engana — sepse hiperdinâmica com shunting microcirculatório: o sangue passa rápido pelos tecidos sem ser extraído adequadamente. Δ pCO₂ elevado revela que o fluxo está realmente comprometido apesar da SvcO₂.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Diagnóstico</div>
-      <p style="font-size:13px;color:var(--text);"><strong>Choque séptico hiperdinâmico</strong> com hipoperfusão microcirculatória persistente. Foco em controle (pielonefrite — checar imagem, drenagem se obstrução).</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Conduta</div>
-      <p style="font-size:13px;color:var(--muted);">Verificar imagem renal (USG/TC) — pesquisar obstrução, abscesso ou foco não controlado. Não tranquilizar com SvcO₂. Considerar ajustar cobertura ATB conforme cultura. Avaliar PLR para responsividade — se responsivo, bolus 250 mL guiado. Se não responsivo e sinais de hipoperfusão persistem, escalonar NA + considerar vasopressina (NA já próximo do limiar). Discutir hidrocortisona se NA continuar escalando.</p>
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Ensina</div>
-      <p style="font-size:13px;color:var(--muted);">SvcO₂ alta <strong>não é segurança</strong> em sepse. Sempre cruzar com Δ pCO₂. Em Q3, suspeitar de foco não controlado, hipóxia citopática ou shunting. Lactato em queda lenta + enchimento capilar &gt; 3 s + Δ pCO₂ alto = ressuscitação incompleta apesar dos números aparentemente bons.</p>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q3">
+        <div class="case-step-label">Análise — Quadrante 3 (o mais traiçoeiro)</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% <strong style="color:var(--text);">mas</strong> Δ pCO₂ ≥ 6 mmHg → Q3 (falsa segurança). SvcO₂ alta engana: sepse hiperdinâmica com shunting microcirculatório. Δ pCO₂ alto revela fluxo tecidual comprometido apesar da saturação venosa.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque séptico hiperdinâmico</strong> com hipoperfusão microcirculatória persistente. Foco em controle (checar imagem renal).</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);">USG/TC renal — pesquisar obstrução ou abscesso. Ajustar ATB conforme cultura. PLR: se responsivo, bolus 250 mL. Se não responsivo, escalonar NA + vasopressina. Considerar hidrocortisona se NA escalando &gt; 4 h.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ alta não é segurança em sepse — sempre cruzar com Δ pCO₂. Q3 = foco não controlado, hipóxia citopática ou shunting. Lactato lento + enchimento capilar &gt; 3 s + Δ pCO₂ alto = ressuscitação incompleta.</p>
+      </div>
     </div>
   </div>
 
+  <!-- Q3-B -->
   <div class="card">
-    <div class="card-title red">Caso 4 · Q4 — Choque cardiogênico por IAM extenso</div>
-
+    <div class="card-title coral">Caso 6 · Q3-B</div>
     <div class="case-step">
       <div class="case-step-label">Apresentação</div>
-      <p style="font-size:13px;color:var(--muted);">Homem, 72 anos, hipertenso, dislipidêmico, ex-tabagista. PS por dor torácica retroesternal há 6 h, com dispneia e sudorese. ECG com supra de ST em parede anterior extensa. Em sala vermelha. PA 78 × 54 mmHg, FC 118, FR 30, SpO₂ 88% em MNR, pele fria e marmórea, enchimento capilar 5 s, sem diurese desde admissão.</p>
+      <p style="font-size:13px;color:var(--muted);">Homem, 55 anos, sepse por foco pulmonar (pneumonia), internado há 48 h em IOT + VM. Evoluiu bem até esta madrugada. Gasometria de rotina sinalizada. PA 100 × 58 mmHg, FC 102, FR (VM) 18, SpO₂ 94% (FiO₂ 0,5, PEEP 8), pele morna, enchimento capilar 3 s, diurese 0,4 mL/kg/h.</p>
     </div>
+    <div class="case-step">
+      <div class="case-step-label">Dados</div>
+      <dl class="case-data">
+        <div><dt>PAM</dt><dd>72 mmHg</dd></div>
+        <div><dt>Lactato</dt><dd>2,4 mmol/L</dd></div>
+        <div><dt>SvcO₂</dt><dd>76%</dd></div>
+        <div><dt>Δ pCO₂</dt><dd>8 mmHg</dd></div>
+        <div><dt>Hb</dt><dd>9,6 g/dL</dd></div>
+        <div><dt>SaO₂</dt><dd>94%</dd></div>
+        <div><dt>VCI</dt><dd>2,2 cm, dIVC 10%</dd></div>
+        <div><dt>FE</dt><dd>Normal visualmente</dd></div>
+      </dl>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q3">
+        <div class="case-step-label">Análise — Quadrante 3</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% mas Δ pCO₂ ≥ 6 mmHg → Q3. PAM aparentemente ok e lactato quase normal. Mas o Δ pCO₂ de 8 mmHg com VCI dilatada e dIVC baixo (não responsivo a volume) diz: fluxo ruim + não vai melhorar com volume. FE normal descarta cardiogênico óbvio.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Hipoperfusão microcirculatória persistente</strong> — possivelmente hipóxia citopática ou foco pulmonar não controlado.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);">Não dar volume (VCI dilatada + não responsivo). Rever ATB e coberturas. TC de tórax para avaliar progressão e empiema. Considerar broncoaspiração. Otimizar PEEP. Manter SaO₂ ≥ 94%. Reavaliar gasometria em 2 h.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">Q3 ocorre mesmo em pacientes "estabilizados". Lactato quase normal não exclui hipoperfusão microcirculatória. O Δ pCO₂ elevado persistente é o sinal de que a ressuscitação ainda está incompleta — procure o porquê.</p>
+      </div>
+    </div>
+  </div>
 
+  <!-- Q4-A -->
+  <div class="card">
+    <div class="card-title red">Caso 7 · Q4-A</div>
+    <div class="case-step">
+      <div class="case-step-label">Apresentação</div>
+      <p style="font-size:13px;color:var(--muted);">Homem, 72 anos, hipertenso, ex-tabagista. PS por dor torácica retroesternal há 6 h e dispneia. ECG: supra ST em parede anterior extensa. PA 78 × 54 mmHg, FC 118, FR 30, SpO₂ 88% em MNR, pele fria e marmórea, enchimento capilar 5 s, sem diurese desde admissão.</p>
+    </div>
     <div class="case-step">
       <div class="case-step-label">Dados</div>
       <dl class="case-data">
@@ -1672,41 +1791,84 @@
         <div><dt>Δ pCO₂</dt><dd>11 mmHg</dd></div>
         <div><dt>Hb</dt><dd>13,2 g/dL</dd></div>
         <div><dt>SaO₂</dt><dd>89%</dd></div>
-        <div><dt>FE (POCUS)</dt><dd>~25%, acinesia anterior</dd></div>
+        <div><dt>FE</dt><dd>~25%, acinesia anterior</dd></div>
         <div><dt>VCI</dt><dd>2,4 cm, sem colapso</dd></div>
         <div><dt>Pulmão</dt><dd>Linhas B difusas bilaterais</dd></div>
       </dl>
     </div>
-
-    <div class="case-step q4">
-      <div class="case-step-label">Análise — Quadrante 4</div>
-      <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% <strong style="color:var(--text);">e</strong> Δ pCO₂ ≥ 6 mmHg → Q4 (choque confirmado). POCUS (RUSH) define o mecanismo: VE hipodinâmico, VCI dilatada e congestão pulmonar = padrão cardiogênico. <strong style="color:var(--text);">Não administrar volume</strong>.</p>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q4">
+        <div class="case-step-label">Análise — Quadrante 4</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ ≥ 6 mmHg → Q4. POCUS define mecanismo: VE hipodinâmico + VCI dilatada + linhas B = padrão cardiogênico. <strong style="color:var(--text);">Não dar volume.</strong></p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque cardiogênico por IAM anterior extenso</strong> (Killip IV).</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);">Reperfusão imediata (angioplastia primária &lt; 90 min). NA 0,05 μg/kg/min para PAM ≥ 65. Dobutamina 2,5–5 μg/kg/min. VNI ou IOT pelo edema. Evitar β-bloqueador e nitrato. Considerar BIA ou ECMO se refratário.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">Q4 + POCUS define mecanismo. Em cardiogênico, <strong>reperfusão</strong> muda mortalidade — drogas são suporte. Dobutamina em PAM baixa sem NA piora. Volume cego com VCI dilatada mata.</p>
+      </div>
     </div>
+  </div>
 
+  <!-- Q4-B -->
+  <div class="card">
+    <div class="card-title red">Caso 8 · Q4-B</div>
     <div class="case-step">
-      <div class="case-step-label">Diagnóstico</div>
-      <p style="font-size:13px;color:var(--text);"><strong>Choque cardiogênico por IAM anterior extenso</strong> com edema pulmonar (Killip IV).</p>
+      <div class="case-step-label">Apresentação</div>
+      <p style="font-size:13px;color:var(--muted);">Mulher, 44 anos, sem comorbidades, acidentada em caminhada — trauma torácico fechado por queda de nível. PS com dispneia súbita, agitação e turgência jugular. PA 82 × 60 mmHg, FC 128, FR 32, SpO₂ 88% em O₂ máscara. Ausculta cardíaca com bulhas abafadas. Traqueia na linha média. Sem crepitação torácica.</p>
     </div>
-
     <div class="case-step">
-      <div class="case-step-label">Conduta</div>
-      <p style="font-size:13px;color:var(--muted);">Reperfusão imediata — angioplastia primária se disponível em &lt; 90 min, fibrinólise se transferência demorada. <strong>Noradrenalina</strong> 0,05 μg/kg/min para PAM ≥ 65. <strong>Dobutamina</strong> 2,5–5 μg/kg/min para suporte inotrópico (sem volume — VCI já dilatada). VNI ou IOT pelo edema agudo. Evitar β-bloqueador e nitrato (PAM baixa). Considerar BIA ou ECMO se refratário em centro de referência.</p>
+      <div class="case-step-label">Dados</div>
+      <dl class="case-data">
+        <div><dt>PAM</dt><dd>67 mmHg</dd></div>
+        <div><dt>Lactato</dt><dd>4,2 mmol/L</dd></div>
+        <div><dt>SvcO₂</dt><dd>51%</dd></div>
+        <div><dt>Δ pCO₂</dt><dd>12 mmHg</dd></div>
+        <div><dt>VCI</dt><dd>2,5 cm, sem colapso</dd></div>
+        <div><dt>Pericárdio</dt><dd>Derrame circunferencial + colapso AD</dd></div>
+        <div><dt>FE</dt><dd>Preservada, VE hiperdinâmico</dd></div>
+      </dl>
     </div>
-
-    <div class="case-step">
-      <div class="case-step-label">Ensina</div>
-      <p style="font-size:13px;color:var(--muted);">Q4 + POCUS define o mecanismo. Em cardiogênico, <strong>reperfusão</strong> é a intervenção que muda mortalidade — drogas vasoativas são suporte enquanto se reperfunde. Dobutamina sozinha em PAM baixa piora — sempre associar NA. Volume cego mata em cardiogênico com VCI dilatada.</p>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Ver análise</button>
+    <div class="case-reveal">
+      <div class="case-step q4">
+        <div class="case-step-label">Análise — Quadrante 4</div>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ ≥ 6 mmHg → Q4. POCUS: derrame pericárdico + colapso de AD + VCI pletórica + VE hiperdinâmico (a bomba está boa, mas bloqueada de esvaziar) = tamponamento pericárdico. FE preservada diferencia de cardiogênico por disfunção.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Diagnóstico</div>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque obstrutivo por tamponamento pericárdico</strong> pós-trauma torácico fechado.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Conduta</div>
+        <p style="font-size:13px;color:var(--muted);"><strong>Pericardiocentese de urgência</strong> guiada por POCUS (subcostal). Volume 250–500 mL para ganhar tempo (aumenta pré-carga e pressão de enchimento). NA transitoriamente enquanto prepara procedimento. Cirurgia cardíaca se hemopericárdio por laceração.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Ensina</div>
+        <p style="font-size:13px;color:var(--muted);">Q4 não é só cardiogênico — TEP e tamponamento também caem aqui. POCUS diferencia: FE boa + derrame + colapso AD = tamponamento. Volume pode ganhar minutos; o tratamento é drenar. Não confundir com pneumotórax (ausência de sliding, sem derrame pericárdico).</p>
+      </div>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-title">Resumo dos 4 casos</div>
+    <div class="card-title">Resumo dos 8 casos</div>
     <div class="table-wrap"><table>
-      <tr><th>Caso</th><th>Quadrante</th><th>Achado-chave</th><th>Erro a evitar</th></tr>
-      <tr><td>1 · Diabética com lactato 4,2</td><td><span class="pill pill-green">Q1</span></td><td>Lactato isolado, demais parâmetros normais</td><td>Tratar o número (volume reflexo) sem checar contexto</td></tr>
-      <tr><td>2 · Coronariopata com melena</td><td><span class="pill pill-amber">Q2</span></td><td>Hb 6,2 dominando a tríade da oferta</td><td>Esquecer da Hb e focar só no DC ou na PAM</td></tr>
-      <tr><td>3 · Pielonefrite "estável"</td><td><span class="pill pill-coral">Q3</span></td><td>SvcO₂ alta com Δ pCO₂ elevado</td><td>Tranquilizar-se com SvcO₂ e perder o foco não controlado</td></tr>
-      <tr><td>4 · IAM anterior extenso</td><td><span class="pill pill-red">Q4</span></td><td>Q4 + VE hipodinâmico + VCI dilatada</td><td>Dar volume cego ou retardar reperfusão</td></tr>
+      <tr><th>Caso</th><th>Q</th><th>Achado-chave</th><th>Erro a evitar</th></tr>
+      <tr><td>1 · Diabética / metformina</td><td><span class="pill pill-green">Q1</span></td><td>Lactato alto, demais ok</td><td>Volume reflexo pelo lactato isolado</td></tr>
+      <tr><td>2 · Cirrótico / ITU</td><td><span class="pill pill-green">Q1</span></td><td>Lactato por clearance hepático reduzido</td><td>Confundir hiperlactatemia hepática com choque</td></tr>
+      <tr><td>3 · Coronariopata / melena</td><td><span class="pill pill-amber">Q2</span></td><td>Hb 6,2 dominando a oferta</td><td>Focar só no DC e esquecer a Hb</td></tr>
+      <tr><td>4 · Trauma pélvico hemorrágico</td><td><span class="pill pill-amber">Q2</span></td><td>Hb caindo rapidamente, Δ pCO₂ ainda ok</td><td>Encher de cristaloide em vez de hemostasia</td></tr>
+      <tr><td>5 · Pielonefrite com SvcO₂ alta</td><td><span class="pill pill-coral">Q3</span></td><td>SvcO₂ 82% + Δ pCO₂ 9 mmHg</td><td>Tranquilizar com SvcO₂ e não buscar foco</td></tr>
+      <tr><td>6 · Pneumonia em VM</td><td><span class="pill pill-coral">Q3</span></td><td>Δ pCO₂ alto + não responsivo a volume</td><td>Dar volume cego em VCI dilatada</td></tr>
+      <tr><td>7 · IAM anterior extenso</td><td><span class="pill pill-red">Q4</span></td><td>VE hipodinâmico + linhas B</td><td>Dar volume ou retardar reperfusão</td></tr>
+      <tr><td>8 · Tamponamento pós-trauma</td><td><span class="pill pill-red">Q4</span></td><td>Derrame + colapso AD + FE preservada</td><td>Tratar como cardiogênico sem drenar</td></tr>
     </table></div>
   </div>
 
@@ -1947,6 +2109,13 @@ function calcLactate(){
   document.getElementById('interp-lactate').innerHTML=interp;
   showCalcResult('lactate',true);
 }
+function toggleCase(btn){
+  const reveal=btn.nextElementSibling;
+  const isOpen=reveal.classList.contains('open');
+  reveal.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=isOpen?'Ver análise':'Ocultar análise';
+}
 function showSection(id,btn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -2100,7 +2269,7 @@ document.addEventListener('DOMContentLoaded',function(){
       }).join('|')+')','g');
       // Only walk text inside these containers; skip nav, headers, scripts, glossary itself
       const SKIP_TAGS=new Set(['SCRIPT','STYLE','BUTTON','INPUT','LABEL','ABBR','TH']);
-      const SKIP_CLASSES=['nav','nav-btn','card-title','section-title','section-sub','sig','glossary-card','sub-nav','calc-label','calc-result-label','badge','tag','pill'];
+      const SKIP_CLASSES=['nav','nav-btn','card-title','section-title','section-sub','sig','glossary-card','sub-nav','calc-label','calc-result-label','badge','tag','pill','formula','alert-box','case-title'];
       function shouldSkip(el){
         if(!el||el.nodeType!==1)return false;
         if(SKIP_TAGS.has(el.tagName))return true;
