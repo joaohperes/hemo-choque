@@ -103,9 +103,10 @@
   .case-step.q4 .case-step-label::before{background:var(--red)}
   .case-reveal{display:none}
   .case-reveal.open{display:block}
-  .case-reveal-btn{margin-top:14px;padding:9px 18px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.3);color:var(--accent);font-family:var(--mono);font-size:11px;letter-spacing:0.05em;border-radius:7px;cursor:pointer;width:100%;text-align:center;transition:background 0.15s}
-  .case-reveal-btn:hover{background:rgba(56,189,248,0.15)}
-  .case-reveal-btn.open{background:rgba(56,189,248,0.05);color:var(--muted);border-color:var(--border)}
+  .case-reveal-btn{margin-top:12px;padding:6px 14px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.25);color:var(--accent);font-family:var(--mono);font-size:10px;letter-spacing:0.05em;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:background 0.15s}
+  .case-reveal-btn:hover{background:rgba(56,189,248,0.12)}
+  .case-reveal-btn.open{background:transparent;color:var(--muted);border-color:var(--border)}
+  .case-reveal{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
   .case-data{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px 14px;margin:6px 0;font-size:12px}
   .case-data > div{padding:4px 0}
   .case-data dt{display:inline;font-family:var(--mono);font-size:11px;color:var(--muted)}
@@ -243,9 +244,6 @@
   .back-to-top:hover{color:var(--accent);border-color:var(--accent)}
   @media(max-width:480px){.fx-arrow{display:none}}
   @media(max-width:700px){.footer-grid{grid-template-columns:1fr !important}}
-  .sig{border-bottom:1px dashed rgba(56,189,248,0.4);cursor:help;position:relative;display:inline}
-  .sig::after{content:attr(data-def);position:absolute;bottom:calc(100% + 7px);left:0;transform:none;background:#1a2844;border:1px solid rgba(56,189,248,0.4);color:var(--text);font-family:var(--sans);font-size:12px;font-weight:400;white-space:normal;padding:6px 10px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:400;width:200px;text-align:left;line-height:1.45;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
-  .sig:hover::after,.sig:focus::after{opacity:1}
 </style>
 </head>
 <body>
@@ -719,13 +717,13 @@
           <div class="fx-box-title">Distributivo</div>
           <span class="fx-box-criteria">DC ↑ · RVS ↓ · PVC variável</span>
           <div class="fx-box-action">Pele quente · PP alargada · sepse, anafilaxia, neurogênico</div>
-          <div class="fx-box-detail">Vasopressor precoce (NA). Volume guiado por dinâmicos (PLR/VPP).</div>
+          <div class="fx-box-detail">Vasopressor precoce (Nora). Volume guiado por dinâmicos (PLR/VPP).</div>
         </div>
         <div class="fx-box amber">
           <div class="fx-box-title">Cardiogênico</div>
           <span class="fx-box-criteria">DC ↓ · RVS ↑ · PVC ↑</span>
           <div class="fx-box-action">FE reduzida · linhas B difusas · IAM/miocardite/arritmia</div>
-          <div class="fx-box-detail">NA se PAM &lt; 65, dobutamina se hipoperfusão persistente. Não dar volume cego.</div>
+          <div class="fx-box-detail">Nora se PAM &lt; 65, dobutamina se hipoperfusão persistente. Não dar volume cego.</div>
         </div>
         <div class="fx-box blue">
           <div class="fx-box-title">Obstrutivo</div>
@@ -835,7 +833,7 @@
         <div class="fx-box purple">
           <div class="fx-box-title">2ª droga</div>
           <div class="fx-box-action">Vasopressina 0,03 U/min (fixa)</div>
-          <div class="fx-box-detail">Não titular. Permite reduzir NA. Considerar hidrocortisona 200 mg/dia se vasopressor crescente &gt; 4 h.</div>
+          <div class="fx-box-detail">Não titular. Permite reduzir Nora. Considerar hidrocortisona 200 mg/dia se vasopressor crescente &gt; 4 h.</div>
         </div>
         <div class="fx-box amber">
           <div class="fx-box-title">Inotrópico se DC baixo</div>
@@ -862,7 +860,7 @@
         <div class="fx-box green">
           <div class="fx-box-title">Metas atingidas</div>
           <div class="fx-box-action">Ressuscitação completa</div>
-          <div class="fx-box-detail">Manter monitoramento. Iniciar desmame de vasopressor (NA primeiro, vasopressina por último). Reduzir 0,02–0,05 μg/kg/min a cada 15–30 min se PAM estável.</div>
+          <div class="fx-box-detail">Manter monitoramento. Iniciar desmame de vasopressor (Nora primeiro, vasopressina por último). Reduzir 0,02–0,05 μg/kg/min a cada 15–30 min se PAM estável.</div>
         </div>
         <div class="fx-box red">
           <div class="fx-box-title">Metas não atingidas</div>
@@ -1191,7 +1189,7 @@
       <div class="card-title purple">1ª escolha por tipo de choque</div>
       <div class="table-wrap"><table>
         <tr><th>Choque</th><th>1ª linha</th><th>2ª linha / adicionar se refratário</th><th>Alvo</th></tr>
-        <tr><td><span class="pill pill-coral">Séptico</span></td><td>Noradrenalina</td><td>Vasopressina (NA &gt; 0,25–0,5 μg/kg/min) → Adrenalina → Hidrocortisona se vasopressor crescente</td><td>PAM ≥ 65 (60–65 se ≥ 65 anos)</td></tr>
+        <tr><td><span class="pill pill-coral">Séptico</span></td><td>Noradrenalina</td><td>Vasopressina (Nora &gt; 0,25–0,5 μg/kg/min) → Adrenalina → Hidrocortisona se vasopressor crescente</td><td>PAM ≥ 65 (60–65 se ≥ 65 anos)</td></tr>
         <tr><td><span class="pill pill-amber">Cardiogênico</span></td><td>Noradrenalina (PAM &lt; 65) ± Dobutamina</td><td>Milrinona · Levosimendana · suporte mecânico (BIA, ECMO)</td><td>PAM ≥ 65 · IC ≥ 2,2</td></tr>
         <tr><td><span class="pill pill-red">Hipovolêmico</span></td><td>Volume — vasopressor é ponte</td><td>Noradrenalina enquanto repõe</td><td>Controle da causa</td></tr>
         <tr><td><span class="pill pill-blue">Obstrutivo</span></td><td>Noradrenalina + tratar causa (drenar tamponamento, trombolisar TEP, descomprimir pneumotórax)</td><td>Adrenalina se parada iminente</td><td>Reverter a obstrução</td></tr>
@@ -1226,10 +1224,10 @@
         <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
       <div class="card-body">
-        <div class="tag-row"><span class="tag">Receptor V1</span><span class="tag">Adicionar à NA, não titular</span><span class="tag">SSC 2026: NA &gt; 0,25–0,5 μg/kg/min</span></div>
+        <div class="tag-row"><span class="tag">Receptor V1</span><span class="tag">Adicionar à Nora, não titular</span><span class="tag">SSC 2026: Nora &gt; 0,25–0,5 μg/kg/min</span></div>
         <table>
           <tr><th>Dose</th><th>Quando iniciar</th><th>Observação</th></tr>
-          <tr><td>0,01–0,04 U/min (dose fixa)</td><td>Choque séptico com NA escalando &gt; 0,25–0,5 μg/kg/min</td><td>Não titular acima de 0,04 U/min — risco de isquemia. Permite reduzir dose de NA.</td></tr>
+          <tr><td>0,01–0,04 U/min (dose fixa)</td><td>Choque séptico com Nora escalando &gt; 0,25–0,5 μg/kg/min</td><td>Não titular acima de 0,04 U/min — risco de isquemia. Permite reduzir dose de Nora.</td></tr>
         </table>
         <div class="formula">Diluição padrão: 20 U em 100 mL SF 0,9% = 0,2 U/mL → 0,03 U/min = 9 mL/h</div>
         <div class="alert-box warn"><div class="icon">!</div><div class="content"><strong>Cuidados</strong>Isquemia mesentérica e digital, hiponatremia, broncoespasmo. Evitar em IC grave (aumenta pós-carga sem efeito inotrópico).</div></div>
@@ -1264,7 +1262,7 @@
         <div class="tag-row"><span class="tag">α₁ puro</span><span class="tag">Sem efeito β</span><span class="tag">2ª linha — uso restrito</span></div>
         <table>
           <tr><th>Dose</th><th>Indicação principal</th><th>Limitação</th></tr>
-          <tr><td>0,5–5 μg/kg/min (BIC) · 50–200 μg em bolus</td><td>Hipotensão induzida por anestesia, choque com taquicardia significativa quando NA contraindicada</td><td>Reduz DC por bradicardia reflexa — evitar em disfunção ventricular</td></tr>
+          <tr><td>0,5–5 μg/kg/min (BIC) · 50–200 μg em bolus</td><td>Hipotensão induzida por anestesia, choque com taquicardia significativa quando Nora contraindicada</td><td>Reduz DC por bradicardia reflexa — evitar em disfunção ventricular</td></tr>
         </table>
         <div class="formula">Diluição: 10 mg em 250 mL = 40 μg/mL · Bolus 100 μg = 1 mL da diluição 100 μg/mL (10 mg em 100 mL)</div>
       </div>
@@ -1276,14 +1274,14 @@
         <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
       <div class="card-body">
-        <div class="tag-row"><span class="tag">Dose-dependente</span><span class="tag">SSC: NÃO recomenda como 1ª linha</span><span class="tag">Mais arritmias que NA</span></div>
+        <div class="tag-row"><span class="tag">Dose-dependente</span><span class="tag">SSC: NÃO recomenda como 1ª linha</span><span class="tag">Mais arritmias que Nora</span></div>
         <table>
           <tr><th>Faixa</th><th>Efeito predominante</th><th>Uso</th></tr>
           <tr><td>1–3 μg/kg/min</td><td>Dopaminérgico (renal)</td><td>Sem benefício clínico — abandonado</td></tr>
           <tr><td>3–10 μg/kg/min</td><td>β₁ (inotrópico)</td><td>Alternativa em bradicardia sintomática quando atropina/marca-passo indisponível</td></tr>
-          <tr><td>&gt; 10 μg/kg/min</td><td>α₁ (vasopressor)</td><td>Não preferir — mais arritmogênico que NA</td></tr>
+          <tr><td>&gt; 10 μg/kg/min</td><td>α₁ (vasopressor)</td><td>Não preferir — mais arritmogênico que Nora</td></tr>
         </table>
-        <div class="alert-box danger"><div class="icon">!</div><div class="content"><strong>Posição atual</strong>SSC 2026 mantém recomendação contra dopamina como 1ª linha em choque séptico. Maior incidência de arritmias e mortalidade vs. NA. Reservada para casos específicos (bradicardia, indisponibilidade de outros).</div></div>
+        <div class="alert-box danger"><div class="icon">!</div><div class="content"><strong>Posição atual</strong>SSC 2026 mantém recomendação contra dopamina como 1ª linha em choque séptico. Maior incidência de arritmias e mortalidade vs. Nora. Reservada para casos específicos (bradicardia, indisponibilidade de outros).</div></div>
       </div>
     </div>
 
@@ -1298,7 +1296,7 @@
           <tr><th>Dose inicial</th><th>Titulação</th><th>Dose máxima</th></tr>
           <tr><td>5–20 ng/kg/min</td><td>5 ng/kg/min a cada 5 min</td><td>200 ng/kg/min (3 horas) → 40 ng/kg/min após estabilização</td></tr>
         </table>
-        <div class="alert-box info"><div class="icon">i</div><div class="content"><strong>Indicação</strong>Choque vasodilatador refratário a NA + vasopressina em altas doses (estudo ATHOS-3). Disponibilidade limitada no SUS — uso quase exclusivo em centros de pesquisa ou setor privado.</div></div>
+        <div class="alert-box info"><div class="icon">i</div><div class="content"><strong>Indicação</strong>Choque vasodilatador refratário a Nora + vasopressina em altas doses (estudo ATHOS-3). Disponibilidade limitada no SUS — uso quase exclusivo em centros de pesquisa ou setor privado.</div></div>
       </div>
     </div>
   </div>
@@ -1311,7 +1309,7 @@
         <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
       <div class="card-body">
-        <div class="tag-row"><span class="tag">β₁ &gt; β₂ &gt;&gt; α₁</span><span class="tag">1ª escolha inotrópico</span><span class="tag">Adicionar à NA se DC baixo</span></div>
+        <div class="tag-row"><span class="tag">β₁ &gt; β₂ &gt;&gt; α₁</span><span class="tag">1ª escolha inotrópico</span><span class="tag">Adicionar à Nora se DC baixo</span></div>
         <table>
           <tr><th>Dose inicial</th><th>Titulação</th><th>Dose máxima usual</th></tr>
           <tr><td>2,5–5 μg/kg/min</td><td>2,5 μg/kg/min a cada 10–15 min</td><td>20 μg/kg/min (acima → mais arritmias sem ganho)</td></tr>
@@ -1334,7 +1332,7 @@
           <tr><td>50 μg/kg em 10 min — frequentemente omitido por hipotensão</td><td>0,375–0,75 μg/kg/min</td><td>Meia-vida longa (2–4 h) — efeito não desaparece rápido ao desligar</td></tr>
         </table>
         <div class="formula">Diluição: 20 mg em 100 mL SG 5% = 200 μg/mL</div>
-        <div class="alert-box warn"><div class="icon">!</div><div class="content"><strong>Cuidados</strong>Hipotensão (vasodilatação arterial e venosa) — quase sempre exige NA associada. Excreção renal — ajustar em DRC. Evitar em estenose aórtica grave e cardiomiopatia hipertrófica obstrutiva.</div></div>
+        <div class="alert-box warn"><div class="icon">!</div><div class="content"><strong>Cuidados</strong>Hipotensão (vasodilatação arterial e venosa) — quase sempre exige Nora associada. Excreção renal — ajustar em DRC. Evitar em estenose aórtica grave e cardiomiopatia hipertrófica obstrutiva.</div></div>
       </div>
     </div>
 
@@ -1366,7 +1364,7 @@
         <div class="tag-row"><span class="tag">Corticoide</span><span class="tag">Choque séptico com vasopressor crescente</span><span class="tag">SSC 2026: condicional</span></div>
         <table>
           <tr><th>Dose</th><th>Quando iniciar</th><th>Duração</th></tr>
-          <tr><td>200 mg/dia (50 mg IV 6/6h ou infusão contínua 8,3 mg/h)</td><td>Choque séptico com necessidade contínua de NA ≥ 0,25 μg/kg/min por &gt; 4 h após início</td><td>5–7 dias ou até desmame do vasopressor — desmamar gradualmente</td></tr>
+          <tr><td>200 mg/dia (50 mg IV 6/6h ou infusão contínua 8,3 mg/h)</td><td>Choque séptico com necessidade contínua de Nora ≥ 0,25 μg/kg/min por &gt; 4 h após início</td><td>5–7 dias ou até desmame do vasopressor — desmamar gradualmente</td></tr>
         </table>
         <div class="alert-box info"><div class="icon">i</div><div class="content"><strong>Posição SSC 2026</strong>Recomendação condicional para choque séptico com vasopressor em escalonamento. Reduz tempo de vasopressor; efeito modesto em mortalidade. Hiperglicemia e infecção secundária são os principais riscos a monitorar.</div></div>
       </div>
@@ -1381,7 +1379,7 @@
         <div class="tag-row"><span class="tag">Inibidor da guanilato ciclase</span><span class="tag">Uso de exceção</span></div>
         <table>
           <tr><th>Dose bolus</th><th>Manutenção (opcional)</th><th>Indicação</th></tr>
-          <tr><td>1–2 mg/kg IV em 20–60 min</td><td>0,25–2 mg/kg/h por até 48–72 h</td><td>Vasoplegia refratária a NA + vasopressina ± angiotensina II — pós-CEC, choque séptico de exceção</td></tr>
+          <tr><td>1–2 mg/kg IV em 20–60 min</td><td>0,25–2 mg/kg/h por até 48–72 h</td><td>Vasoplegia refratária a Nora + vasopressina ± angiotensina II — pós-CEC, choque séptico de exceção</td></tr>
         </table>
         <div class="alert-box danger"><div class="icon">!</div><div class="content"><strong>Contraindicações</strong>Deficiência de G6PD (hemólise), uso de ISRS/IMAO (síndrome serotoninérgica), gestação, IRC grave. Discutir com referência de UTI antes de usar.</div></div>
       </div>
@@ -1395,7 +1393,7 @@
       <div class="flow">
         <div class="flow-step"><div class="flow-line"><div class="flow-dot">1</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Iniciar Noradrenalina</div><div class="flow-desc">Em qualquer acesso disponível (periférico de bom calibre é aceito enquanto se obtém central). Alvo: PAM ≥ 65 mmHg (60–65 se ≥ 65 anos). Titular a cada 2–5 min.</div></div></div>
         <div class="flow-step"><div class="flow-line"><div class="flow-dot">2</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Volume em paralelo se responsivo</div><div class="flow-desc">Cristaloide balanceado (Ringer lactato preferencial). Reavaliar com PLR + VTI ou VPP a cada bolus. Não administrar volume cego se VCI dilatada ou paciente não-responsivo.</div></div></div>
-        <div class="flow-step"><div class="flow-line"><div class="flow-dot">3</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">NA &gt; 0,25–0,5 μg/kg/min → adicionar Vasopressina</div><div class="flow-desc">Dose fixa 0,03 U/min (não titular). Permite reduzir dose de NA e poupa receptores α. Objetivo: manter PAM com menor escalonamento.</div></div></div>
+        <div class="flow-step"><div class="flow-line"><div class="flow-dot">3</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Nora &gt; 0,25–0,5 μg/kg/min → adicionar Vasopressina</div><div class="flow-desc">Dose fixa 0,03 U/min (não titular). Permite reduzir dose de Nora e poupa receptores α. Objetivo: manter PAM com menor escalonamento.</div></div></div>
         <div class="flow-step"><div class="flow-line"><div class="flow-dot">4</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Considerar Hidrocortisona</div><div class="flow-desc">200 mg/dia se vasopressor em escalonamento contínuo &gt; 4 h após início. Reduz tempo de vasopressor.</div></div></div>
         <div class="flow-step"><div class="flow-line"><div class="flow-dot">5</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Avaliar disfunção ventricular (POCUS / eco)</div><div class="flow-desc">Se DC baixo (FE reduzida, hipoperfusão persistente apesar de PAM em alvo): adicionar Dobutamina 2,5–5 μg/kg/min. Reavaliar SvcO₂ e Δ pCO₂.</div></div></div>
         <div class="flow-step"><div class="flow-line"><div class="flow-dot">6</div><div class="flow-connector"></div></div><div class="flow-content"><div class="flow-title">Refratário → Adrenalina</div><div class="flow-desc">Considerar como 3ª droga. Atenção: pode elevar lactato por estímulo β₂ — não confundir com hipoperfusão piorando.</div></div></div>
@@ -1410,8 +1408,8 @@
       <div class="card-title amber">Pontos práticos de segurança</div>
       <table>
         <tr><th>Tema</th><th>Recomendação</th></tr>
-        <tr><td>Acesso periférico</td><td>SSC 2026: aceitável para iniciar NA em veia de bom calibre (antecubital ou maior) por até 6 h. Trocar para CVC assim que possível. Monitorar local a cada 1–2 h.</td></tr>
-        <tr><td>Extravasamento de NA/adrenalina</td><td>Suspender infusão. Aspirar pela cânula se possível. Fentolamina 5–10 mg em 10 mL SF infiltrado SC ao redor (off-label, primeiras 12 h). Calor local seco.</td></tr>
+        <tr><td>Acesso periférico</td><td>SSC 2026: aceitável para iniciar Nora em veia de bom calibre (antecubital ou maior) por até 6 h. Trocar para CVC assim que possível. Monitorar local a cada 1–2 h.</td></tr>
+        <tr><td>Extravasamento de Nora/adrenalina</td><td>Suspender infusão. Aspirar pela cânula se possível. Fentolamina 5–10 mg em 10 mL SF infiltrado SC ao redor (off-label, primeiras 12 h). Calor local seco.</td></tr>
         <tr><td>Dupla infusão</td><td>Drogas vasoativas em via dedicada. Não administrar bolus de outras drogas pela mesma via — risco de bolus inadvertido de vasopressor.</td></tr>
         <tr><td>Troca de seringa/bag</td><td>Risco de hipotensão na troca. Preparar bag novo antes de terminar o atual; trocar com sobreposição de 10–15 s ou usar bomba dupla.</td></tr>
         <tr><td>Desmame</td><td>Reduzir 0,02–0,05 μg/kg/min a cada 15–30 min se PAM estável. Desligar vasopressina por último, com cautela (queda abrupta de PAM possível).</td></tr>
@@ -1555,19 +1553,20 @@
     <div class="case-reveal">
       <div class="case-step q1">
         <div class="case-step-label">Análise — Quadrante 1</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% <strong style="color:var(--text);">e</strong> Δ pCO₂ &lt; 6 mmHg → Q1 (adequado). Apesar do lactato elevado, não há sinais de hipoperfusão tecidual: oferta preservada e fluxo adequado. PAM ok, enchimento capilar normal, diurese mantida.</p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 74% (≥ 70%) <strong style="color:var(--text);">e</strong> Δ pCO₂ 4 mmHg (&lt; 6) → <strong style="color:var(--green);">Q1 — perfusão global adequada</strong>. Os tecidos estão recebendo O₂ suficiente (SvcO₂ ok) e o fluxo tecidual está preservado (Δ pCO₂ ok). PAM 90, enchimento capilar 2 s e diurese mantida confirmam: não há hipoperfusão global. O lactato elevado existe, mas não é por choque.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;"><strong style="color:var(--text);">Por que o lactato está alto?</strong> Metformina inibe a gliconeogênese hepática e bloqueia a cadeia de transporte de elétrons mitocondrial — gera lactato por mecanismo farmacológico, independente da perfusão. O processo inflamatório da celulite potencializa por aumentar turnover metabólico local.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Hiperlactatemia tipo B</strong> — associada à metformina + processo inflamatório. Não é choque.</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Hiperlactatemia tipo B</strong> — farmacológica (metformina) + processo inflamatório. Não é choque circulatório.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);">Manter ATB. Suspender metformina temporariamente. Repetir lactato em 4 h. <strong style="color:var(--red);">Não administrar volume reflexo</strong> só pelo lactato isolado.</p>
+        <p style="font-size:13px;color:var(--muted);">Manter ATB (celulite em tratamento). Suspender metformina temporariamente — lactato tende a normalizar em 4–8 h após a suspensão. Repetir gasometria em 4 h para confirmar tendência. Hidratação oral ou EV mínima se necessário. <strong style="color:var(--red);">Não administrar volume reflexo</strong> pelo lactato isolado — sem benefício e pode sobrecarregar.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">Lactato isolado <strong>não define choque</strong>. SvcO₂ + Δ pCO₂ normais excluem hipoperfusão global. Hiperlactatemia tipo B tem causas farmacológicas, hepáticas e tumorais.</p>
+        <p style="font-size:13px;color:var(--muted);">Lactato isolado <strong>não define choque</strong> — SvcO₂ e Δ pCO₂ são os árbitros do fluxo tecidual. Hiperlactatemia tipo B: metformina, álcool, insuficiência hepática, malignidades (leucemias), deficiência de tiamina, intoxicação por CO. Em qualquer dúvida, repetir em 2–4 h e avaliar tendência.</p>
       </div>
     </div>
   </div>
@@ -1595,19 +1594,20 @@
     <div class="case-reveal">
       <div class="case-step q1">
         <div class="case-step-label">Análise — Quadrante 1</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% e Δ pCO₂ &lt; 6 mmHg → Q1. Sem hipoperfusão global. Lactato elevado neste contexto é tipicamente hepático: cirrose reduz clearance e aumenta produção intestinal de lactato mesmo sem choque.</p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 78% (≥ 70%) e Δ pCO₂ 3 mmHg (&lt; 6) → <strong style="color:var(--green);">Q1 — perfusão global preservada</strong>. O lactato de 3,6 mmol/L assusta, mas os marcadores de fluxo tecidual são normais. A VCI em 2,0 cm com variação 25% indica volemia limítrofe — o 1 L já dado foi suficiente. Enchimento capilar 2 s e diurese 0,6 mL/kg/h são sinais clínicos tranquilizadores.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;"><strong style="color:var(--text);">Por que o lactato está alto em cirrótico?</strong> O fígado é responsável por ~70% do clearance do lactato. Em cirrose Child-B, esse clearance está reduzido cronicamente. Além disso, hipertensão portal → isquemia intestinal relativa → produção aumentada de lactato pelo intestino. Resultado: lactato cronicamente elevado (1,5–3,5 mmol/L) mesmo sem choque.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Hiperlactatemia tipo B por disfunção hepática</strong> com infecção urinária desencadeante. Sem choque.</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Hiperlactatemia tipo B por disfunção hepática</strong> com descompensação por infecção urinária. Sem choque circulatório.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);">ATB para ITU. Monitorar e repetir gasometria. Não expandir volume desnecessariamente (ascite, risco de síndrome hepatorrenal). Avaliar encefalopatia com lactulose/rifaximina.</p>
+        <p style="font-size:13px;color:var(--muted);">ATB empírico para ITU (ceftriaxona 1–2 g/dia EV). Aguardar hemocultura e urocultura. Não expandir volume às cegas — cirrose com ascite tem risco de síndrome hepatorrenal, PBE e sobrecarga volêmica. Avaliar grau de encefalopatia: lactulose se encefalopatia manifesta, rifaximina se crônica. Repetir gasometria em 6 h.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">Cirrose = lactato cronicamente elevado por menor clearance hepático. Q1 com lactato alto em cirrótico não é choque até prova em contrário — Δ pCO₂ e SvcO₂ são os árbitros.</p>
+        <p style="font-size:13px;color:var(--muted);">Cirrótico com lactato alto ≠ choque até prova em contrário. Sempre cruzar com SvcO₂ e Δ pCO₂. O erro clássico é internar no plantão, ver lactato 3,6, "dar 2 L" e piorar a ascite ou precipitar encefalopatia. VCI não colapsável em cirrótico pode ser ascite, não hipervolemia — POCUS diferencia.</p>
       </div>
     </div>
   </div>
@@ -1636,19 +1636,20 @@
     <div class="case-reveal">
       <div class="case-step q2">
         <div class="case-step-label">Análise — Quadrante 2</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ &lt; 6 mmHg → Q2 (problema na oferta de O₂). Fluxo tecidual mantido (Δ pCO₂ ok), mas oferta inadequada. Tríade: <strong style="color:var(--text);">Hb 6,2 g/dL</strong> é o culpado dominante.</p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 56% (&lt; 70%) e Δ pCO₂ 5 mmHg (&lt; 6) → <strong style="color:var(--amber);">Q2 — problema na oferta de O₂</strong>. O fluxo tecidual está relativamente preservado (Δ pCO₂ ok), mas os tecidos estão extraindo muito O₂ da Hb circulante. Identificar o elo fraco na tríade da oferta: <strong style="color:var(--text);">DO₂ = DC × (Hb × 1,34 × SaO₂)</strong> — SaO₂ 92% e Hb 6,2 g/dL são os culpados. DC provavelmente compensatório (FC 108), mas incapaz de suprir a perda de carreador.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">VCI 1,4 cm colapsável confirma hipovolemia. A dor torácica em coronariopata com Hb &lt; 7 é angina por demanda aumentada (taquicardia + baixa oferta) — sem transfusão, risco de IAM perioperatório.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Choque anêmico por sangramento digestivo</strong> com descompensação miocárdica iminente em coronariopata.</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque anêmico por hemorragia digestiva</strong> com risco de síndrome coronariana aguda por demanda em coronariopata conhecido.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);">Acesso calibroso, tipagem e reserva. <strong style="color:var(--text);">Transfusão</strong> (alvo Hb &gt; 8 em coronariopata). EDA urgente. O₂ nasal. Cristaloide 250 mL cauteloso. Suspender AAS/clopidogrel após discussão.</p>
+        <p style="font-size:13px;color:var(--muted);">Dois acessos calibrosos (14–16G). Tipagem e reserva de CH. <strong style="color:var(--text);">Transfusão imediata</strong> — alvo Hb ≥ 8–9 g/dL em coronariopata (≥ 7 em outros). O₂ por cateter nasal (2–4 L/min). IBP EV (pantoprazol 80 mg bolus + infusão). EDA nas primeiras 12–24 h. Suspender antiagregante após avaliação risco/benefício com cardiologia. Cristaloide só se instabilidade grave aguardando sangue.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">Em Q2, rodar sempre a <strong>tríade da oferta</strong>: Hb · SaO₂ · DC. Paciente "mal sem motivo" cuja única alteração é a Hb — transfundir muda o jogo. Em coronariopata, alvo Hb mais alto (8–10) que em sepse (7–8).</p>
+        <p style="font-size:13px;color:var(--muted);">Q2 = oferta baixa, fluxo preservado. Sempre rodar a <strong>tríade da DO₂</strong>: Hb · SaO₂ · DC — qual está caindo? Aqui é a Hb. Paciente "mal sem motivo" com Hb muito baixa: transfusão tem potencial diagnóstico e terapêutico. Em coronariopata o alvo de Hb é mais alto porque o ventrículo esquerdo isquêmico tolera menos queda de oferta.</p>
       </div>
     </div>
   </div>
@@ -1676,19 +1677,20 @@
     <div class="case-reveal">
       <div class="case-step q2">
         <div class="case-step-label">Análise — Quadrante 2</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ &lt; 6 mmHg → Q2. Hemorragia aguda com redução rápida de Hb. SaO₂ preservada pelo O₂ suplementar. Fluxo tecidual ainda compensado (Δ pCO₂ ok) mas SvcO₂ muito baixa — oferta colapsando.</p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 52% (&lt; 70%) e Δ pCO₂ 4 mmHg (&lt; 6) → <strong style="color:var(--amber);">Q2 — oferta de O₂ colapsando</strong>. Hemorragia aguda: Hb caindo rapidamente derruba a DO₂ mesmo com DC compensatório. SaO₂ 99% pelo O₂ suplementar — sem ele, também cairia. VCI 1,1 cm muito colapsável = hipovolemia grave. Δ pCO₂ ainda ok, mas é uma janela estreita: o fluxo pode descompensar a qualquer momento.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">Lactato 6,1 mmol/L confirma choque metabólico estabelecido. A agitação é sinal de hipoperfusão cerebral — não sedatar sem resolver a causa.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Choque hemorrágico classe III–IV</strong> por trauma de pelve e fêmur bilateral.</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque hemorrágico classe III</strong> por trauma de pelve + fêmur bilateral. Risco de progressão para classe IV sem controle da hemorragia.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);">Hemostasia definitiva urgente. Protocolo de transfusão maciça (CH:PFC:plaquetas 1:1:1). Ácido tranexâmico &lt; 3 h do trauma. Cristaloide mínimo (permissive hypotension até hemostasia: PAM 50–65). Cinto pélvico se fratura de pelve aberta.</p>
+        <p style="font-size:13px;color:var(--muted);"><strong style="color:var(--text);">Hemostasia é a prioridade</strong> — cirurgia ou embolização de urgência. Protocolo de transfusão maciça (CH:PFC:plaquetas 1:1:1 ou 2:1:1). Ácido tranexâmico 1 g EV em 10 min, se &lt; 3 h do trauma. Hipotensão permissiva até controle cirúrgico (PAM 50–65 se sem TCE). Cinto pélvico imediato se fratura de pelve instável. Cristaloide mínimo — não dilui o coágulo.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">Trauma hemorrágico também é Q2 — Hb caindo rápido derruba a oferta antes de o DC conseguir compensar. Δ pCO₂ ainda baixo não significa segurança: é uma janela estreita. Hemostasia é a intervenção, não o volume.</p>
+        <p style="font-size:13px;color:var(--muted);">Trauma hemorrágico = Q2 por depleção do carreador. O erro fatal é "estabilizar com cristaloide" — dilui fatores de coagulação, piora coagulopatia por consumo e hipotermia. Δ pCO₂ normal dá falsa segurança: é a última defesa antes do colapso. <strong>Sang + cirurgia</strong>, não soro.</p>
       </div>
     </div>
   </div>
@@ -1698,7 +1700,7 @@
     <div class="card-title coral">Caso 5 · Q3-A</div>
     <div class="case-step">
       <div class="case-step-label">Apresentação</div>
-      <p style="font-size:13px;color:var(--muted);">Mulher, 35 anos, internada há 24 h por pielonefrite com bacteremia. Em NA 0,15 μg/kg/min após 2 L de cristaloide. Plantonista tranquilo: PAM em alvo, "SvcO₂ ótima". Lactato caindo lentamente. PA 92 × 50 mmHg, FC 122, FR 28, SpO₂ 96%, pele quente, enchimento capilar 4 s, diurese 0,3 mL/kg/h.</p>
+      <p style="font-size:13px;color:var(--muted);">Mulher, 35 anos, internada há 24 h por pielonefrite com bacteremia. Em Nora 0,15 μg/kg/min após 2 L de cristaloide. Plantonista tranquilo: PAM em alvo, "SvcO₂ ótima". Lactato caindo lentamente. PA 92 × 50 mmHg, FC 122, FR 28, SpO₂ 96%, pele quente, enchimento capilar 4 s, diurese 0,3 mL/kg/h.</p>
     </div>
     <div class="case-step">
       <div class="case-step-label">Dados</div>
@@ -1717,19 +1719,20 @@
     <div class="case-reveal">
       <div class="case-step q3">
         <div class="case-step-label">Análise — Quadrante 3 (o mais traiçoeiro)</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% <strong style="color:var(--text);">mas</strong> Δ pCO₂ ≥ 6 mmHg → Q3 (falsa segurança). SvcO₂ alta engana: sepse hiperdinâmica com shunting microcirculatório. Δ pCO₂ alto revela fluxo tecidual comprometido apesar da saturação venosa.</p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 82% (≥ 70%) <strong style="color:var(--text);">mas</strong> Δ pCO₂ 9 mmHg (≥ 6) → <strong style="color:var(--coral);">Q3 — falsa segurança</strong>. A SvcO₂ alta engana: em sepse hiperdinâmica, shunting microcirculatório faz o sangue "passar direto" sem trocar O₂ nos tecidos isquêmicos. O CO₂ acumula localmente e eleva o Δ pCO₂. Resultado: SvcO₂ alta por shunting, mas perfusão tecidual ruim.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">Sinais que confirmam hipoperfusão: enchimento capilar 4 s, diurese 0,3 mL/kg/h (oligúria), lactato ainda 3,8 mmol/L sem tendência de queda, FC 122. VCI 1,8 cm com variação 30% = pode responsivo a volume — testar com PLR antes de escalonar Nora.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Choque séptico hiperdinâmico</strong> com hipoperfusão microcirculatória persistente. Foco em controle (checar imagem renal).</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque séptico hiperdinâmico</strong> com hipoperfusão microcirculatória persistente — ressuscitação incompleta. Foco: pielonefrite com possível complicação (abscesso, obstrução).</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);">USG/TC renal — pesquisar obstrução ou abscesso. Ajustar ATB conforme cultura. PLR: se responsivo, bolus 250 mL. Se não responsivo, escalonar NA + vasopressina. Considerar hidrocortisona se NA escalando &gt; 4 h.</p>
+        <p style="font-size:13px;color:var(--muted);">USG/TC de vias urinárias — pesquisar pionefrose, abscesso renal ou obstrução (foco não drenado mantém sepse). Rever coberturas ATB (resistência? ajuste de espectro?). PLR: se responsivo (PAM +10%), bolus 250 mL e reavaliar. Se não responsivo, escalonar Nora e considerar vasopressina. Hidrocortisona 200 mg/dia se Nora escalando &gt; 4–6 h. Monitorar clearance de lactato 2 h.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ alta não é segurança em sepse — sempre cruzar com Δ pCO₂. Q3 = foco não controlado, hipóxia citopática ou shunting. Lactato lento + enchimento capilar &gt; 3 s + Δ pCO₂ alto = ressuscitação incompleta.</p>
+        <p style="font-size:13px;color:var(--muted);">Q3 é o quadrante que mais mata por falsa tranquilidade. <strong>Regra do plantão</strong>: sempre cruzar SvcO₂ com Δ pCO₂ — nunca confiar em um só. Três perguntas: (1) O foco está controlado? (2) O ATB está cobrindo? (3) Ainda responsivo a volume? Se alguma é "não", há trabalho a fazer — lactato lento + enchimento capilar 4 s + Δ pCO₂ alto = ressuscitação incompleta.</p>
       </div>
     </div>
   </div>
@@ -1758,19 +1761,20 @@
     <div class="case-reveal">
       <div class="case-step q3">
         <div class="case-step-label">Análise — Quadrante 3</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ ≥ 70% mas Δ pCO₂ ≥ 6 mmHg → Q3. PAM aparentemente ok e lactato quase normal. Mas o Δ pCO₂ de 8 mmHg com VCI dilatada e dIVC baixo (não responsivo a volume) diz: fluxo ruim + não vai melhorar com volume. FE normal descarta cardiogênico óbvio.</p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 76% (≥ 70%) mas Δ pCO₂ 8 mmHg (≥ 6) → <strong style="color:var(--coral);">Q3 — hipoperfusão tecidual silenciosa</strong>. PAM 72 e lactato 2,4 mmol/L dão falsa segurança. Mas o Δ pCO₂ elevado persistente denuncia: o fluxo tecidual está comprometido. VCI 2,2 cm com dIVC 10% = hipervolêmico relativo e não responsivo a volume em VM (VPP/dIVC &lt; 13% = não responsivo). FE normal ao POCUS descarta disfunção ventricular como causa.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">Mecanismo provável: hipóxia citopática por disfunção mitocondrial séptica (as células recebem O₂ mas não conseguem usá-lo eficientemente) ou foco pulmonar não controlado gerando shunting local.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Hipoperfusão microcirculatória persistente</strong> — possivelmente hipóxia citopática ou foco pulmonar não controlado.</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Sepse por pneumonia em VM</strong> com hipoperfusão microcirculatória persistente — hipóxia citopática ou foco não controlado.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);">Não dar volume (VCI dilatada + não responsivo). Rever ATB e coberturas. TC de tórax para avaliar progressão e empiema. Considerar broncoaspiração. Otimizar PEEP. Manter SaO₂ ≥ 94%. Reavaliar gasometria em 2 h.</p>
+        <p style="font-size:13px;color:var(--muted);"><strong style="color:var(--red);">Não dar volume</strong> — VCI dilatada + não responsivo em VM. Investigar o foco: TC de tórax (progressão, empiema, derrame parapneumônico). Broncoscopia se suspeita de tampão ou broncoaspiração. Rever ATB: padrão de resistência, tempo de tratamento, cobertura para germes atípicos. Otimizar PEEP e SaO₂ ≥ 94%. Considerar vitamina C + tiamina (hipóxia citopática). Reavaliar Δ pCO₂ em 2–4 h.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">Q3 ocorre mesmo em pacientes "estabilizados". Lactato quase normal não exclui hipoperfusão microcirculatória. O Δ pCO₂ elevado persistente é o sinal de que a ressuscitação ainda está incompleta — procure o porquê.</p>
+        <p style="font-size:13px;color:var(--muted);">Q3 ocorre mesmo em pacientes "estabilizados" na UTI. Lactato quase normal não exclui hipoperfusão — o Δ pCO₂ elevado é o sinal mais sensível de fluxo tecidual inadequado. <strong>Pergunta-chave</strong>: por que o CO₂ não está saindo? O foco não foi controlado, o fluxo não está chegando, ou a mitocôndria não está funcionando?</p>
       </div>
     </div>
   </div>
@@ -1800,19 +1804,20 @@
     <div class="case-reveal">
       <div class="case-step q4">
         <div class="case-step-label">Análise — Quadrante 4</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ ≥ 6 mmHg → Q4. POCUS define mecanismo: VE hipodinâmico + VCI dilatada + linhas B = padrão cardiogênico. <strong style="color:var(--text);">Não dar volume.</strong></p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 48% (&lt; 70%) e Δ pCO₂ 11 mmHg (≥ 6) → <strong style="color:var(--red);">Q4 — baixo débito + hipoperfusão grave</strong>. Ambos os marcadores alterados: os tecidos estão extraindo muito O₂ (SvcO₂ baixa) E o fluxo está comprometido (Δ pCO₂ alto). POCUS fecha o mecanismo: FE ~25% com acinesia anterior + VCI 2,4 cm sem colapso + linhas B difusas = <strong style="color:var(--text);">choque cardiogênico com congestão</strong>. Lactato 5,4 mmol/L confirma isquemia sistêmica estabelecida.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">SaO₂ 89% com MNR = congestão pulmonar grave por edema (linhas B). SpO₂ baixa → piora ainda mais a DO₂ — ciclo vicioso. Sem reperfusão do VE, o inotropismo não se recupera.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Choque cardiogênico por IAM anterior extenso</strong> (Killip IV).</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque cardiogênico por IAM anterior extenso com supra de ST</strong> — Killip IV. Intervenção coronária percutânea primária emergencial.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);">Reperfusão imediata (angioplastia primária &lt; 90 min). NA 0,05 μg/kg/min para PAM ≥ 65. Dobutamina 2,5–5 μg/kg/min. VNI ou IOT pelo edema. Evitar β-bloqueador e nitrato. Considerar BIA ou ECMO se refratário.</p>
+        <p style="font-size:13px;color:var(--muted);"><strong style="color:var(--text);">Hemodinâmica imediata</strong> — ICP primária &lt; 90 min do contato médico. Nora 0,05–0,1 μg/kg/min para PAM ≥ 65 (suporte pressórico). Dobutamina 2,5–5 μg/kg/min para inotropia (só após PAM ≥ 65 com Nora). VNI (CPAP) para edema pulmonar; IOT se não tolerar. <strong style="color:var(--red);">Sem volume, sem β-bloqueador, sem nitrato</strong>. Se refratário após ICP: considerar BIA ou ECMO-VA como ponte.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">Q4 + POCUS define mecanismo. Em cardiogênico, <strong>reperfusão</strong> muda mortalidade — drogas são suporte. Dobutamina em PAM baixa sem NA piora. Volume cego com VCI dilatada mata.</p>
+        <p style="font-size:13px;color:var(--muted);">Em cardiogênico, <strong>reperfusão muda mortalidade</strong> — todo o resto é suporte de ponte. Ordem: Nora primeiro (PAM ≥ 65), depois Dobutamina (inotropia não pode hipotensionar). Dobutamina em PAM 62 sem Nora = vasodilatação → piora. Volume com VCI 2,4 cm sem colapso → edema agudo. POCUS é obrigatório — diferencia cardiogênico de tamponamento e TEP.</p>
       </div>
     </div>
   </div>
@@ -1840,19 +1845,20 @@
     <div class="case-reveal">
       <div class="case-step q4">
         <div class="case-step-label">Análise — Quadrante 4</div>
-        <p style="font-size:13px;color:var(--muted);">SvcO₂ &lt; 70% e Δ pCO₂ ≥ 6 mmHg → Q4. POCUS: derrame pericárdico + colapso de AD + VCI pletórica + VE hiperdinâmico (a bomba está boa, mas bloqueada de esvaziar) = tamponamento pericárdico. FE preservada diferencia de cardiogênico por disfunção.</p>
+        <p style="font-size:13px;color:var(--muted);">SvcO₂ 51% (&lt; 70%) e Δ pCO₂ 12 mmHg (≥ 6) → <strong style="color:var(--red);">Q4 — baixo débito grave por obstrução</strong>. A diferença crucial em relação ao IAM: <strong style="color:var(--text);">FE preservada + VE hiperdinâmico</strong>. A bomba está boa — está sendo impedida de esvaziar pela pressão pericárdica. POCUS subcostal fecha o diagnóstico: derrame circunferencial + colapso diastólico de AD (sinal precoce de tamponamento) + VCI 2,5 cm sem colapso (pressão venosa sistêmica elevada).</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">Tríade de Beck clássica (hipotensão + turgência jugular + bulhas abafadas) está presente. Traqueia na linha média descarta pneumotórax. O mecanismo: pressão intrapericárdica &gt; pressão diastólica das câmaras direitas → colapso do AD e VD → queda do enchimento → baixo DC.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Diagnóstico</div>
-        <p style="font-size:13px;color:var(--text);"><strong>Choque obstrutivo por tamponamento pericárdico</strong> pós-trauma torácico fechado.</p>
+        <p style="font-size:13px;color:var(--text);"><strong>Choque obstrutivo por tamponamento pericárdico</strong> — hemopericárdio pós-trauma torácico fechado.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Conduta</div>
-        <p style="font-size:13px;color:var(--muted);"><strong>Pericardiocentese de urgência</strong> guiada por POCUS (subcostal). Volume 250–500 mL para ganhar tempo (aumenta pré-carga e pressão de enchimento). NA transitoriamente enquanto prepara procedimento. Cirurgia cardíaca se hemopericárdio por laceração.</p>
+        <p style="font-size:13px;color:var(--muted);"><strong style="color:var(--text);">Pericardiocentese de urgência</strong> guiada por POCUS (janela subcostal). 250–500 mL de cristaloide como medida de ganho de tempo (aumenta pré-carga direita e "empurra" contra a pressão pericárdica). Nora transitoriamente para PAM ≥ 65 enquanto prepara o procedimento. Se hemopericárdio por laceração cardíaca ou aórtica — cirurgia cardíaca emergencial (pericardiocentese pode descomprimir momentaneamente, mas a fonte hemorrágica precisa de controle cirúrgico).</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Ensina</div>
-        <p style="font-size:13px;color:var(--muted);">Q4 não é só cardiogênico — TEP e tamponamento também caem aqui. POCUS diferencia: FE boa + derrame + colapso AD = tamponamento. Volume pode ganhar minutos; o tratamento é drenar. Não confundir com pneumotórax (ausência de sliding, sem derrame pericárdico).</p>
+        <p style="font-size:13px;color:var(--muted);">Q4 obstrutivo vs. cardiogênico — o POCUS diferencia em segundos: tamponamento = FE boa + colapso AD; cardiogênico = FE ruim, sem derrame (ou derrame sem colapso AD). TEP maciço também cai em Q4: VD dilatado + VE pequeno + sem derrame. Não confundir com pneumotórax (ausência de sliding pleural + nenhum sinal pericárdico). <strong>Volume mata em cardiogênico, mas salva minutos no tamponamento</strong>.</p>
       </div>
     </div>
   </div>
@@ -1860,15 +1866,15 @@
   <div class="card">
     <div class="card-title">Resumo dos 8 casos</div>
     <div class="table-wrap"><table>
-      <tr><th>Caso</th><th>Q</th><th>Achado-chave</th><th>Erro a evitar</th></tr>
-      <tr><td>1 · Diabética / metformina</td><td><span class="pill pill-green">Q1</span></td><td>Lactato alto, demais ok</td><td>Volume reflexo pelo lactato isolado</td></tr>
-      <tr><td>2 · Cirrótico / ITU</td><td><span class="pill pill-green">Q1</span></td><td>Lactato por clearance hepático reduzido</td><td>Confundir hiperlactatemia hepática com choque</td></tr>
-      <tr><td>3 · Coronariopata / melena</td><td><span class="pill pill-amber">Q2</span></td><td>Hb 6,2 dominando a oferta</td><td>Focar só no DC e esquecer a Hb</td></tr>
-      <tr><td>4 · Trauma pélvico hemorrágico</td><td><span class="pill pill-amber">Q2</span></td><td>Hb caindo rapidamente, Δ pCO₂ ainda ok</td><td>Encher de cristaloide em vez de hemostasia</td></tr>
-      <tr><td>5 · Pielonefrite com SvcO₂ alta</td><td><span class="pill pill-coral">Q3</span></td><td>SvcO₂ 82% + Δ pCO₂ 9 mmHg</td><td>Tranquilizar com SvcO₂ e não buscar foco</td></tr>
-      <tr><td>6 · Pneumonia em VM</td><td><span class="pill pill-coral">Q3</span></td><td>Δ pCO₂ alto + não responsivo a volume</td><td>Dar volume cego em VCI dilatada</td></tr>
-      <tr><td>7 · IAM anterior extenso</td><td><span class="pill pill-red">Q4</span></td><td>VE hipodinâmico + linhas B</td><td>Dar volume ou retardar reperfusão</td></tr>
-      <tr><td>8 · Tamponamento pós-trauma</td><td><span class="pill pill-red">Q4</span></td><td>Derrame + colapso AD + FE preservada</td><td>Tratar como cardiogênico sem drenar</td></tr>
+      <tr><th>Caso</th><th>Q</th><th>Achado-chave</th><th style="color:var(--red)">Erro a evitar</th></tr>
+      <tr><td>1 · Diabética / metformina</td><td><span class="pill pill-green">Q1</span></td><td>Lactato alto, demais ok</td><td style="color:var(--red)">Volume reflexo pelo lactato isolado</td></tr>
+      <tr><td>2 · Cirrótico / ITU</td><td><span class="pill pill-green">Q1</span></td><td>Lactato por clearance hepático reduzido</td><td style="color:var(--red)">Confundir hiperlactatemia hepática com choque</td></tr>
+      <tr><td>3 · Coronariopata / melena</td><td><span class="pill pill-amber">Q2</span></td><td>Hb 6,2 dominando a oferta</td><td style="color:var(--red)">Focar só no DC e esquecer a Hb</td></tr>
+      <tr><td>4 · Trauma pélvico hemorrágico</td><td><span class="pill pill-amber">Q2</span></td><td>Hb caindo rapidamente, Δ pCO₂ ainda ok</td><td style="color:var(--red)">Encher de cristaloide em vez de hemostasia</td></tr>
+      <tr><td>5 · Pielonefrite com SvcO₂ alta</td><td><span class="pill pill-coral">Q3</span></td><td>SvcO₂ 82% + Δ pCO₂ 9 mmHg</td><td style="color:var(--red)">Tranquilizar com SvcO₂ e não buscar foco</td></tr>
+      <tr><td>6 · Pneumonia em VM</td><td><span class="pill pill-coral">Q3</span></td><td>Δ pCO₂ alto + não responsivo a volume</td><td style="color:var(--red)">Dar volume cego em VCI dilatada</td></tr>
+      <tr><td>7 · IAM anterior extenso</td><td><span class="pill pill-red">Q4</span></td><td>VE hipodinâmico + linhas B</td><td style="color:var(--red)">Dar volume ou retardar reperfusão</td></tr>
+      <tr><td>8 · Tamponamento pós-trauma</td><td><span class="pill pill-red">Q4</span></td><td>Derrame + colapso AD + FE preservada</td><td style="color:var(--red)">Tratar como cardiogênico sem drenar</td></tr>
     </table></div>
   </div>
 
@@ -2038,8 +2044,8 @@
     <div style="border-top:1px solid var(--border);padding-top:10px;color:var(--muted);opacity:0.55;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;">
       <span>Avaliação Hemodinâmica e da Perfusão no Choque · Guia clínico não-comercial · SSC 2026 · LITFL · StatPearls</span>
       <span style="display:inline-flex;align-items:center;gap:5px;opacity:0.7;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="#fb923c"/><path d="M8 12.5c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z" fill="#fff" opacity="0.9"/></svg>
-        Feito com Claude
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M12 1.5C10.2 1.5 8.7 2.6 8.1 4.2L4.2 8.1C2.6 8.7 1.5 10.2 1.5 12C1.5 13.8 2.6 15.3 4.2 15.9L8.1 19.8C8.7 21.4 10.2 22.5 12 22.5C13.8 22.5 15.3 21.4 15.9 19.8L19.8 15.9C21.4 15.3 22.5 13.8 22.5 12C22.5 10.2 21.4 8.7 19.8 8.1L15.9 4.2C15.3 2.6 13.8 1.5 12 1.5Z" fill="#D97706"/><path d="M9 12C9 10.3 10.3 9 12 9C13.7 9 15 10.3 15 12C15 13.7 13.7 15 12 15C10.3 15 9 13.7 9 12Z" fill="#fff" opacity="0.9"/></svg>
+        Feito com Claude Code
       </span>
     </div>
   </div>
@@ -2256,56 +2262,6 @@ document.addEventListener('DOMContentLoaded',function(){
       if(window.scrollY>300)btt.classList.add('visible');
       else btt.classList.remove('visible');
     },{passive:true});
-    // Acronym tooltips — mark .sig spans in prose text nodes
-    (function injectAcronymTooltips(){
-      // Sort keys longest-first so "Δ pCO₂" matches before "pCO₂"
-      const keys=Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length);
-      // Escape for regex
-      const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      // Build one big alternation regex (word-boundary aware where possible)
-      const pat=new RegExp('('+keys.map(k=>{
-        // For keys with spaces/₂ etc, just literal match; else add word boundaries
-        return /^[A-Za-z0-9]+$/.test(k)?'\\b'+esc(k)+'\\b':esc(k);
-      }).join('|')+')','g');
-      // Only walk text inside these containers; skip nav, headers, scripts, glossary itself
-      const SKIP_TAGS=new Set(['SCRIPT','STYLE','BUTTON','INPUT','LABEL','ABBR','TH']);
-      const SKIP_CLASSES=['nav','nav-btn','card-title','section-title','section-sub','sig','glossary-card','sub-nav','calc-label','calc-result-label','badge','tag','pill','formula','alert-box','case-title'];
-      function shouldSkip(el){
-        if(!el||el.nodeType!==1)return false;
-        if(SKIP_TAGS.has(el.tagName))return true;
-        if(SKIP_CLASSES.some(c=>el.classList&&el.classList.contains(c)))return true;
-        return false;
-      }
-      function walkText(node){
-        if(node.nodeType===3){
-          const txt=node.nodeValue;
-          if(!pat.test(txt))return;
-          pat.lastIndex=0;
-          const frag=document.createDocumentFragment();
-          let last=0,m;
-          while((m=pat.exec(txt))!==null){
-            if(m.index>last)frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
-            const span=document.createElement('span');
-            span.className='sig';
-            span.setAttribute('data-def',GLOSSARY[m[1]]||m[1]);
-            span.textContent=m[1];
-            frag.appendChild(span);
-            last=m.index+m[0].length;
-          }
-          if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
-          node.parentNode.replaceChild(frag,node);
-          return;
-        }
-        if(node.nodeType===1&&shouldSkip(node))return;
-        // Don't walk the siglas section (it's the glossary itself)
-        if(node.id==='siglas')return;
-        Array.from(node.childNodes).forEach(walkText);
-      }
-      document.querySelectorAll('main section').forEach(sec=>{
-        if(sec.id==='siglas')return;
-        walkText(sec);
-      });
-    })();
   }catch(e){}
 });
 function calcDelta(){
