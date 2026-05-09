@@ -109,7 +109,7 @@
   .tag{font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:4px;border:1px solid var(--border2);color:var(--muted)}
   .section-title{font-size:16px;font-weight:600;color:var(--text);margin:0 0 4px;letter-spacing:-0.01em}
   .section-sub{font-size:12px;color:var(--muted);margin-bottom:16px}
-  .footer{max-width:1040px;margin:0 auto;padding:20px 20px 32px;border-top:1px solid var(--border);color:var(--muted);font-size:11px;font-family:var(--mono)}
+  .footer-inner{max-width:1040px;margin:0 auto}
   .calc-input{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-family:var(--mono);font-size:14px;width:100%;outline:none;transition:border-color 0.2s}
   .calc-input:focus{border-color:var(--accent)}
   .calc-label{font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:4px;display:block}
@@ -229,10 +229,20 @@
   .glossary-card dt{font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600;display:inline}
   .glossary-card dd{display:inline;margin:0 0 0 4px;font-size:12px;color:var(--muted)}
   .glossary-card dl > div{display:block;padding:3px 0}
-  @media(max-width:600px){.main{padding:16px}.header{padding:16px}h1{font-size:17px}}
+  @media(max-width:600px){.main{padding:16px}.header{padding:16px}h1{font-size:17px}.formula{white-space:normal;word-break:break-word}}
+  .footer{border-top:1px solid var(--border);color:var(--muted);font-size:11px;font-family:var(--mono);padding:24px 20px 28px}
+  .scroll-hint{display:none;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.04em;margin-bottom:4px;padding:3px 0}
+  @media(max-width:700px){.scroll-hint{display:block}}
+  .back-to-top{position:fixed;bottom:20px;right:18px;z-index:200;background:var(--bg2);border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:12px;padding:8px 12px;border-radius:8px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.2s,color 0.2s,border-color 0.2s}
+  .back-to-top.visible{opacity:1;pointer-events:auto}
+  .back-to-top:hover{color:var(--accent);border-color:var(--accent)}
+  @media(max-width:480px){.fx-arrow{display:none}}
+  @media(max-width:700px){.footer-grid{grid-template-columns:1fr !important}}
 </style>
 </head>
 <body>
+
+<button class="back-to-top" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Topo</button>
 
 <div class="header">
   <div class="header-inner">
@@ -1824,30 +1834,46 @@
 </main>
 
 <footer class="footer">
-  <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:14px;">
-    <div style="flex:1;min-width:220px;">
-      <div style="color:var(--accent);font-weight:600;letter-spacing:0.06em;margin-bottom:6px;">REFERÊNCIAS PRINCIPAIS</div>
-      <div style="line-height:1.8;color:var(--muted);">
-        Evans L et al. <em>Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021</em>. CCM/ICM. Atualização 2026.<br>
-        Perera P et al. <em>The RUSH exam: Rapid Ultrasound in SHock in the evaluation of the critically ill patient</em>. Emerg Med Clin N Am. 2010.<br>
-        Vincent JL &amp; De Backer D. <em>Circulatory Shock</em>. N Engl J Med. 2013;369:1726–1734.<br>
-        Hernandez G et al. <em>Venoarterial pCO₂ gradient as a marker of impaired tissue perfusion</em>. Intensive Care Med. 2013.<br>
-        Monnet X &amp; Teboul JL. <em>Passive leg raising: five rules, not a single game</em>. Crit Care. 2015.<br>
-        Maizel J et al. <em>Diagnosis of central hypovolemia by using passive leg raising</em>. Intensive Care Med. 2007.
+  <div class="footer-inner">
+    <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px 32px;margin-bottom:16px;">
+
+      <div>
+        <div style="color:var(--accent);font-weight:600;letter-spacing:0.06em;margin-bottom:8px;">REFERÊNCIAS</div>
+        <div style="line-height:1.75;color:var(--muted);">
+          Evans L et al. <em>Surviving Sepsis Campaign 2021</em>. CCM/ICM · Upd. 2026.<br>
+          Perera P et al. <em>The RUSH exam</em>. Emerg Med Clin N Am. 2010.<br>
+          Vincent JL &amp; De Backer D. <em>Circulatory Shock</em>. N Engl J Med. 2013;369:1726.<br>
+          Hernandez G et al. <em>Venoarterial pCO₂ gradient</em>. Intensive Care Med. 2013.<br>
+          Monnet X &amp; Teboul JL. <em>Passive leg raising</em>. Crit Care. 2015.<br>
+          Maizel J et al. <em>PLR and central hypovolemia</em>. Intensive Care Med. 2007.
+        </div>
       </div>
-    </div>
-    <div style="min-width:220px;">
-      <div style="color:var(--amber);font-weight:600;letter-spacing:0.06em;margin-bottom:6px;">AVISO DE USO</div>
-      <div style="line-height:1.7;color:var(--muted);">
-        Este guia é material de apoio clínico para profissionais de saúde.<br>
-        <strong style="color:var(--text);">Não substitui</strong> o julgamento médico individualizado, os protocolos institucionais nem a consulta com especialistas.<br>
-        Doses e condutas devem ser confirmadas na bula, no protocolo do serviço e com o farmacêutico clínico.<br>
-        Atualizado maio/2026. Dados clínicos sujeit­os a revisão com novas evidências.
+
+      <div>
+        <div style="color:var(--amber);font-weight:600;letter-spacing:0.06em;margin-bottom:8px;">AVISO DE USO</div>
+        <div style="line-height:1.7;color:var(--muted);">
+          Material de apoio clínico para profissionais de saúde.<br>
+          <strong style="color:var(--text);">Não substitui</strong> julgamento médico individualizado, protocolos institucionais ou consulta especializada.<br>
+          Atualizado maio/2026.
+        </div>
       </div>
+
+      <div>
+        <div style="color:var(--green);font-weight:600;letter-spacing:0.06em;margin-bottom:8px;">AUTORES</div>
+        <div style="line-height:1.8;color:var(--muted);">
+          <strong style="color:var(--text);">João Peres</strong><br>
+          <span style="color:var(--accent);">@joaohperes</span><br>
+          <br>
+          <strong style="color:var(--text);">César Seidler</strong><br>
+          <span style="color:var(--accent);">@caseidlercj</span>
+        </div>
+      </div>
+
     </div>
-  </div>
-  <div style="border-top:1px solid var(--border);padding-top:10px;color:var(--muted);opacity:0.6;">
-    Avaliação Hemodinâmica e da Perfusão no Choque · Guia clínico não-comercial para plantão · Baseado em SSC 2026 · LITFL · StatPearls · REBEL EM
+    <div style="border-top:1px solid var(--border);padding-top:10px;color:var(--muted);opacity:0.55;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;">
+      <span>Avaliação Hemodinâmica e da Perfusão no Choque · Guia clínico não-comercial · SSC 2026 · LITFL · StatPearls</span>
+      <span>Atualizado maio/2026</span>
+    </div>
   </div>
 </footer>
 
@@ -2041,6 +2067,20 @@ document.addEventListener('DOMContentLoaded',function(){
       }
     });
     injectGlossaryFooters();
+    // Inject scroll hints before table-wraps (shown only on mobile via CSS)
+    document.querySelectorAll('.table-wrap').forEach(tw=>{
+      if(tw.previousElementSibling&&tw.previousElementSibling.classList.contains('scroll-hint'))return;
+      const hint=document.createElement('div');
+      hint.className='scroll-hint';
+      hint.textContent='← deslize para ver a tabela →';
+      tw.parentNode.insertBefore(hint,tw);
+    });
+    // Back-to-top visibility
+    const btt=document.getElementById('btt');
+    window.addEventListener('scroll',function(){
+      if(window.scrollY>300)btt.classList.add('visible');
+      else btt.classList.remove('visible');
+    },{passive:true});
   }catch(e){}
 });
 function calcDelta(){
